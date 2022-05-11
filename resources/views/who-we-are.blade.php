@@ -7,7 +7,7 @@
 
     <!--header section start-->
     <section class="hero-section ptb-100 gradient-overlay"
-             style="background: url('{{asset('/landing_assets/img/header-bg-5.jpg')}}')no-repeat center center / cover">
+             style="background: url('{{secure_asset('/landing_assets/img/header-bg-5.jpg')}}')no-repeat center center / cover">
         <div class="hero-bottom-shape-two" style="background: url('img/hero-bottom-shape.svg')no-repeat bottom center"></div>
         <div class="container">
             <div class="row justify-content-center">
@@ -37,7 +37,7 @@
             <div class="row justify-content-between align-items-center">
              <div class="col-lg-4">
                     <div class="video-promo-content mb-md-4 mb-lg-0">
-                        <h2><img src="{{asset('/landing_assets/img/who.png')}}"></h2>
+                        <h2><img src="{{secure_asset('/landing_assets/img/who.png')}}"></h2>
                         </div>
                 </div>
                 <div class="col-md-12 col-lg-8">

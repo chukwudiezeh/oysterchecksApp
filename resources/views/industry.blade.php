@@ -7,7 +7,7 @@
 
     <!--header section start-->
     <section class="hero-section ptb-100 gradient-overlay"
-             style="background: url('{{asset('/landing_assets/img/header-bg-5.jpg')}}')no-repeat center center / cover">
+             style="background: url('{{secure_asset('/landing_assets/img/header-bg-5.jpg')}}')no-repeat center center / cover">
         <div class="hero-bottom-shape-two" style="background: url('img/hero-bottom-shape.svg')no-repeat bottom center"></div>
         <div class="container">
             <div class="row justify-content-center">

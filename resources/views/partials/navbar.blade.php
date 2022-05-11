@@ -45,7 +45,7 @@
                                 aria-haspopup="false" aria-expanded="false">
                                 <span class="ms-1 nav-user-name hidden-sm ">{{strtoupper(auth()->user()->name)}}</span>
                                   
-                                     <img src="{{asset('/assets/images/'.$profile_image)}}"  width="45px" height="50px" alt="logo-large" class="rounded-circle"> 
+                                     <img src="{{secure_asset('/assets/images/'.$profile_image)}}"  width="45px" height="50px" alt="logo-large" class="rounded-circle"> 
                                                  
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">

@@ -5,7 +5,7 @@
 
 <div class="main">
     <!--hero section start-->
-    <section class="hero-equal-height pt-165 pb-100" style="background: url('{{asset('/landing_assets/img/bg-shape.svg')}}')no-repeat bottom center / cover; margin-bottom:-200px">
+    <section class="hero-equal-height pt-165 pb-100" style="background: url('{{secure_asset('/landing_assets/img/bg-shape.svg')}}')no-repeat bottom center / cover; margin-bottom:-200px">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-12 col-lg-6">
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-12 col-lg-6">
                     <div class="img-wrap counter-number d-inline-flex align-items-center mb-4" >
-                        <img src="{{asset('/landing_assets/img/landing1.png')}}" alt="hero single" class="custom-width img-fluid">
+                        <img src="{{secure_asset('/landing_assets/img/landing1.png')}}" alt="hero single" class="custom-width img-fluid">
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@ help our clients stay ahead of the rapidly evolving issues. </p>
             <div class="row justify-content-around">
                 <div class="col-md-12 col-lg-6">
                     <div class="about-img-wrap">
-                        <img src="{{asset('/landing_assets/img/landing6.jpg')}}" width="400px" alt="video" class="img-fluid rounded shadow-sm color-bip shadow">
+                        <img src="{{secure_asset('/landing_assets/img/landing6.jpg')}}" width="400px" alt="video" class="img-fluid rounded shadow-sm color-bip shadow">
                         
                     </div>
                 </div>
@@ -93,7 +93,7 @@ help our clients stay ahead of the rapidly evolving issues. </p>
             <div class="row justify-content-around">
                 <div class="col-md-12 col-lg-6">
                     <div class="about-img-wrap">
-                        <img src="{{asset('/landing_assets/img/landing2.png')}}" alt="video" class="img-fluid rounded shadow-sm">
+                        <img src="{{secure_asset('/landing_assets/img/landing2.png')}}" alt="video" class="img-fluid rounded shadow-sm">
                         
                     </div>
                 </div>
@@ -128,7 +128,7 @@ help our clients stay ahead of the rapidly evolving issues. </p>
 
     <!--counter section start-->
     <section class="call-to-action "
-             style="background: url('{{asset('/landing_assets/img/cta-bg.svg')}}')no-repeat center center / cover">
+             style="background: url('{{secure_asset('/landing_assets/img/cta-bg.svg')}}')no-repeat center center / cover">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-12">
@@ -248,7 +248,7 @@ help our clients stay ahead of the rapidly evolving issues. </p>
                 </div>
                 <div class="col-md-12 col-lg-4">
                     <div class="card border-0 shadow-sm text-white">
-                        <img src="{{asset('/assets/landing6.png')}}" alt="video" class="img-fluid rounded shadow-sm">       
+                        <img src="{{secure_asset('/assets/landing6.png')}}" alt="video" class="img-fluid rounded shadow-sm">       
                     </div>
                 </div>
             </div>

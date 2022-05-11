@@ -9,10 +9,10 @@
         <meta content="" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{asset('/assets/images/favicon.png')}}">
+        <link rel="shortcut icon" href="{{secure_asset('/assets/images/favicon.png')}}">
     <!-- StyleSheets  -->
-    <link rel="stylesheet" href="{{asset('/assets/assets/css/dashlite.css?ver=2.2.0')}}">
-    <link id="skin-default" rel="stylesheet" href="{{asset('/assets/assets/css/theme.css?ver=2.2.0')}}">
+    <link rel="stylesheet" href="{{secure_asset('/assets/assets/css/dashlite.css?ver=2.2.0')}}">
+    <link id="skin-default" rel="stylesheet" href="{{secure_asset('/assets/assets/css/theme.css?ver=2.2.0')}}">
 </head>
 
 <body class="nk-body npc-default pg-error">
@@ -41,8 +41,8 @@
     </div>
     <!-- app-root @e -->
     <!-- JavaScript -->
-    <script src="{{asset('/assets/assets/js/bundle.js?ver=2.2.0')}}"></script>
-    <script src="{{asset('/assets/assets/js/scripts.js?ver=2.2.0')}}"></script>
+    <script src="{{secure_asset('/assets/assets/js/bundle.js?ver=2.2.0')}}"></script>
+    <script src="{{secure_asset('/assets/assets/js/scripts.js?ver=2.2.0')}}"></script>
 
 
 </html>
