@@ -72,7 +72,7 @@ class AddressController extends Controller
                     "phone" => $request->phone,
                     "email" => $request->email != null ? $request->email : "",
                     "dob" => $request->dob != null ? $request->dob : "",
-                    "image" => secure_asset('assets/candidates/'.$image) 
+                    "image" => asset('assets/candidates/'.$image) 
                 ];
                 $datas = json_encode($data, true);
                 //return $datas;
@@ -108,7 +108,7 @@ class AddressController extends Controller
                 "phone" => $request->phone,
                 "email" => $request->email != null ? $request->email : "",
                 "dob" => $request->dob != null ? $request->dob : "",
-                "image" => secure_asset('assets/candidates/'.$image)
+                "image" => asset('assets/candidates/'.$image)
                 ]);
               // return $res;
               $data = $this->generateAddressReportVerify($slug);
@@ -133,7 +133,7 @@ class AddressController extends Controller
         }
 
        //$logo =  Client::first();
-       $logo_image = base64_encode(secure_asset('/images/logo.png'));
+       $logo_image = base64_encode(asset('/images/logo.png'));
        if($request->slug == 'individual_address'){
             $host = 'https://api.youverify.co/v1/candidates/'.$service_ref.'/references';
             $data = [

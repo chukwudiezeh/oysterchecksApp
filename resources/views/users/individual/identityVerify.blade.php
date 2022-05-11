@@ -134,7 +134,7 @@
                                         <div class="col-lg-5 mb-3 mb-lg-0">
                                               <div class="dastone-profile-main">
                                                     <div class="dastone-profile-main-pic">
-                                                        <img src="{{secure_asset('/assets/profile/'.$verified->image_path)}}" alt="" height="110" class="">    
+                                                        <img src="{{asset('/assets/profile/'.$verified->image_path)}}" alt="" height="110" class="">    
                                                     </div>
                                                     <div class="dastone-profile_user-detail">
                                                     @if(isset($verified->last_name))

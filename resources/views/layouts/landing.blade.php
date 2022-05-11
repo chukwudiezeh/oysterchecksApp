@@ -23,30 +23,30 @@
     <title>Oysterchecks</title>
 
     <!--favicon icon-->
-    <link rel="shortcut icon" href="{{secure_asset('/assets/images/favicon.png')}}">
+    <link rel="shortcut icon" href="{{asset('/assets/images/favicon.png')}}">
 
     <!--google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700%7COpen+Sans:400,600&amp;display=swap" rel="stylesheet">
 
     <!--Bootstrap css-->
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/bootstrap.min.css')}}">
     <!--Magnific popup css-->
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/magnific-popup.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/magnific-popup.css')}}">
     <!--Themify icon css-->
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/themify-icons.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/themify-icons.css')}}">
     <!--Fontawesome icon css-->
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/all.min.css')}}">
     <!--animated css-->
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/animate.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/animate.min.css')}}">
     <!--ytplayer css-->
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/jquery.mb.YTPlayer.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/jquery.mb.YTPlayer.min.css')}}">
     <!--Owl carousel css-->
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/owl.carousel.min.css')}}">
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/owl.theme.default.min.css')}}">
     <!--custom css-->
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/style.css')}}">
     <!--responsive css-->
-    <link rel="stylesheet" href="{{secure_asset('/landing_assets/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{asset('/landing_assets/css/responsive.css')}}">
 
 </head>
 <body>
@@ -77,27 +77,27 @@
 
 
 <!--jQuery-->
-<script src="{{secure_asset('/landing_assets/js/jquery-3.4.1.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/jquery-3.4.1.min.js')}}"></script>
 <!--Popper js-->
-<script src="{{secure_asset('/landing_assets/js/popper.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/popper.min.js')}}"></script>
 <!--Bootstrap js-->
-<script src="{{secure_asset('/landing_assets/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/bootstrap.min.js')}}"></script>
 <!--Magnific popup js-->
-<script src="{{secure_asset('/landing_assets/js/jquery.magnific-popup.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/jquery.magnific-popup.min.js')}}"></script>
 <!--jquery easing js-->
-<script src="{{secure_asset('/landing_assets/js/jquery.easing.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/jquery.easing.min.js')}}"></script>
 <!--jquery ytplayer js-->
-<script src="{{secure_asset('/landing_assets/js/jquery.mb.YTPlayer.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/jquery.mb.YTPlayer.min.js')}}"></script>
 <!--Isotope filter js-->
-<script src="{{secure_asset('/landing_assets/js/mixitup.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/mixitup.min.js')}}"></script>
 <!--wow js-->
-<script src="{{secure_asset('/landing_assets/js/wow.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/wow.min.js')}}"></script>
 <!--owl carousel js-->
-<script src="{{secure_asset('/landing_assets/js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/owl.carousel.min.js')}}"></script>
 <!--countdown js-->
-<script src="{{secure_asset('/landing_assets/js/jquery.countdown.min.js')}}"></script>
+<script src="{{asset('/landing_assets/js/jquery.countdown.min.js')}}"></script>
 <!--custom js-->
-<script src="{{secure_asset('/landing_assets/js/scripts.js')}}"></script>
+<script src="{{asset('/landing_assets/js/scripts.js')}}"></script>
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();

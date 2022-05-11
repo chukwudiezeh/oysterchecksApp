@@ -5,7 +5,7 @@
             <div class="brand">
                 <a href="{{route('admin.index')}}" class="logo">
                     <span>
-                        <img src="{{secure_asset('/assets/images/logo.png')}}"  width="150px" alt="logo-large" class="logo-light"> 
+                        <img src="{{asset('/assets/images/logo.png')}}"  width="150px" alt="logo-large" class="logo-light"> 
                     </span>  
                 </a>
             </div>
