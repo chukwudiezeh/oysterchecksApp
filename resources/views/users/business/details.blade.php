@@ -96,7 +96,7 @@
                                         <div class="col-lg-4 mb-3 mb-lg-0">
                                               <div class="dastone-profile-main">
                                                     <div class="dastone-profile-main-pic">
-                                                        <img src="{{asset('/assets/cac.jpg')}}" alt="" height="200px" class="">    
+                                                        <img src="{{secure_asset('/assets/cac.jpg')}}" alt="" height="200px" class="">    
                                                     </div>
                                                    <!-- <div class="dastone-profile_user-detail">
                                                     @if(isset($verified->service_ref))

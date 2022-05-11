@@ -127,7 +127,7 @@
                                                         <label class="col-xl-3 col-lg-3 text-end mb-lg-0 align-self-center">Company Logo</label>
                                                        <div class="col-lg-9 col-xl-8">
                                                             <div class="input-group">
-                                                                <span class="input-group-text"><img src="{{asset('/assets/images/'.$profile_image)}}" width="20px" alt="logo-large" class="rounded-circle"></span>
+                                                                <span class="input-group-text"><img src="{{secure_asset('/assets/images/'.$profile_image)}}" width="20px" alt="logo-large" class="rounded-circle"></span>
                                                                     <input type="file" class="form-control" name="company_logo">
                                                              </div>
                                                         </div>

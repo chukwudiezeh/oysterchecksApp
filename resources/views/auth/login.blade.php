@@ -9,12 +9,12 @@
         <meta content="" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{asset('/assets/images/favicon.png')}}">
+        <link rel="shortcut icon" href="{{secure_asset('/assets/images/favicon.png')}}">
     <!-- Page Title  -->
     <title>Login | Oysterchecks</title>
     <!-- StyleSheets  -->
-    <link rel="stylesheet" href="{{asset('/assets/assets/css/dashlite.css?ver=2.2.0')}}">
-    <link id="skin-default" rel="stylesheet" href="{{asset('/assets/assets/css/theme.css?ver=2.2.0')}}">
+    <link rel="stylesheet" href="{{secure_asset('/assets/assets/css/dashlite.css?ver=2.2.0')}}">
+    <link id="skin-default" rel="stylesheet" href="{{secure_asset('/assets/assets/css/theme.css?ver=2.2.0')}}">
 </head>
 
 <body class="nk-body npc-default pg-auth">
@@ -33,8 +33,8 @@
                             <div class="nk-block nk-block-middle nk-auth-body">
                                 <div class="brand-logo pb-5">
                                     <a href="html/index.html" class="logo-link">
-                                        <img class="logo-light logo-img logo-img-lg" width="150px" src="{{asset('/assets/images/logo.png')}}" srcset="{{asset('/assets/images/logo.png')}} 2x" alt="logo">
-                                        <img class="logo-dark logo-img logo-img-lg" width="150px" src="{{asset('/assets/images/logo.png')}}" srcset="{{asset('/assets/images/logo.png')}} 2x" alt="logo-dark">
+                                        <img class="logo-light logo-img logo-img-lg" width="150px" src="{{secure_asset('/assets/images/logo.png')}}" srcset="{{secure_asset('/assets/images/logo.png')}} 2x" alt="logo">
+                                        <img class="logo-dark logo-img logo-img-lg" width="150px" src="{{secure_asset('/assets/images/logo.png')}}" srcset="{{secure_asset('/assets/images/logo.png')}} 2x" alt="logo-dark">
                                     </a>  
                                 </div>
                                 <div class="nk-block-head">
@@ -128,7 +128,7 @@
                                     <div class="slider-item">
                                         <div class="nk-feature nk-feature-center">
                                             <div class="nk-feature-img">
-                                                <img class="round" src="{{asset('/landing_assets/img/landing1.png')}}" srcset="{{asset('/landing_assets/img/landing1.png')}} 2x" alt="">
+                                                <img class="round" src="{{secure_asset('/landing_assets/img/landing1.png')}}" srcset="{{secure_asset('/landing_assets/img/landing1.png')}} 2x" alt="">
                                             </div>
                                             <div class="nk-feature-content py-1 p-sm-3">
                                                 <h4>Comprehensive Background Checks</h4>
@@ -142,7 +142,7 @@
                                     <div class="slider-item">
                                         <div class="nk-feature nk-feature-center">
                                             <div class="nk-feature-img">
-                                                <img class="round" src="{{asset('/landing_assets/img/landing2.png')}}" srcset="{{asset('/landing_assets/img/landing2.png')}} 2x" alt="">
+                                                <img class="round" src="{{secure_asset('/landing_assets/img/landing2.png')}}" srcset="{{secure_asset('/landing_assets/img/landing2.png')}} 2x" alt="">
                                             </div>
                                             <div class="nk-feature-content py-2 p-sm-3">
                                                 <h4>Had Enough Of Inconsistent KYC Check Results?</h4>
@@ -166,7 +166,7 @@
     </div>
     <!-- app-root @e -->
     <!-- JavaScript -->
-    <script src="{{asset('/assets/assets/js/bundle.js?ver=2.2.0')}}"></script>
-    <script src="{{asset('/assets/assets/js/scripts.js?ver=2.2.0')}}"></script>
+    <script src="{{secure_asset('/assets/assets/js/bundle.js?ver=2.2.0')}}"></script>
+    <script src="{{secure_asset('/assets/assets/js/scripts.js?ver=2.2.0')}}"></script>
 
 </html>
