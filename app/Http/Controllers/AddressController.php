@@ -66,12 +66,12 @@ class AddressController extends Controller
             try{
                 $curl = curl_init();
                 $data = [
-                    "first_name" => $request->first_name,
-                    "middle_name" => $request->middle_name != null ? $request->middle_name : "",
-                    "last_name" => $request->last_name,
-                    "phone" => $request->phone,
+                    "firstName" => $request->first_name,
+                    "middleName" => $request->middle_name != null ? $request->middle_name : "",
+                    "lastName" => $request->last_name,
+                    "mobile" => $request->phone,
                     "email" => $request->email != null ? $request->email : "",
-                    "dob" => $request->dob != null ? $request->dob : "",
+                    "dateOfBirth" => $request->dob != null ? $request->dob : "",
                     "image" => asset('assets/candidates/'.$image) 
                 ];
                 $datas = json_encode($data, true);
