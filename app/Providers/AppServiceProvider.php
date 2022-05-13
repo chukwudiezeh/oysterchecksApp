@@ -38,30 +38,30 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
         //
-        view()->composer('*', function($view){
-            if (Auth::check()) {
-                $data['notify'] = Notification::where(['user_id' => auth()->user()->id])->latest()->take(4)->get();
-                $user = User::where('id', auth()->user()->id)->first();
-                if($user->user_type == 1){
-                    $data['profile_image'] = 'default.png';
-                    $data['client_balance'] = Wallet::where('user_id', $user->id)->first();
-                }elseif($user->user_type == 2){
-                    $img = Client::where('user_id', $user->id)->first();
-                    $data['profile_image'] = $img->image;
-                    $data['client_balance'] = Wallet::where('user_id', $user->id)->first();
-                }else{
-                    $data['profile_image'] ='default.png';
-                    $data['client_balance'] = Wallet::where('user_id', $user->id)->first();
-                }
-                $view->with($data);
-            }
+        // view()->composer('*', function($view){
+        //     if (Auth::check()) {
+        //         $data['notify'] = Notification::where(['user_id' => auth()->user()->id])->latest()->take(4)->get();
+        //         $user = User::where('id', auth()->user()->id)->first();
+        //         if($user->user_type == 1){
+        //             $data['profile_image'] = 'default.png';
+        //             $data['client_balance'] = Wallet::where('user_id', $user->id)->first();
+        //         }elseif($user->user_type == 2){
+        //             $img = Client::where('user_id', $user->id)->first();
+        //             $data['profile_image'] = $img->image;
+        //             $data['client_balance'] = Wallet::where('user_id', $user->id)->first();
+        //         }else{
+        //             $data['profile_image'] ='default.png';
+        //             $data['client_balance'] = Wallet::where('user_id', $user->id)->first();
+        //         }
+        //         $view->with($data);
+        //     }
 
-            });
-            $data['sidebar'] = Verification::where('report_type', '!=', 'business')->where('report_type', '!=', 'address')->get();
-            $data['sidebars'] = Verification::get();
-            $data['business'] = Verification::where('report_type', '=', 'business')->get();
-            $data['address'] = Verification::where('report_type', '=', 'address')->get();
-            view::share($data);
+        //     });
+        //     $data['sidebar'] = Verification::where('report_type', '!=', 'business')->where('report_type', '!=', 'address')->get();
+        //     $data['sidebars'] = Verification::get();
+        //     $data['business'] = Verification::where('report_type', '=', 'business')->get();
+        //     $data['address'] = Verification::where('report_type', '=', 'address')->get();
+        //     view::share($data);
 
 
     }
