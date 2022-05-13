@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Wallet;
+// use App\Models\Wallet;
 use Illuminate\Database\Seeder;
 
 
@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
-            WalletSeeder::class,
-            AdminSeeder::class,
             InputFieldSeeder::class,
+            AdminSeeder::class,
+            WalletSeeder::class,
             VerificationSeeder::class,
             CandidateServiceSeeder::class,
                         
