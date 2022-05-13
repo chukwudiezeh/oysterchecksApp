@@ -93,7 +93,6 @@ class AddressController extends Controller
             ]);
             $response = curl_exec($curl);
             $res = json_decode($response, true);
-            dd($res);
             if($res['success'] == true && $res['statusCode'] == 201){
                 $service_ref = $res['data']['id'];
                 AddressVerification::create([
