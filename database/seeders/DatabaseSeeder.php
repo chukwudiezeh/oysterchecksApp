@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Wallet;
+// use App\Models\Wallet;
 use Illuminate\Database\Seeder;
 
 
