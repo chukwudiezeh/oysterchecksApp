@@ -37,7 +37,7 @@ class AddressController extends Controller
                 'last_name' => 'required|string',
                 'phone' => 'required|numeric',
                 'email' => 'nullable|email',
-                'dob' => 'nullable|date_format:"Y/m/d"',
+                'dob' => 'nullable|date_format:"Y-m-d"',
                 'image'=>'required|image|mimes:jpeg,png,jpg|max:2048' 
                 ]);
                 if($valid->fails()){
