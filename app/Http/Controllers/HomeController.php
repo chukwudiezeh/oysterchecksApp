@@ -50,7 +50,7 @@ class HomeController extends Controller
         $user = auth()->user();
         if($user->user_type == 1){   
         $service = CandidateVerification::where('user_id', $user->id)->get();
-        return view('users.onboarding.uploads', compact('service', $service));
+        return view('users.onboarding.uploads', ['service'=> $service]);
         }
         $data['success'] = IdentityVerification::where(['status'=>'successful',  'user_id'=> $user->id])->get();
         $data['failed'] = IdentityVerification::where(['status'=>'failed', 'user_id'=> $user->id])->get();

@@ -122,7 +122,7 @@ class CandidateController extends Controller
         $user = User::where('id', auth()->user()->id)->first();
                 Candidate::where('user_id', $user->id)->update(['email_status' => 'Email Read']);
         $service = CandidateVerification::where('user_id', $user->id)->get();
-        return view('users.onboarding.uploads', compact('service', $service));
+        return view('users.onboarding.uploads', ['service'=> $service]);
     }
 
     public function CandidateFileStore(Request $request){  
@@ -152,7 +152,7 @@ class CandidateController extends Controller
     public function candidateHomePage(){
         $this->RedirectUser();
         $service = CandidateVerification::where('user_id', auth()->user()->id)->get();
-        return view('users.onboarding.index', compact('service', $service));
+        return view('users.onboarding.index', ['service'=> $service]);
         
     }
    
