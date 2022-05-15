@@ -37,7 +37,7 @@ class InputFieldSeeder extends Seeder
             ['slug' => 'candidate', 'name'=>'middle_name', 'placeholder'=>'Enter Candidate\'s Middle Name', 'type'=>'text', 'is_required'=>'0', 'label'=>'Middle Name', 'inputid'=>'middle_name'],
             ['slug' => 'candidate', 'name'=>'last_name', 'placeholder'=>'Enter Candidate\'s Last Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Last Name', 'inputid'=>'last_name'], 
             ['slug' => 'candidate', 'name'=>'phone', 'placeholder'=>'Enter Candidate\'s Phone', 'type'=>'text', 'is_required'=>'1', 'label'=>'Phone', 'inputid'=>'phone'], 
-            ['slug' => 'candidate', 'name'=>'dob', 'placeholder'=>'Enter Candidate\'s Date of Birth e.g. 30/03/1900', 'type'=>'text', 'is_required'=>'0', 'label'=>'Date of Birth', 'inputid'=>'dob'], 
+            ['slug' => 'candidate', 'name'=>'dob', 'placeholder'=>'Enter Candidate\'s Date of Birth e.g. 1900-03-31', 'type'=>'text', 'is_required'=>'0', 'label'=>'Date of Birth', 'inputid'=>'dob'], 
             ['slug' => 'candidate', 'name'=>'email', 'placeholder'=>'Enter Candidate\'s Email', 'type'=>'email', 'is_required'=>'0', 'label'=>'Email', 'inputid'=>'email'],  
             ['slug' => 'candidate', 'name'=>'image', 'placeholder'=>'Upload Candidate\'s Picture', 'type'=>'file', 'is_required'=>'1', 'label'=>'Image', 'inputid'=>'image'],
             

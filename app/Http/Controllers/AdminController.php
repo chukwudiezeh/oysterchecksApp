@@ -131,17 +131,17 @@ class AdminController extends Controller
 
     public function UserCandidates(){
         $candidate = Candidate::get();
-        return view('admin.users.candidates', compact('candidate', $candidate));
+        return view('admin.users.candidates', ['candidate'=> $candidate]);
     }
 
     public function UserClients(){
         $clients = Client::get();
-        return view('admin.clients.index', compact('clients', $clients));
+        return view('admin.clients.index', ['clients'=> $clients]);
     }
 
     public function clientCandidates($id){
         $candidate = Candidate::where('client_id', decrypt($id))->get();
-        return view('admin.clients.candidate', compact('candidate', $candidate));
+        return view('admin.clients.candidate', ['candidate'=> $candidate]);
     }
 
     public function createClient(){

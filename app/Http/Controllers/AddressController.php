@@ -37,7 +37,7 @@ class AddressController extends Controller
                 'last_name' => 'required|string',
                 'phone' => 'required|numeric',
                 'email' => 'nullable|email',
-                'dob' => 'nullable|date_format:"d/m/Y"',
+                'dob' => 'nullable|date_format:"Y-m-d"',
                 'image'=>'required|image|mimes:jpeg,png,jpg|max:2048' 
                 ]);
                 if($valid->fails()){
@@ -66,19 +66,19 @@ class AddressController extends Controller
             try{
                 $curl = curl_init();
                 $data = [
-                    "first_name" => $request->first_name,
-                    "middle_name" => $request->middle_name != null ? $request->middle_name : "",
-                    "last_name" => $request->last_name,
-                    "phone" => $request->phone,
+                    "firstName" => $request->first_name,
+                    "middleName" => $request->middle_name != null ? $request->middle_name : "",
+                    "lastName" => $request->last_name,
+                    "mobile" => $request->phone,
                     "email" => $request->email != null ? $request->email : "",
-                    "dob" => $request->dob != null ? $request->dob : "",
+                    "dateOfBirth" => $request->dob != null ? $request->dob : "",
                     "image" => asset('assets/candidates/'.$image) 
                 ];
                 $datas = json_encode($data, true);
                 //return $datas;
             curl_setopt_array($curl, [
-              // CURLOPT_URL => "https://api.youverify.co/v2/api/addresses/candidates",
-              CURLOPT_URL => "http://api.sandbox.youverify.co/v2/api/addresses/candidates",
+              CURLOPT_URL => "https://api.youverify.co/v2/api/addresses/candidates",
+              // CURLOPT_URL => "http://api.sandbox.youverify.co/v2/api/addresses/candidates",
               CURLOPT_RETURNTRANSFER => true,
               CURLOPT_ENCODING => "",
               CURLOPT_MAXREDIRS => 10,
@@ -88,12 +88,11 @@ class AddressController extends Controller
               CURLOPT_POSTFIELDS => $datas,
               CURLOPT_HTTPHEADER => [
                 "Content-Type: application/json",
-                "Token: ntX3GivO.EbNm86kFQ5NIWe2CdM15Q9brKSCjkaaaM0Z7"
+                "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
               ],
             ]);
             $response = curl_exec($curl);
             $res = json_decode($response, true);
-            dd($res);
             if($res['success'] == true && $res['statusCode'] == 201){
                 $service_ref = $res['data']['id'];
                 AddressVerification::create([
