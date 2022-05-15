@@ -77,8 +77,8 @@ class AddressController extends Controller
                 $datas = json_encode($data, true);
                 //return $datas;
             curl_setopt_array($curl, [
-              // CURLOPT_URL => "https://api.youverify.co/v2/api/addresses/candidates",
-              CURLOPT_URL => "http://api.sandbox.youverify.co/v2/api/addresses/candidates",
+              CURLOPT_URL => "https://api.youverify.co/v2/api/addresses/candidates",
+              // CURLOPT_URL => "http://api.sandbox.youverify.co/v2/api/addresses/candidates",
               CURLOPT_RETURNTRANSFER => true,
               CURLOPT_ENCODING => "",
               CURLOPT_MAXREDIRS => 10,
@@ -88,8 +88,8 @@ class AddressController extends Controller
               CURLOPT_POSTFIELDS => $datas,
               CURLOPT_HTTPHEADER => [
                 "Content-Type: application/json",
-                // "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
-                "Token: GKQaCV4VVWxh5W1CfJ9FYAMmkncgpusLMLTZmEJerR3H"
+                "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
+                // "Token: GKQaCV4VVWxh5W1CfJ9FYAMmkncgpusLMLTZmEJerR3H"
               ],
             ]);
             $response = curl_exec($curl);
