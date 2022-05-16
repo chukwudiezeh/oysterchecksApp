@@ -89,6 +89,7 @@ class AddressController extends Controller
               CURLOPT_HTTPHEADER => [
                 "Content-Type: application/json",
                 "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
+                // "Token: GKQaCV4VVWxh5W1CfJ9FYAMmkncgpusLMLTZmEJerR3H"
               ],
             ]);
             $response = curl_exec($curl);
@@ -132,19 +133,24 @@ class AddressController extends Controller
         }
 
        //$logo =  Client::first();
-       $logo_image = base64_encode(asset('/images/logo.png'));
+      //  $logo_image = base64_encode(asset('/images/logo.png'));
        if($request->slug == 'individual_address'){
-            $host = 'https://api.youverify.co/v1/candidates/'.$service_ref.'/references';
+            $host = 'https://api.youverify.co/v2/api/addresses/individual/request';
             $data = [
-                "description" => "Individual Adddress verification",
+                "candidateId" => $service_ref,
+                "description" => "Verify the candidate",
                 "address" => [
-                    "house_number" => $request->house_number,
-                    'landmark' => $request->landmark,
-                    'street' => $request->street,
+                    "flatNumber" => $request->flat_number,
+                    "buildingName" => $request->building_name,
+                    "buildingNumber" => $request->building_number,
+                    "landmark" => $request->landmark,
+                    "street" => $request->street,
+                    "subStreet" => $request->sub_street,
+                    "state" => $request->state,
                     'city' => $request->city,
-                    'country'=>'Nigeria',
-                    'images' =>  $logo_image,
+                    'lga'=>$request->local_govt,
                 ],
+                "subjectConsent"=>$request->subject_consent,
                
             ];
        }elseif($request->slug == 'reference_address'){

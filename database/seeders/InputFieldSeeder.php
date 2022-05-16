@@ -41,13 +41,16 @@ class InputFieldSeeder extends Seeder
             ['slug' => 'candidate', 'name'=>'email', 'placeholder'=>'Enter Candidate\'s Email', 'type'=>'email', 'is_required'=>'0', 'label'=>'Email', 'inputid'=>'email'],  
             ['slug' => 'candidate', 'name'=>'image', 'placeholder'=>'Upload Candidate\'s Picture', 'type'=>'file', 'is_required'=>'1', 'label'=>'Image', 'inputid'=>'image'],
             
-            ['slug' => 'individual_address', 'name'=>'house_number', 'placeholder'=>'Enter House Number', 'type'=>'text', 'is_required'=>'1', 'label'=>'House Number', 'inputid'=>'house_number'], 
-            ['slug' => 'individual_address', 'name'=>'street', 'placeholder'=>'Enter Street', 'type'=>'text', 'is_required'=>'1', 'label'=>'Street', 'inputid'=>'street'],  
-            ['slug' => 'individual_address', 'name'=>'city', 'placeholder'=>'Enter City', 'type'=>'text', 'is_required'=>'1', 'label'=>'City', 'inputid'=>'city'],
-            ['slug' => 'individual_address', 'name'=>'state', 'placeholder'=>'Enter State', 'type'=>'text', 'is_required'=>'1', 'label'=>'State', 'inputid'=>'state'],  
-            ['slug' => 'individual_address', 'name'=>'landmark', 'placeholder'=>'Enter nearest bustop', 'type'=>'text', 'is_required'=>'1', 'label'=>'Landmark', 'inputid'=>'landmark'],
-            ['slug' => 'individual_address', 'name'=>'country', 'placeholder'=>'Enter Country', 'type'=>'text', 'is_required'=>'1', 'label'=>'Country', 'inputid'=>'country'],
-    
+            ['slug' => 'individual_address', 'name'=>'flat_number', 'placeholder'=>'E.g. 1st floor', 'type'=>'text', 'is_required'=>'0', 'label'=>'Candidate\'s Flat Number', 'inputid'=>'flat_number'],
+            ['slug' => 'individual_address', 'name'=>'building_name', 'placeholder'=>'Enter Building Name', 'type'=>'text', 'is_required'=>'0', 'label'=>'Candidate\'s Building Name', 'inputid'=>'building_name'], 
+            ['slug' => 'individual_address', 'name'=>'building_number', 'placeholder'=>'E.g. 6 or Number 6 or No. 6', 'type'=>'text', 'is_required'=>'1', 'label'=>'Candidate\'s Building Number', 'inputid'=>'building_number'], 
+            ['slug' => 'individual_address', 'name'=>'landmark', 'placeholder'=>'Enter nearest Landmark or bustop', 'type'=>'text', 'is_required'=>'1', 'label'=>'Nearest Landmark', 'inputid'=>'landmark'],
+            ['slug' => 'individual_address', 'name'=>'street', 'placeholder'=>'Enter Street Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Street', 'inputid'=>'street'],  
+            ['slug' => 'individual_address', 'name'=>'Sub_street', 'placeholder'=>'Enter Sub-Street Name', 'type'=>'text', 'is_required'=>'0', 'label'=>'sub-street', 'inputid'=>'sub_street'],
+            ['slug' => 'individual_address', 'name'=>'state', 'placeholder'=>'Enter State', 'type'=>'text', 'is_required'=>'1', 'label'=>'Candidate\'s State', 'inputid'=>'state'],
+            ['slug' => 'individual_address', 'name'=>'city', 'placeholder'=>'Enter City', 'type'=>'text', 'is_required'=>'1', 'label'=>'Candidate\'s City', 'inputid'=>'city'],
+            ['slug' => 'individual_address', 'name'=>'lga', 'placeholder'=>'Enter LGA', 'type'=>'text', 'is_required'=>'1', 'label'=>'Candidate\'s LGA', 'inputid'=>'lga'],
+        
             ['slug' => 'reference_address', 'name'=>'first_name', 'placeholder'=>'Enter Guarantor First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 
             ['slug' => 'reference_address', 'name'=>'last_name', 'placeholder'=>'Enter Guarantor Last Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Last Name', 'inputid'=>'last_name'],  
             ['slug' => 'reference_address', 'name'=>'phone', 'placeholder'=>'Enter Guarantor Phone Number', 'type'=>'text', 'is_required'=>'1', 'label'=>'Phone', 'inputid'=>'phone'],
