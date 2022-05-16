@@ -15,12 +15,9 @@ class CreateAddressVerificationDetailsTable extends Migration
     {
         Schema::create('address_verification_details', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('address_verification_id')->constrained();
             $table->string('reference_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('package_name')->nullable();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('email')->nullable();
+            
             $table->string('flat_number')->nullable();
             $table->string('building_name')->nullable();
             $table->string('building_number')->nullable();

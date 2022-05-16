@@ -125,7 +125,6 @@ class AddressController extends Controller
     }
 
     public function submitAddressVerify(Request $request, $service_ref){
-      //  dd($service_ref);
         if(!isset($service_ref)){
             Session::flash('alert', 'error');
             Session::flash('message', 'Bad payload, reload page');
@@ -135,22 +134,40 @@ class AddressController extends Controller
        //$logo =  Client::first();
       //  $logo_image = base64_encode(asset('/images/logo.png'));
        if($request->slug == 'individual_address'){
+        $valid = Validator::make($request->all(), [
+          'flat_number' => 'nullable|string',
+          'building_name' => 'nullable|string',
+          'building_number' => 'required|string',
+          'landmark' => 'required|string',
+          'street' => 'required|string',
+          'sub_street' => 'nullable|string"',
+          'state'=>'required|string',
+          'city'=>'required|string',
+          'lga'=>'nullable|string',
+          'subject_consent'=>'required'
+          ]);
+          if($valid->fails()){
+              Session::flash('alert', 'error');
+              Session::flash('message', 'Some fields are missing');
+              return redirect()->back()->withErrors($valid)->withInput($request->all());
+            
+          }
             $host = 'https://api.youverify.co/v2/api/addresses/individual/request';
             $data = [
                 "candidateId" => $service_ref,
                 "description" => "Verify the candidate",
                 "address" => [
-                    "flatNumber" => $request->flat_number,
-                    "buildingName" => $request->building_name,
+                    "flatNumber" => $request->flat_number != null ? $request->flat_number : "",
+                    "buildingName" => $request->building_name != null ? $request->building_name : "",
                     "buildingNumber" => $request->building_number,
                     "landmark" => $request->landmark,
                     "street" => $request->street,
-                    "subStreet" => $request->sub_street,
+                    "subStreet" => $request->sub_street != null ? $request->sub_street : "",
                     "state" => $request->state,
                     'city' => $request->city,
-                    'lga'=>$request->local_govt,
+                    'lga'=> $request->local_govt != null ? $request->local_govt : "",
                 ],
-                "subjectConsent"=>$request->subject_consent,
+                "subjectConsent"=> $request->subject_consent,
                
             ];
        }elseif($request->slug == 'reference_address'){
@@ -163,7 +180,7 @@ class AddressController extends Controller
               'mobile' => $request->phone,
               'email' => $request->email,
               'country'=>'Nigeria',
-              'images' =>  $logo_image,
+              // 'images' =>  $logo_image,
           ], 
             "address" => [
                 "house_number" => $request->house_number,
@@ -171,7 +188,7 @@ class AddressController extends Controller
                 'street' => $request->street,
                 'city' => $request->city,
                 'country'=>'Nigeria',
-                'images' =>  $logo_image,
+                // 'images' =>  $logo_image,
             ], 
         ];
        }else{
@@ -189,7 +206,7 @@ class AddressController extends Controller
                 'street' => $request->street,
                 'city' => $request->city,
                 'country'=>'Nigeria',
-                'images' =>  $logo_image,
+                // 'images' =>  $logo_image,
           ],
           ];
        }
