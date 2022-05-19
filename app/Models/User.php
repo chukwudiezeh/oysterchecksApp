@@ -50,4 +50,11 @@ class User extends Authenticatable
     public function client(){
         return $this->hasOne(Client::class);
     }
+
+    public function UserType(){
+
+        if(User::where('user_type' == 2)){
+            $type = 'CLIENT';
+        }
+    }
 }

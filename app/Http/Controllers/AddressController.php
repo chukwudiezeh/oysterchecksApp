@@ -125,7 +125,6 @@ class AddressController extends Controller
     }
 
     public function submitAddressVerify(Request $request, $service_ref){
-      //  dd($service_ref);
         if(!isset($service_ref)){
             Session::flash('alert', 'error');
             Session::flash('message', 'Bad payload, reload page');
@@ -133,19 +132,42 @@ class AddressController extends Controller
         }
 
        //$logo =  Client::first();
-       $logo_image = base64_encode(asset('/images/logo.png'));
+      //  $logo_image = base64_encode(asset('/images/logo.png'));
        if($request->slug == 'individual_address'){
-            $host = 'https://api.youverify.co/v1/candidates/'.$service_ref.'/references';
+        $valid = Validator::make($request->all(), [
+          'flat_number' => 'nullable|string',
+          'building_name' => 'nullable|string',
+          'building_number' => 'required|string',
+          'landmark' => 'required|string',
+          'street' => 'required|string',
+          'sub_street' => 'nullable|string"',
+          'state'=>'required|string',
+          'city'=>'required|string',
+          'lga'=>'nullable|string',
+          'subject_consent'=>'required'
+          ]);
+          if($valid->fails()){
+              Session::flash('alert', 'error');
+              Session::flash('message', 'Some fields are missing');
+              return redirect()->back()->withErrors($valid)->withInput($request->all());
+            
+          }
+            $host = 'https://api.youverify.co/v2/api/addresses/individual/request';
             $data = [
-                "description" => "Individual Adddress verification",
+                "candidateId" => $service_ref,
+                "description" => "Verify the candidate",
                 "address" => [
-                    "house_number" => $request->house_number,
-                    'landmark' => $request->landmark,
-                    'street' => $request->street,
+                    "flatNumber" => $request->flat_number != null ? $request->flat_number : "",
+                    "buildingName" => $request->building_name != null ? $request->building_name : "",
+                    "buildingNumber" => $request->building_number,
+                    "landmark" => $request->landmark,
+                    "street" => $request->street,
+                    "subStreet" => $request->sub_street != null ? $request->sub_street : "",
+                    "state" => $request->state,
                     'city' => $request->city,
-                    'country'=>'Nigeria',
-                    'images' =>  $logo_image,
+                    'lga'=> $request->local_govt != null ? $request->local_govt : "",
                 ],
+                "subjectConsent"=> $request->subject_consent,
                
             ];
        }elseif($request->slug == 'reference_address'){
@@ -158,7 +180,7 @@ class AddressController extends Controller
               'mobile' => $request->phone,
               'email' => $request->email,
               'country'=>'Nigeria',
-              'images' =>  $logo_image,
+              // 'images' =>  $logo_image,
           ], 
             "address" => [
                 "house_number" => $request->house_number,
@@ -166,7 +188,7 @@ class AddressController extends Controller
                 'street' => $request->street,
                 'city' => $request->city,
                 'country'=>'Nigeria',
-                'images' =>  $logo_image,
+                // 'images' =>  $logo_image,
             ], 
         ];
        }else{
@@ -184,7 +206,7 @@ class AddressController extends Controller
                 'street' => $request->street,
                 'city' => $request->city,
                 'country'=>'Nigeria',
-                'images' =>  $logo_image,
+                // 'images' =>  $logo_image,
           ],
           ];
        }
@@ -202,7 +224,7 @@ class AddressController extends Controller
       CURLOPT_POSTFIELDS => $datas,
       CURLOPT_HTTPHEADER => [
         "Content-Type: application/json",
-        "Token: 49c11a7ef799f5695c943ba4d3d1ddcc"
+        "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
       ],
     ]);
     $response = curl_exec($curl);

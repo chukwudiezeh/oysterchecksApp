@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Models\User;
 
 function moneyFormat($data, $currency){
     $data = number_format($data);
