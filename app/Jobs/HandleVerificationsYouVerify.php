@@ -14,7 +14,7 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
 {
     // use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $webhookCall;
+    // public $webhookCall;
     /**
      * Create a new job instance.
      *
@@ -22,7 +22,7 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
      */
     public function __construct()
     {
-        $webhookCall = $this->webhookCall;
+        
     }
 
     /**
@@ -32,6 +32,10 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
      */
     public function handle()
     {
-        
+        // $webhookCall = json_decode($this->webhookCall, true);
+        // logger($webhookCall);
+    //  if($webhookCall["event"] == 'address.completed' && in_array($webhookCall["data"]["type"], ['individual','guarantor','business'])){
+         
+    //  }    
     }
 }

@@ -18,7 +18,7 @@ return [
             /*
              * The name of the header containing the signature.
              */
-            'signature_header_name' => 'Signature',
+            'signature_header_name' => 'x-youverify-signature',
 
             /*
              *  This class will verify that the content of the signature header is valid.
@@ -42,7 +42,7 @@ return [
              * be equal or extend Spatie\WebhookClient\Models\WebhookCall.
              */
             'webhook_model' => \Spatie\WebhookClient\Models\WebhookCall::class,
-
+// 
             /*
              * In this array, you can pass the headers that should be stored on
              * the webhook call model when a webhook comes in.
