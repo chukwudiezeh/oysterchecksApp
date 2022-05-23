@@ -117,10 +117,10 @@
                                          {{$message}}
                                      </span>
                                      @enderror
-                                     <input type="text" value="{{$slug->slug}}" name="slug" hidden>
-                                 </div><!-- end col -->
-                                 <!-- end col -->
-                                 @endforeach
+                                    </div><!-- end col -->
+                                    <!-- end col -->
+                                    @endforeach
+                                    <input type="text" value="{{$slug->slug}}" name="slug" hidden>
                                  <div class="col-md-12">
                                      @if(Session::has('message'))
                                      <span class="btn btn-{{Session::get('alert')}}">

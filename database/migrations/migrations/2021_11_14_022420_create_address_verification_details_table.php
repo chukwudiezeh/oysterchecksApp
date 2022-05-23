@@ -24,7 +24,7 @@ class CreateAddressVerificationDetailsTable extends Migration
             $table->text('address');
             $table->string('status');
             $table->string('task_status');
-            $table->boolean('subject_consent');
+            $table->string('subject_consent');
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->string('submitted_at')->nullable();
