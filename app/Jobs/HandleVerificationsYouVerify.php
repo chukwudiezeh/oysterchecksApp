@@ -32,10 +32,10 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
      */
     public function handle()
     {
-        $webhookCall = $this->webhookCall;
-
-     if($webhookCall["event"] == 'address.completed' && in_array($webhookCall["data"]["type"], ['individual','guarantor','business'])){
+        // $webhookCall = json_decode($this->webhookCall, true);
+        // logger($webhookCall);
+    //  if($webhookCall["event"] == 'address.completed' && in_array($webhookCall["data"]["type"], ['individual','guarantor','business'])){
          
-     }    
+    //  }    
     }
 }

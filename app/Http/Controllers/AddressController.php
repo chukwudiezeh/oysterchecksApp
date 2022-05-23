@@ -173,13 +173,14 @@ class AddressController extends Controller
        }elseif($request->slug == 'reference_address'){
         $host = 'https://api.youverify.co/v1/candidates/'.$service_ref.'/references';
         $data = [
-            "notes" => "Reference Adddress verification",
-            "reference" => [
+          "candidateId" => $service_ref,
+          "description" => "Verify the Guarantor",
+            "guarantor" => [
               "first_name" => $request->first_name,
               'last_name' => $request->last_name,
               'mobile' => $request->phone,
               'email' => $request->email,
-              'country'=>'Nigeria',
+              
               // 'images' =>  $logo_image,
           ], 
             "address" => [
