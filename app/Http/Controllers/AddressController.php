@@ -335,7 +335,7 @@ class AddressController extends Controller
             'yv_user_id' => $res['data']['userId'],
             'type' => $res['data']['type'],
             'yv_id' => $res['data']['id'],
-            'links' => json_encode($res['data']['links']),
+            'links' => json_encode($res['links']),
           ]);
           DB::commit();
           Session::flash('alert', 'success');
