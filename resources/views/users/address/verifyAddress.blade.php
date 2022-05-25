@@ -131,7 +131,7 @@
                                          <span style="color:red; font-size:11px;"> Note: You will be charged ₦{{number_format($slug->fee, 2)}} for each {{$slug->name}}</span> <br>
                                          <span style="color:darkblue; font-size:11px;">Your wallet Balance is ₦{{number_format($wallet->avail_balance, 2)}}</span> <br>
 
-                                         <input type="checkbox" required name="subject_consent" id="subject_consent" value="true">
+                                         <input type="checkbox" required name="subject_consent" id="subject_consent">
                                          <span style="font-size:11px;"> By checking this box you acknowledge that you have gotten consent from that data subject to use their data for verification purposes on our platform in accourdance to our <a href="#"> Privacy Policy</a></span>
                                      </div>
                                      <span class="float-center p-2"><button type="submit" class="btn btn-primary w-23">Submit Address to Verify</button> </span>

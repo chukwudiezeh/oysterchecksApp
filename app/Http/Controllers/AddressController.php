@@ -173,7 +173,7 @@ class AddressController extends Controller
                     "city" => $request->city,
                     "lga" => $request->lga != null ? $request->lga : "",
                 ],
-                "subjectConsent"=> $request->subject_consent,
+                "subjectConsent"=> $request->subject_consent ? true : false,
                
             ];
        }elseif($request->slug == 'reference_address'){
@@ -267,7 +267,7 @@ class AddressController extends Controller
        try{
          $curl = curl_init();
          $datas = json_encode($data, true);
-        dd($datas);
+        // dd($datas);
 
          curl_setopt_array($curl, [
           CURLOPT_URL => $host,
