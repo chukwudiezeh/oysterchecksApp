@@ -135,7 +135,6 @@ class AddressController extends Controller
         if($get_address_verification = AddressVerification::where('service_reference', $service_ref)->first()){
           $get_address_verification_id = $get_address_verification->id;
         }
-        dd($get_address_verification_id);
 
        //$logo =  Client::first();
       //  $logo_image = base64_encode(asset('/images/logo.png'));
@@ -150,7 +149,7 @@ class AddressController extends Controller
           'state'=>'required|string',
           'city'=>'required|string',
           'lga'=>'nullable|string',
-          'subject_consent'=>'required'
+          'subject_consent'=>'required|accepted'
           ]);
           if($valid->fails()){
               Session::flash('alert', 'error');
@@ -158,6 +157,7 @@ class AddressController extends Controller
               return redirect()->back()->withErrors($valid)->withInput($request->all());
             
           }
+
             $host = 'https://api.sandbox.youverify.co/v2/api/addresses/individual/request';
             $data = [
                 "candidateId" => $service_ref,
@@ -213,6 +213,7 @@ class AddressController extends Controller
 
             }
            }
+
           $host = 'https://api.sandbox.youverify.co/v2/api/addresses/guarantor/request';
           $data = [
             "candidateId" => $service_ref,
@@ -266,6 +267,7 @@ class AddressController extends Controller
        try{
          $curl = curl_init();
          $datas = json_encode($data, true);
+        dd($datas);
 
          curl_setopt_array($curl, [
           CURLOPT_URL => $host,
