@@ -131,6 +131,7 @@ class AddressController extends Controller
             Session::flash('message', 'Bad payload, reload page');
             return redirect()->back();
         }
+        dd($service_ref);
         
         if($get_address_verification = AddressVerification::where('service_reference', $service_ref)->first()){
           $get_address_verification_id = $get_address_verification->id;
