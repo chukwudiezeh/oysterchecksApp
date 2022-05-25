@@ -296,8 +296,8 @@ class AddressController extends Controller
             'address_verification_id' => $get_address_verification_id,
             'reference_id' => $res['data']['referenceId'],
             'candidate' => json_encode($res['data']['candidate']),
-            'guarantor' => $res['data']['guarantor'] ? json_encode($res['data']['guarantor']) : "",
-            'business' => $res['data']['business'] ? json_encode($res['data']['business']) : "",
+            'guarantor' => isset($res['data']['guarantor']) ? json_encode($res['data']['guarantor']) : "",
+            'business' => isset($res['data']['business']) ? json_encode($res['data']['business']) : "",
             'agent' => json_encode($res['data']['agent']),
             'address' => json_encode($res['data']['address']),
             'status' => $res['data']['status'],
@@ -349,5 +349,11 @@ class AddressController extends Controller
           DB::rollBack();
           throw $e;
        }
+  }
+
+
+  protected function addGuarantor($res)
+  {
+    
   }
 }
