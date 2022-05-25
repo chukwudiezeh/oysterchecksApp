@@ -188,7 +188,7 @@ class AddressController extends Controller
             'building_number' => 'required|string',
             'landmark' => 'required|string',
             'street' => 'required|string',
-            'sub_street' => 'nullable|string"',
+            'sub_street' => 'nullable|string',
             'state'=>'required|string',
             'city'=>'required|string',
             'lga'=>'nullable|string',
