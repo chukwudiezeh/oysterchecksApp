@@ -289,7 +289,7 @@ class AddressController extends Controller
         $res = json_decode($response, true);
 
         if($res['success'] == true && $res['statusCode'] == 201){
-          dd($res);
+          // dd($res);
           AddressVerificationDetail::create([
             'address_verification_id' => $get_address_verification_id,
             'reference_id' => $res['data']['referenceId'],
