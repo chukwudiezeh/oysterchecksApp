@@ -285,7 +285,7 @@ class AddressController extends Controller
         $res = json_decode($response, true);
 
         if($res['success'] == true && $res['statusCode'] == 201){
-
+          dd($res);
           AddressVerificationDetail::create([
             'address_verification_id' => $get_address_verification_id,
             'reference_id' => $res['data']['referenceId'],
@@ -333,52 +333,15 @@ class AddressController extends Controller
             'yv_id' => $res['data']['id'],
             'links' => json_encode($res['data']['links']),
           ]);
+          DB::commit();
+          Session::flash('alert', 'success');
+          Session::flash('message', 'Candidate Created Successfully');
+          return back();
         }
 
        }catch(\Exception $e){
           DB::rollBack();
           throw $e;
        }
-        //return $datas;
-     
-   
-    
-    return back();
-
-
-
-
-
-    DB::beginTransaction();
-            try{
-            
-            if($res['success'] == true && $res['statusCode'] == 201){
-                $service_ref = $res['data']['id'];
-                AddressVerification::create([
-                'verification_id' => $slug->id,
-                'ref' => $ref,
-                'user_id' => auth()->user()->id,
-                'status' => 'pending',
-                'service_reference' => $service_ref,
-                'first_name' => $request->first_name,
-                "middle_name" => $request->middle_name != null ? $request->middle_name : "",
-                'last_name' => $request->last_name,
-                "phone" => $request->phone,
-                "email" => $request->email != null ? $request->email : "",
-                "dob" => $request->dob != null ? $request->dob : "",
-                "image" => asset('assets/candidates/'.$image)
-                ]);
-              // return $res;
-              $data = $this->generateAddressReportVerify($slug);
-              $data['service_ref'] = $service_ref;
-                DB::commit();
-                Session::flash('alert', 'success');
-                Session::flash('message', 'Candidate Created Successfully');
-                return view('users.address.verifyAddress', $data);
-            }
-            }catch(\Exception $e){
-            DB::rollBack();
-            throw $e;
-            }
   }
 }
