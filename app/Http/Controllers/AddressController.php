@@ -78,8 +78,8 @@ class AddressController extends Controller
                 $datas = json_encode($data, true);
                 //return $datas;
             curl_setopt_array($curl, [
-              CURLOPT_URL => "https://api.youverify.co/v2/api/addresses/candidates",
-              // CURLOPT_URL => "http://api.sandbox.youverify.co/v2/api/addresses/candidates",
+              // CURLOPT_URL => "https://api.youverify.co/v2/api/addresses/candidates",
+              CURLOPT_URL => "https://api.sandbox.youverify.co/v2/api/addresses/candidates",
               CURLOPT_RETURNTRANSFER => true,
               CURLOPT_ENCODING => "",
               CURLOPT_MAXREDIRS => 10,
@@ -89,8 +89,8 @@ class AddressController extends Controller
               CURLOPT_POSTFIELDS => $datas,
               CURLOPT_HTTPHEADER => [
                 "Content-Type: application/json",
-                "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
-                // "Token: GKQaCV4VVWxh5W1CfJ9FYAMmkncgpusLMLTZmEJerR3H"
+                // "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
+                "Token: EAgjeZKG.Hazn4C1dhxI7ehgLJjYhLvJij182Ccc0UCTS"
               ],
             ]);
             $response = curl_exec($curl);
@@ -145,11 +145,11 @@ class AddressController extends Controller
           'building_number' => 'required|string',
           'landmark' => 'required|string',
           'street' => 'required|string',
-          'sub_street' => 'nullable|string"',
+          'sub_street' => 'nullable|string',
           'state'=>'required|string',
           'city'=>'required|string',
           'lga'=>'nullable|string',
-          'subject_consent'=>'required'
+          'subject_consent'=>'required|accepted'
           ]);
           if($valid->fails()){
               Session::flash('alert', 'error');
@@ -157,7 +157,8 @@ class AddressController extends Controller
               return redirect()->back()->withErrors($valid)->withInput($request->all());
             
           }
-            $host = 'https://api.youverify.co/v2/api/addresses/individual/request';
+
+            $host = 'https://api.sandbox.youverify.co/v2/api/addresses/individual/request';
             $data = [
                 "candidateId" => $service_ref,
                 "description" => "Verify the candidate",
@@ -172,7 +173,7 @@ class AddressController extends Controller
                     "city" => $request->city,
                     "lga" => $request->lga != null ? $request->lga : "",
                 ],
-                "subjectConsent"=> $request->subject_consent,
+                "subjectConsent"=> $request->subject_consent ? true : false,
                
             ];
        }elseif($request->slug == 'reference_address'){
@@ -187,7 +188,7 @@ class AddressController extends Controller
             'building_number' => 'required|string',
             'landmark' => 'required|string',
             'street' => 'required|string',
-            'sub_street' => 'nullable|string"',
+            'sub_street' => 'nullable|string',
             'state'=>'required|string',
             'city'=>'required|string',
             'lga'=>'nullable|string',
@@ -212,7 +213,8 @@ class AddressController extends Controller
 
             }
            }
-          $host = 'https://api.youverify.co/v2/api/addresses/guarantor/request';
+
+          $host = 'https://api.sandbox.youverify.co/v2/api/addresses/guarantor/request';
           $data = [
             "candidateId" => $service_ref,
             "description" => "Verify the candidtate guarantor",
@@ -237,7 +239,7 @@ class AddressController extends Controller
             "subjectConsent"=> $request->subject_consent,
           ];
        }else{
-          $host = 'https://api.youverify.co/v2/api/addresses/business/request';
+          $host = 'https://api.sandbox.youverify.co/v2/api/addresses/business/request';
           $data = [
             "candidateId" => $service_ref,
             "description" => "Verify the candidate and business",
@@ -265,6 +267,7 @@ class AddressController extends Controller
        try{
          $curl = curl_init();
          $datas = json_encode($data, true);
+        // dd($datas);
 
          curl_setopt_array($curl, [
           CURLOPT_URL => $host,
@@ -275,9 +278,12 @@ class AddressController extends Controller
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "POST",
           CURLOPT_POSTFIELDS => $datas,
+          CURLOPT_SSL_VERIFYHOST => 0,
+          CURLOPT_SSL_VERIFYPEER => 0,
           CURLOPT_HTTPHEADER => [
             "Content-Type: application/json",
-            "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
+            // "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
+            "Token: EAgjeZKG.Hazn4C1dhxI7ehgLJjYhLvJij182Ccc0UCTS"
           ],
         ]);
         
@@ -285,13 +291,13 @@ class AddressController extends Controller
         $res = json_decode($response, true);
 
         if($res['success'] == true && $res['statusCode'] == 201){
-          dd($res);
+          // dd($res);
           AddressVerificationDetail::create([
             'address_verification_id' => $get_address_verification_id,
             'reference_id' => $res['data']['referenceId'],
             'candidate' => json_encode($res['data']['candidate']),
-            'guarantor' => $res['data']['guarantor'] ? json_encode($res['data']['guarantor']) : "",
-            'business' => $res['data']['business'] ? json_encode($res['data']['business']) : "",
+            'guarantor' => isset($res['data']['guarantor']) ? json_encode($res['data']['guarantor']) : "",
+            'business' => isset($res['data']['business']) ? json_encode($res['data']['business']) : "",
             'agent' => json_encode($res['data']['agent']),
             'address' => json_encode($res['data']['address']),
             'status' => $res['data']['status'],
@@ -331,11 +337,11 @@ class AddressController extends Controller
             'yv_user_id' => $res['data']['userId'],
             'type' => $res['data']['type'],
             'yv_id' => $res['data']['id'],
-            'links' => json_encode($res['data']['links']),
+            'links' => json_encode($res['links']),
           ]);
           DB::commit();
           Session::flash('alert', 'success');
-          Session::flash('message', 'Candidate Created Successfully');
+          Session::flash('message', 'Address submitted for verification');
           return back();
         }
 
@@ -343,5 +349,11 @@ class AddressController extends Controller
           DB::rollBack();
           throw $e;
        }
+  }
+
+
+  protected function addGuarantor($res)
+  {
+    
   }
 }
