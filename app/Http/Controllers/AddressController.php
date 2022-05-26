@@ -45,7 +45,6 @@ class AddressController extends Controller
                     Session::flash('alert', 'error');
                     Session::flash('message', 'Some fields are missing');
                     return redirect()->back()->withErrors($valid)->withInput($request->all());
-                  
                 }
           //  dd($request->all());
            if(request()->file('image')){
