@@ -295,8 +295,8 @@ class AddressController extends Controller
             'address_verification_id' => $get_address_verification_id,
             'reference_id' => $res['data']['referenceId'],
             'candidate' => json_encode($res['data']['candidate']),
-            'guarantor' => isset($res['data']['guarantor']) ? json_encode($res['data']['guarantor']) : "",
-            'business' => isset($res['data']['business']) ? json_encode($res['data']['business']) : "",
+            'guarantor' => isset($res['data']['guarantor']) ? json_encode($res['data']['guarantor']) : null,
+            'business' => isset($res['data']['business']) ? json_encode($res['data']['business']) : null,
             'agent' => json_encode($res['data']['agent']),
             'address' => json_encode($res['data']['address']),
             'status' => $res['data']['status'],
@@ -341,7 +341,7 @@ class AddressController extends Controller
           DB::commit();
           Session::flash('alert', 'success');
           Session::flash('message', 'Address submitted for verification');
-          return back();
+          return redirect()->route('addressIndex', $request->slug);
         }
 
        }catch(\Exception $e){
@@ -350,9 +350,4 @@ class AddressController extends Controller
        }
   }
 
-
-  protected function addGuarantor($res)
-  {
-    
-  }
 }
