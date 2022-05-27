@@ -45,7 +45,6 @@ class AddressController extends Controller
                     Session::flash('alert', 'error');
                     Session::flash('message', 'Some fields are missing');
                     return redirect()->back()->withErrors($valid)->withInput($request->all());
-                  
                 }
           //  dd($request->all());
            if(request()->file('image')){
@@ -302,7 +301,7 @@ class AddressController extends Controller
             'address' => json_encode($res['data']['address']),
             'status' => $res['data']['status'],
             'task_status' => $res['data']['taskStatus'],
-            'subject_consent' => $res['data']['subjectConsent'],
+            'subject_consent' => $res['data']['subjectConsent'] == "true" ? true : false,
             'start_date' => $res['data']['startDate'],
             'end_date' => $res['data']['endDate'],
             'submitted_at' => $res['data']['submittedAt'],
