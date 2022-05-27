@@ -8,6 +8,7 @@ namespace App\Jobs;
 // use Illuminate\Foundation\Bus\Dispatchable;
 // use Illuminate\Queue\InteractsWithQueue;
 // use Illuminate\Queue\SerializesModels;
+use App\Models\AddressVerificationDetail;
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob as SpatieProcessWebhookJob;
 
 class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
@@ -32,10 +33,11 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
      */
     public function handle()
     {
-        // $webhookCall = json_decode($this->webhookCall, true);
+        $webhookCallData = json_decode($this->webhookCall, true)['payload']['data'];
         // logger($webhookCall);
     //  if($webhookCall["event"] == 'address.completed' && in_array($webhookCall["data"]["type"], ['individual','guarantor','business'])){
          
     //  }    
+        
     }
 }
