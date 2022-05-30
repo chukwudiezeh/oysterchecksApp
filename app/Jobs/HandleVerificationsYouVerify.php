@@ -32,7 +32,7 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
      */
     public function handle()
     {
-        $webhookCallData = json_decode($this->webhookCall, true)['payload']['data'];
+        $webhookCallData = json_decode($this->webhookCall, true)['payload'];
         // logger($webhookCall);
         if (in_array($webhookCallData["type"], ['individual', 'guarantor', 'business'])) {
             $get_verification_details = AddressVerificationDetail::where('reference_id', $webhookCallData['referenceId'])->first();
