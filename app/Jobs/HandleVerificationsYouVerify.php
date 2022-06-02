@@ -31,7 +31,7 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
      */
     public function handle()
     {
-        $webhookCallData = $this->webhookCall['payload'];
+        $webhookCallData = json_encode($this->webhookCall)['payload'];
         // $this->webhookCall->payload();
         // logger($webhookCall);
         if (in_array($webhookCallData['data']['type'], ['individual', 'guarantor', 'business'])) {
@@ -71,7 +71,7 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
             $get_verification_details->save();
         
 
-            HandleVerificationsYouVerify::dispatch($this->webhookCall)->delay(now()->addMinutes(1));
         }
+    
     }
 }
