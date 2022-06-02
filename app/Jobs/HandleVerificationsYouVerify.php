@@ -10,7 +10,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\AddressVerificationDetail;
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob as SpatieProcessWebhookJob;
-
 class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -33,7 +32,7 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
     public function handle()
     {
         // $webhookCallData = json_decode($this->webhookCall, true)['payload'];
-        logger($this->webhookCall->payload());
+        ray($this->webhookCall->payload());
         // logger($webhookCall);
         // if (in_array($webhookCallData['data']["type"], ['individual', 'guarantor', 'business'])) {
         //     $get_verification_details = AddressVerificationDetail::where('reference_id', $webhookCallData['referenceId'])->first();
