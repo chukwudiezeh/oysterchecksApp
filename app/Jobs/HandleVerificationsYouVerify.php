@@ -69,6 +69,9 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
             $get_verification_details->download_url = $webhookCallData['data']['downloadUrl'];
             $get_verification_details->links = json_encode($webhookCallData['data']['links']);
             $get_verification_details->save();
+        
+
+            HandleVerificationsYouVerify::dispatch($this->webhookCall)->delay(now()->addMinutes(1));
         }
     }
 }
