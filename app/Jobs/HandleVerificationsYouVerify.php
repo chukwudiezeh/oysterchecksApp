@@ -2,18 +2,18 @@
 
 namespace App\Jobs;
 
-// use Illuminate\Bus\Queueable;
+use Illuminate\Bus\Queueable;
 // use Illuminate\Contracts\Queue\ShouldBeUnique;
-// use Illuminate\Contracts\Queue\ShouldQueue;
-// use Illuminate\Foundation\Bus\Dispatchable;
-// use Illuminate\Queue\InteractsWithQueue;
-// use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use App\Models\AddressVerificationDetail;
 use Spatie\WebhookClient\Jobs\ProcessWebhookJob as SpatieProcessWebhookJob;
 
 class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
 {
-    // use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     // public $webhookCall;
     /**
@@ -32,7 +32,7 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
      */
     public function handle()
     {
-        $webhookCallData = $this->webhookCall->payload;
+        $webhookCallData = json_decode($this->webhookCall['payload'], true);
         // logger($webhookCall);
         if (in_array($webhookCallData['data']["type"], ['individual', 'guarantor', 'business'])) {
             $get_verification_details = AddressVerificationDetail::where('reference_id', $webhookCallData['referenceId'])->first();
