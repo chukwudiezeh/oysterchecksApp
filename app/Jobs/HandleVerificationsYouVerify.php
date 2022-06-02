@@ -59,7 +59,6 @@ class HandleVerificationsYouVerify extends SpatieProcessWebhookJob
             $get_verification_details->report_agent_access = $webhookCallData['data']['reportAgentAccess'];
             $get_verification_details->incident_report = $webhookCallData['data']['incidentReport'];
             $get_verification_details->download_url = $webhookCallData['data']['downloadUrl'];
-            $get_verification_details->links = json_encode($webhookCallData['data']['links']);
             $get_verification_details->save();
     
         }
