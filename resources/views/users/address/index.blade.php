@@ -233,15 +233,25 @@
                              </tr>
                          </thead>
                          <tbody>
-                             @foreach ($logs as $trans )
+                             @foreach ($logs as $transaction )
                              <tr>
-                                 <td>{{$trans->id}}</td>
-                                 <td>{{$trans->service_reference}}</td>
-                                 <td>{{$trans->user->name}}</td>
-                                 <td>{{$trans->fee}}</td>
-                                 <td>@if($trans->status == 'successful') <span class="text-success"> {{$trans->status}}</span> @elseif($trans->status == 'pending')<span class="text-warning"> {{$trans->status}}</span> @else <span class="text-danger"> {{$trans->status}}</span> @endif </td>
-                                 <td>{{$trans->created_at}}</td>
-                                 <td> @if($trans->status == 'successful')
+                                <td>{{$transaction->id}}</td>
+                                <td>{{$transaction->service_reference}}</td>
+                                <td>{{$transaction->user->name}}</td>
+                                <td>{{$transaction->fee}}</td>
+                                <td>@if($transaction->addressVerification->status == 'pending') 
+                                     <span class="text-pending">{{$transaction->addressVerification->status}}</span> 
+                                     @elseif($transaction->addressVerification->status == 'completed')
+                                     <span class="text-success"> {{$transaction->addressVerification->status}}</span>
+                                     @elseif($transaction->addressVerification->status == 'awaiting_schedule')
+                                     <span class="text-success"> {{$transaction->addressVerification->status}}</span>
+                                     @elseif($transaction->addressVerification->status == 'completed' && $transaction->addressVerification->task_status == 'NOT VERIFIED')
+                                     <span class="text-success"> {{$transaction->addressVerification->status}}</span>
+                                     @else <span class="text-danger"> {{$transaction->status}}</span> 
+                                     @endif 
+                                </td>
+                                 <td>{{$transaction->created_at}}</td>
+                                 <td> @if($transaction->status == 'successful')
                                      <a href="{{route('verify.details', encrypt($trans->id))}}">View Details</a>
                                      @endif
                                  </td>

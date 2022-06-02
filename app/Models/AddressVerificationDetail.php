@@ -72,4 +72,10 @@ class AddressVerificationDetail extends Model
         'images' => 'array',
         'links' => 'array'
     ];
+
+
+    public function addressVerification()
+    {
+        return $this->belongsTo(AddressVerification::class, 'address_verification_id');
+    }
 }
