@@ -1,4 +1,4 @@
- @extends('layouts.app')
+@extends('layouts.app')
  @section('content')
  <div class="page-content">
      <div class="container-fluid">
@@ -140,7 +140,7 @@
              </div> <!-- end col -->
          </div>
 
-        <div class="col-12">
+         <div class="col-12">
              <div class="card">
                  <div class="card-header">
                      <h4 class="card-title">{{$slug->name}} log</h4>
