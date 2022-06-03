@@ -239,8 +239,8 @@
                                 <td>{{$transaction->service_reference}}</td>
                                 <td>{{$transaction->user->name}}</td>
                                 <td>{{$transaction->fee}}</td>
-                                <td>@if($transaction->addressVerification->status == 'pending') 
-                                     <span class="badge badge-soft-purple">{{$transaction->addressVerification->status}}</span> 
+                                <td>@if($transaction->addressVerification->status == null) 
+                                     <span class="badge badge-soft-purple">Pending</span> 
                                      @elseif($transaction->addressVerification->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
                                      <span class="badge badge-soft-success"> {{$transaction->addressVerification->status}}</span>
                                      @elseif($transaction->addressVerification->status == 'awaiting_schedule')
