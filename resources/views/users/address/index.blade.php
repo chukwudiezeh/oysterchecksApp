@@ -239,15 +239,15 @@
                                 <td>{{$transaction->service_reference}}</td>
                                 <td>{{$transaction->user->name}}</td>
                                 <td>{{$transaction->fee}}</td>
-                                <td>@if($transaction->addressVerification->status == null) 
+                                <td>@if($transaction->addressVerificationDetails->status == 'pending') 
                                      <span class="badge badge-soft-purple">Pending</span> 
-                                     @elseif($transaction->addressVerification->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
-                                     <span class="badge badge-soft-success"> {{$transaction->addressVerification->status}}</span>
-                                     @elseif($transaction->addressVerification->status == 'awaiting_schedule')
-                                     <span class="badge badge-soft-dark"> {{$transaction->addressVerification->status}}</span>
-                                     @elseif($transaction->addressVerification->status == 'completed' && $transaction->addressVerification->task_status == 'NOT VERIFIED')
-                                     <span class="badge badge-soft-warning"> {{$transaction->addressVerification->status}}</span>
-                                     @else <span class="badge badge-soft-danger"> {{$transaction->status}}</span> 
+                                     @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
+                                     <span class="badge badge-soft-success"> {{$transaction->addressVerificationDetails->status}}</span>
+                                     @elseif($transaction->addressVerificationDetails->status == 'awaiting_schedule')
+                                     <span class="badge badge-soft-dark"> {{$transaction->addressVerificationDetails->status}}</span>
+                                     @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerificationDetails->task_status == 'NOT VERIFIED')
+                                     <span class="badge badge-soft-warning"> {{$transaction->addressVerificationDetails->status}}</span>
+                                     @else <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetails->status}}</span> 
                                      @endif 
                                 </td>
                                  <td>{{$transaction->created_at}}</td>
