@@ -239,7 +239,10 @@
                                 <td>{{$transaction->service_reference}}</td>
                                 <td>{{$transaction->user->name}}</td>
                                 <td>{{$transaction->fee}}</td>
-                                <td>@if($transaction->addressVerificationDetails->status == 'pending') 
+                                <td>
+                                    @if(isset($tansaction->addressVerificationDetails->status))
+                                    
+                                    @if($transaction->addressVerificationDetails->status == 'pending') 
                                      <span class="badge badge-soft-purple">Pending</span> 
                                      @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
                                      <span class="badge badge-soft-success"> {{$transaction->addressVerificationDetails->status}}</span>
@@ -248,8 +251,12 @@
                                      @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerificationDetails->task_status == 'NOT VERIFIED')
                                      <span class="badge badge-soft-warning"> {{$transaction->addressVerificationDetails->status}}</span>
                                      @else <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetails->status}}</span> 
-                                     @endif 
+                                     @endif
+                                     @else
+                                     <span class="badge badge-soft-secondary">No verification Request</span> 
                                 </td>
+                                
+                                @endisset
                                  <td>{{$transaction->created_at}}</td>
                                  <td> @if($transaction->status == 'successful')
                                      <a href="{{route('verify.details', encrypt($trans->id))}}">View Details</a>
