@@ -97,50 +97,8 @@
                  <!--end row-->
              </div>
          </div>
-         <div class="row">
-             <div class="col-lg-12">
-                 <div class="card">
-                     <div class="card-header">
-                         <h4 class="card-title">{{$slug->name}}</h4>
-                     </div>
-                     <!--end card-header-->
-                     <form method="post" action="{{route('createCandidate',encrypt($slug->slug))}}" enctype="multipart/form-data">
-                         @csrf
-                         <div class="card-body bootstrap-select-1">
-                             <div class="row">
-                                 @foreach($fields as $input)
-                                 <div class="col-md-6">
-                                     <label class="mb-3" style="font-weight:bolder">{{$input->label}}</label> @if($input->is_required == 1) <span style="color:red; font-weight:bolder"> * </span> @endif
-                                     <input type="{{$input->type}}" id="{{$input->inputid}}" name="{{$input->name}}" class="form-control mb-3 custom-select" placeholder="{{$input->placeholder}}" @if($input->is_required == 1) required @endif>
-                                 </div><!-- end col -->
-                                 <!-- end col -->
-                                 @endforeach
-
-                                 <div class="col-md-12">
-                                     @if(Session::has('message'))
-                                     <span class="btn btn-{{Session::get('alert')}}">
-                                         {{Session::get('message')}}
-                                     </span>
-                                     @endif
-                                     <div class="col-md-6 p-3">
-                                         <span style="color:red; font-size:11px;"> Note: You will be charged ₦{{number_format($slug->fee, 2)}} for each {{$slug->name}}</span> <br>
-                                         <span style="color:darkblue; font-size:11px;">Your wallet Balance is ₦{{number_format($wallet->avail_balance, 2)}}</span> <br>
-
-                                         <input type="checkbox" required>
-
-                                         <span style="font-size:11px;"> By checking this box you acknowledge that you have gotten consent from that data subject to use their data for verification purposes on our platform in accourdance to our <a href="#"> Privacy Policy</a></span>
-                                     </div>
-                                     <span class="float-center p-2"><button type="submit" class="btn btn-primary w-23">Create Candidate</button> </span>
-                                 </div>
-
-                             </div><!-- end row -->
-                         </div><!-- end card-body -->
-                     </form>
-                 </div> <!-- end card -->
-             </div> <!-- end col -->
-         </div>
-
-        <div class="col-12">
+<div class="row">
+         <div class="col-12">
              <div class="card">
                  <div class="card-header">
                      <h4 class="card-title">{{$slug->name}} log</h4>
@@ -152,46 +110,122 @@
                              <tr>
                                  <th>SN</th>
                                  <th>Address Candidate</th>
-                                 <th>Verified by</th>
-                                 <th>Fee</th>
+                                 <th>Verification ID</th>
                                  <th>Status</th>
-                                 <th>Date</th>
+                                 <th>Initiated by</th>
+                                 <th>Fee</th>
+                                 <th>Date Requested</th>
                                  <th>Action</th>
                              </tr>
                          </thead>
                          <tbody>
-                             @foreach ($logs as $transaction )
+                             @foreach ($logs as $transaction)
                              <tr>
-                                <td>{{$transaction->id}}</td>
-                                <td>{{$transaction->service_reference}}</td>
-                                <td>{{$transaction->user->name}}</td>
-                                <td>{{$transaction->fee}}</td>
-                                <td>
-                                    @if(isset($tansaction->addressVerificationDetails->status))
-                                    
-                                    @if($transaction->addressVerificationDetails->status == 'pending') 
-                                     <span class="badge badge-soft-purple">Pending</span> 
+                                 <td>{{$loop->iteration}}</td>
+                                 <td>{{$transaction->first_name}} {{$transaction->last_name}}</td>
+                                 <td>{{$tansaction->addressVerificationDetails->reference_id}}</td>
+                                 <td>
+                                     @if(isset($tansaction->addressVerificationDetails->status))
+
+                                     @if($transaction->addressVerificationDetails->status == 'pending')
+                                     <span class="badge badge-soft-purple">Pending</span>
                                      @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
                                      <span class="badge badge-soft-success"> {{$transaction->addressVerificationDetails->status}}</span>
                                      @elseif($transaction->addressVerificationDetails->status == 'awaiting_schedule')
                                      <span class="badge badge-soft-dark"> {{$transaction->addressVerificationDetails->status}}</span>
                                      @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerificationDetails->task_status == 'NOT VERIFIED')
                                      <span class="badge badge-soft-warning"> {{$transaction->addressVerificationDetails->status}}</span>
-                                     @else <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetails->status}}</span> 
+                                     @else <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetails->status}}</span>
                                      @endif
                                      @else
                                      <span class="badge badge-soft-secondary">No verification Request</span>
-                                     @endif 
-                                </td>
-                                
-                              
-                                 <td>{{$transaction->created_at}}</td>
-                                 <td> @if($transaction->status == 'successful')
-                                     <a href="{{route('verify.details', encrypt($trans->id))}}">View Details</a>
                                      @endif
                                  </td>
+                                 <td>{{$transaction->user->name}}</td>
+                                 <td>{{$transaction->fee}}</td>
+                                 <td>{{$transaction->created_at}}</td>
+
+                                 <td>
+                                     <div class="dropdown d-inline-block">
+                                         <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                             <i class="las la-ellipsis-v font-20 text-muted"></i>
+                                         </a>
+                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
+                                             <a class="dropdown-item" href="#">Creat Project</a>
+                                             <a class="dropdown-item" href="#">Open Project</a>
+                                             <a class="dropdown-item" href="#">Tasks Details</a>
+                                         </div>
+                                     </div>
+                                 </td>
+                                 <!-- <td> @if($transaction->status == 'successful')
+                                     <a href="{{route('verify.details', encrypt($trans->id))}}">View Details</a>
+                                     @endif
+                                 </td> -->
                              </tr>
                              @endforeach
+                             <tr>
+                                                <td>#124</td>
+                                                <td>Sixta Jones C.</td>
+                                                <td>67900078321</td>
+                                                <td><span class="badge badge-soft-success">Approved</span></td>
+                                                <td>Chukwudi Ezeh</td>
+                                                <td>6790</td>
+                                                <td>65/34/30034</td>
+                                                <td class="text-right">
+                                                    <div class="dropdown d-inline-block">
+                                                        <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h font-15 text-muted"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
+                                                            <a class="dropdown-item" href="#">Creat Project</a>
+                                                            <a class="dropdown-item" href="#">Open Project</a>
+                                                            <a class="dropdown-item" href="#">Tasks Details</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>#124</td>
+                                                <td>Sixta Jones C.</td>
+                                                <td>67900078321</td>
+                                                <td><span class="badge badge-soft-success">Approved</span></td>
+                                                <td>Chukwudi Ezeh</td>
+                                                <td>6790</td>
+                                                <td>65/34/30034</td>
+                                                <td class="text-right">
+                                                    <div class="dropdown d-inline-block">
+                                                        <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                            <i class="las la-ellipsis-v font-20 text-muted"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
+                                                            <a class="dropdown-item" href="#">Creat Project</a>
+                                                            <a class="dropdown-item" href="#">Open Project</a>
+                                                            <a class="dropdown-item" href="#">Tasks Details</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>#124</td>
+                                                <td>Sixta Jones C.</td>
+                                                <td>67900078321</td>
+                                                <td><span class="badge badge-soft-success">Approved</span></td>
+                                                <td>Chukwudi Ezeh</td>
+                                                <td>6790</td>
+                                                <td>65/34/30034</td>
+                                                <td class="text-right">
+                                                    <div class="dropdown d-inline-block">
+                                                        <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                            <i class="las la-ellipsis-v font-20 text-muted"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
+                                                            <a class="dropdown-item" href="#">Creat Project</a>
+                                                            <a class="dropdown-item" href="#">Open Project</a>
+                                                            <a class="dropdown-item" href="#">Tasks Details</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
                          </tbody>
                      </table>
                  </div>
