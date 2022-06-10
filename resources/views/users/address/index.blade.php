@@ -97,176 +97,204 @@
                  <!--end row-->
              </div>
          </div>
-<div class="row">
-         <div class="col-12">
-             <div class="card">
-                 <div class="card-header">
-                     <h4 class="card-title">{{$slug->name}} log</h4>
+         <div class="row">
+             <div class="col-lg-12">
+                 <div class="card mb-3" style="background:#f1f5fa">
+                     <div class="row">
+                         <div class="col-md-6">
+                             <div class="card-body">
+                                 <h5 class="card-title">Verify @if($slug->slug == 'individual_address') an Individual @elseif ($slug->slug == 'reference_address') a Guarantor @else a Business @endif </h5>
+                                 <p class="card-text mb-0">Wether you are verifying a business, a guarantor or an individual's address, we provide key insights and overall analysis of any verification request made.</p>
+                                 <p class="card-text mb-0"><small class="text-muted">Use the "Create Candidate" button to initiate the {{$slug->name}} process.</small></p>
+                             </div>
+                         </div>
+                         <div class="col-md-6 align-self-center">
+                             <div class="card-body d-flex justify-content-lg-end justify-content-center">
+                                 <button type="button" class="btn btn-primary btn-lg btn-square">Create Candidate</button>
+
+                             </div>
+                         </div>
+                         <!--end col-->
+                         <!--end col-->
+                     </div>
+                     <!--end row-->
                  </div>
-                 <!--end card-header-->
-                 <div class="card-body">
-                     <table id="datatable-buttons" class="table table-striped dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                         <thead>
-                             <tr>
-                                 <th>SN</th>
-                                 <th>Address Candidate</th>
-                                 <th>Verification ID</th>
-                                 <th>Status</th>
-                                 <th>Initiated by</th>
-                                 <th>Fee</th>
-                                 <th>Date Requested</th>
-                                 <th>Action</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             @foreach ($logs as $transaction)
-                             <tr>
-                                 <td>{{$loop->iteration}}</td>
-                                 <td>{{$transaction->first_name}} {{$transaction->last_name}}</td>
-                                 <td>{{$tansaction->addressVerificationDetails->reference_id}}</td>
-                                 <td>
-                                     @if(isset($tansaction->addressVerificationDetails->status))
+                 <!--end card-->
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-12">
+                 <div class="card">
+                     <div class="card-header">
+                         <h4 class="card-title">{{$slug->name}} log</h4>
+                     </div>
+                     <!--end card-header-->
+                     <div class="card-body">
+                         <table id="datatable-buttons" class="table table-striped dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                             <thead>
+                                 <tr>
+                                     <th>SN</th>
+                                     <th>Address Candidate</th>
+                                     <th>Verification ID</th>
+                                     <th>Status</th>
+                                     <th>Initiated by</th>
+                                     <th>Fee</th>
+                                     <th>Date Requested</th>
+                                     <th>Action</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 @foreach ($logs as $transaction)
+                                 <tr>
+                                     <td>{{$loop->iteration}}</td>
+                                     <td>{{$transaction->first_name}} {{$transaction->last_name}}</td>
+                                     <td>{{isset($tansaction->addressVerificationDetails)? $tansaction->addressVerificationDetails->reference_id : '---'}}</td>
+                                     <td>
+                                        @if(isset($tansaction->addressVerificationDetails))
+                                            @if($transaction->addressVerificationDetails->status == 'pending')
+                                                <span class="badge badge-soft-purple">Pending</span>
+                                            @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
+                                                <span class="badge badge-soft-success"> {{$transaction->addressVerificationDetails->status}}</span>
+                                            @elseif($transaction->addressVerificationDetails->status == 'awaiting_schedule')
+                                                <span class="badge badge-soft-dark"> {{$transaction->addressVerificationDetails->status}}</span>
+                                            @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerificationDetails->task_status == 'NOT VERIFIED')
+                                                <span class="badge badge-soft-warning"> {{$transaction->addressVerificationDetails->status}}</span>
+                                            @else
+                                                <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetails->status}}</span>
+                                            @endif
+                                        @else
+                                            <span class="badge badge-soft-secondary">No verification Request Yet</span>
+                                        @endif
+                                     </td>
+                                     <td>{{$transaction->user->name}}</td>
+                                     <td>{{$transaction->fee}}</td>
+                                     <td>{{$transaction->created_at}}</td>
 
-                                     @if($transaction->addressVerificationDetails->status == 'pending')
-                                     <span class="badge badge-soft-purple">Pending</span>
-                                     @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
-                                     <span class="badge badge-soft-success"> {{$transaction->addressVerificationDetails->status}}</span>
-                                     @elseif($transaction->addressVerificationDetails->status == 'awaiting_schedule')
-                                     <span class="badge badge-soft-dark"> {{$transaction->addressVerificationDetails->status}}</span>
-                                     @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerificationDetails->task_status == 'NOT VERIFIED')
-                                     <span class="badge badge-soft-warning"> {{$transaction->addressVerificationDetails->status}}</span>
-                                     @else <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetails->status}}</span>
-                                     @endif
-                                     @else
-                                     <span class="badge badge-soft-secondary">No verification Request</span>
-                                     @endif
-                                 </td>
-                                 <td>{{$transaction->user->name}}</td>
-                                 <td>{{$transaction->fee}}</td>
-                                 <td>{{$transaction->created_at}}</td>
-
-                                 <td>
-                                     <div class="dropdown d-inline-block">
-                                         <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                             <i class="las la-ellipsis-v font-20 text-muted"></i>
-                                         </a>
-                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
-                                             <a class="dropdown-item" href="#">Creat Project</a>
-                                             <a class="dropdown-item" href="#">Open Project</a>
-                                             <a class="dropdown-item" href="#">Tasks Details</a>
+                                     <td>
+                                         <div class="dropdown d-inline-block">
+                                             <a class="dropdown-toggle arrow-none" id="seeMore" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                 <i class="las la-ellipsis-v font-20 text-muted"></i>
+                                             </a>
+                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="seeMore" style="">
+                                                @if(isset($transaction->addressVerificationDetails))
+                                                    <a class="dropdown-item" href="#">View Verification Report</a>
+                                                @else
+                                                    <a class="dropdown-item" href="#">Make a Verification Request</a>
+                                                @endif
+                                             </div>
                                          </div>
-                                     </div>
-                                 </td>
-                                 <!-- <td> @if($transaction->status == 'successful')
+                                     </td>
+                                     <!-- <td> @if($transaction->status == 'successful')
                                      <a href="{{route('verify.details', encrypt($trans->id))}}">View Details</a>
                                      @endif
                                  </td> -->
-                             </tr>
-                             @endforeach
-                             <tr>
-                                                <td>#124</td>
-                                                <td>Sixta Jones C.</td>
-                                                <td>67900078321</td>
-                                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                                <td>Chukwudi Ezeh</td>
-                                                <td>6790</td>
-                                                <td>65/34/30034</td>
-                                                <td class="text-right">
-                                                    <div class="dropdown d-inline-block">
-                                                        <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-h font-15 text-muted"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
-                                                            <a class="dropdown-item" href="#">Creat Project</a>
-                                                            <a class="dropdown-item" href="#">Open Project</a>
-                                                            <a class="dropdown-item" href="#">Tasks Details</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>#124</td>
-                                                <td>Sixta Jones C.</td>
-                                                <td>67900078321</td>
-                                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                                <td>Chukwudi Ezeh</td>
-                                                <td>6790</td>
-                                                <td>65/34/30034</td>
-                                                <td class="text-right">
-                                                    <div class="dropdown d-inline-block">
-                                                        <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                                            <i class="las la-ellipsis-v font-20 text-muted"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
-                                                            <a class="dropdown-item" href="#">Creat Project</a>
-                                                            <a class="dropdown-item" href="#">Open Project</a>
-                                                            <a class="dropdown-item" href="#">Tasks Details</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>#124</td>
-                                                <td>Sixta Jones C.</td>
-                                                <td>67900078321</td>
-                                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                                <td>Chukwudi Ezeh</td>
-                                                <td>6790</td>
-                                                <td>65/34/30034</td>
-                                                <td class="text-right">
-                                                    <div class="dropdown d-inline-block">
-                                                        <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                                            <i class="las la-ellipsis-v font-20 text-muted"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
-                                                            <a class="dropdown-item" href="#">Creat Project</a>
-                                                            <a class="dropdown-item" href="#">Open Project</a>
-                                                            <a class="dropdown-item" href="#">Tasks Details</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                         </tbody>
-                     </table>
-                 </div>
-             </div>
-         </div> <!-- end col -->
-     </div>
-     @endsection
-     @section('script')
-     <script>
-         $('#btnsubmit').on('click', function() {
-             $('#btnsubmit').html('<span class="spinner-grow text-secondary spinner-grow-sm" role="status" aria-hidden="true"></span>Please Wait....');
-             let reference = $('#reference').val();
-             let first_name = $('#first_name').val();
-             let last_name = $('#last_name').val();
-             $.ajaxSetup({
-                 headers: {
-                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 }
-             });
-             $.ajax({
-                 url: "{{route('StoreVerify',$slug->slug)}}",
-                 type: 'GET',
-                 data: {
-                     reference: reference,
-                     first_name: reference,
-                     last_name: last_name
-                 },
-                 cache: false,
-                 dataType: "json",
-                 success: function(response) {
-                     // console.log(response.status);
-                     if (response.status == 'success') {
-                         console.log(response);
-                         $('#btnsubmit').html('<span class="" role="status" aria-hidden="true">Verify Candidate</span>');
-                         $('#result').html('<span class="btn btn-success" role="status" aria-hidden="true">Verification Completed Successfull</span>');
-                         $('#details').attr('hidden', false);
-                         window.location.reload();
-                     }
-                 },
-             });
-         });
-     </script>
+                                 </tr>
+                                 @endforeach
+                                 <tr>
+                                     <td>#124</td>
+                                     <td>Sixta Jones C.</td>
+                                     <td>67900078321</td>
+                                     <td><span class="badge badge-soft-success">Approved</span></td>
+                                     <td>Chukwudi Ezeh</td>
+                                     <td>6790</td>
+                                     <td>65/34/30034</td>
+                                     <td class="text-right">
+                                         <div class="dropdown d-inline-block">
+                                             <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                 <i class="fa fa-ellipsis-h font-12 text-muted"></i>
+                                             </a>
+                                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dLabel11" style="">
+                                                 <a class="dropdown-item" href="#">View Verification Report</a>
 
-     @endsection
+                                                 <a class="dropdown-item" href="#">Make a Verification Request</a>
+                                                 
+                                             </div>
+                                         </div>
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td>#124</td>
+                                     <td>Sixta Jones C.</td>
+                                     <td>67900078321</td>
+                                     <td><span class="badge badge-soft-success">Approved</span></td>
+                                     <td>Chukwudi Ezeh</td>
+                                     <td>6790</td>
+                                     <td>65/34/30034</td>
+                                     <td class="text-right">
+                                         <div class="dropdown d-inline-block">
+                                             <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                 <i class="las la-ellipsis-v font-20 text-muted"></i>
+                                             </a>
+                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
+                                                 <a class="dropdown-item" href="#">Creat Project</a>
+                                                 <a class="dropdown-item" href="#">Open Project</a>
+                                                 <a class="dropdown-item" href="#">Tasks Details</a>
+                                             </div>
+                                         </div>
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td>#124</td>
+                                     <td>Sixta Jones C.</td>
+                                     <td>67900078321</td>
+                                     <td><span class="badge badge-soft-success">Approved</span></td>
+                                     <td>Chukwudi Ezeh</td>
+                                     <td>6790</td>
+                                     <td>65/34/30034</td>
+                                     <td class="text-right">
+                                         <div class="dropdown d-inline-block">
+                                             <a class="dropdown-toggle arrow-none" id="dLabel11" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                 <i class="las la-ellipsis-v font-20 text-muted"></i>
+                                             </a>
+                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel11" style="">
+                                                 <a class="dropdown-item" href="#">Creat Project</a>
+                                                 <a class="dropdown-item" href="#">Open Project</a>
+                                                 <a class="dropdown-item" href="#">Tasks Details</a>
+                                             </div>
+                                         </div>
+                                     </td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div> <!-- end col -->
+         </div>
+         @endsection
+         @section('script')
+         <script>
+             $('#btnsubmit').on('click', function() {
+                 $('#btnsubmit').html('<span class="spinner-grow text-secondary spinner-grow-sm" role="status" aria-hidden="true"></span>Please Wait....');
+                 let reference = $('#reference').val();
+                 let first_name = $('#first_name').val();
+                 let last_name = $('#last_name').val();
+                 $.ajaxSetup({
+                     headers: {
+                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     }
+                 });
+                 $.ajax({
+                     url: "{{route('StoreVerify',$slug->slug)}}",
+                     type: 'GET',
+                     data: {
+                         reference: reference,
+                         first_name: reference,
+                         last_name: last_name
+                     },
+                     cache: false,
+                     dataType: "json",
+                     success: function(response) {
+                         // console.log(response.status);
+                         if (response.status == 'success') {
+                             console.log(response);
+                             $('#btnsubmit').html('<span class="" role="status" aria-hidden="true">Verify Candidate</span>');
+                             $('#result').html('<span class="btn btn-success" role="status" aria-hidden="true">Verification Completed Successfull</span>');
+                             $('#details').attr('hidden', false);
+                             window.location.reload();
+                         }
+                     },
+                 });
+             });
+         </script>
+
+         @endsection
