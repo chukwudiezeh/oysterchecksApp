@@ -143,8 +143,6 @@
                  </div> <!-- end card -->
              </div> <!-- end col -->
          </div>
-
-
          <div class="col-12">
              <div class="card">
                  <div class="card-header">

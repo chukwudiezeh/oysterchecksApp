@@ -172,10 +172,11 @@
 
                                      <td>
                                          <div class="dropdown d-inline-block">
-                                             <a class="dropdown-toggle arrow-none" id="seeMore" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                                 <i class="las la-ellipsis-v font-20 text-muted"></i>
-                                             </a>
+                                            <a class="dropdown-toggle arrow-none" id="seeMore" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h font-12 text-muted"></i>
+                                            </a>
                                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="seeMore" style="">
+                                             <a class="dropdown-item" href="#">Copy Reference Id</a>
                                                 @if(isset($transaction->addressVerificationDetails))
                                                     <a class="dropdown-item" href="#">View Verification Report</a>
                                                 @else
