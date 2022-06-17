@@ -203,17 +203,51 @@
                                     <div class="accordion-item border-0">
                                         <h5 class="accordion-header m-0" id="headingFour">
                                             <button class="accordion-button fw-semibold font-15" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                                                Images
+                                                Notes
                                             </button>
                                         </h5>
                                         <div id="collapseFour" class="accordion-collapse" aria-labelledby="headingFour" data-bs-parent="#notes" style="">
                                             <div class="accordion-body">
                                                 <div class="row mb-5">
-                                                    <div class="mr-2" style="width: 8rem; height: 8rem; ">
-                                                        <img src="assets/images/small/img-1.jpg" alt="" class="img-fluid rounded">
+                                                    <div class="col-12 py-4">
+                                                        <div class="media">
+                                                            <div class="me-3 align-self-center">
+                                                                <i class="far fa-sticky-note font-20"></i>
+                                                            </div>
+                                                            <!-- <img src="assets/images/small/rgb.svg" height="30" class="me-3 align-self-center rounded" alt="..."> -->
+                                                            <div class="media-body align-self-center">
+                                                                <h6 class="m-0 font-15">Dastone - Admin Dashboard Dastone - Admin Dashboard Dastone - Admin Dashboard Dastone - Admin Dashboard Dastone - Admin Dashboard </h6>
+                                                                <p class="mb-0 text-muted font-13">June 31, 2022</p>
+                                                            </div>
+                                                            <!--end media body-->
+                                                        </div>
                                                     </div>
-                                                    <div class="mr-2" style="width: 8rem; height: 8rem; ">
-                                                        <img src="assets/images/small/img-1.jpg" alt="" class="img-fluid rounded">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="accordion" id="description">
+                                    <div class="accordion-item border-0">
+                                        <h5 class="accordion-header m-0" id="headingFive">
+                                            <button class="accordion-button fw-semibold font-15" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                                Images
+                                            </button>
+                                        </h5>
+                                        <div id="collapseFive" class="accordion-collapse" aria-labelledby="headingFive" data-bs-parent="#notes" style="">
+                                            <div class="accordion-body">
+                                                <div class="row mb-5">
+                                                    <div class="col-12 py-4">
+                                                        <div class="media">
+                                                            <img src="assets/images/small/rgb.svg" height="30" class="me-3 align-self-center rounded" alt="...">
+                                                            <div class="media-body align-self-center">
+                                                                <h6 class="m-0">Dastone - Admin Dashboard Dastone - Admin Dashboard Dastone - Admin Dashboard Dastone - Admin Dashboard Dastone - Admin Dashboard </h6>
+                                                                <p class="mb-0 text-muted">June 31, 2022</p>
+                                                            </div>
+                                                            <!--end media body-->
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
