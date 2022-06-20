@@ -30,6 +30,14 @@ class AddressController extends Controller
         return view('users.address.index', $data);
     }
 
+    public function showCreateCandidate($slug){
+      if(auth()->user()->user_type == 3)
+        return redirect()->route('admin.index');
+      
+      $data = $this->generateCreateCandidateData($slug);
+      return view('users.address.createAddressCandidate', $data);
+    }
+
     public function createCandidate(Request $request, $slug){
             $slug = Verification::where('slug', decrypt($slug))->first();
                 $valid = Validator::make($request->all(), [
@@ -348,6 +356,19 @@ class AddressController extends Controller
           DB::rollBack();
           throw $e;
        }
+  }
+
+  public function verificationReport($slug, $addressId)
+  {
+    $slug = Verification::where('slug', decrypt($slug))->first();
+
+    $get_address_verification = AddressVerification::where([['verification_id','=',$slug->id], ['id', '=', decrypt($addressId)]])->first();
+
+    $get_address_verification->addressVerificationDetail;
+
+    dd($get_address_verification);
+    // return view('users.address.addressReport',['slug'=>$slug,'address_verification' => $get_address_verification]);
+    
   }
 
 }

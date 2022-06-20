@@ -35,7 +35,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="#">
+                        <a href="{{ url()->previous() }}">
                             <i class="fa fa-arrow-left me-2 font-15"></i>
                             <span class="card-title">Back</span>
                         </a>
@@ -45,7 +45,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="my-4 fw-semibold text-dark font-16">Address Report "629099ef334f1"</h4>
+                                    <h4 class="my-4 fw-semibold text-dark font-16">Address Report - </h4>
                                     <button type="button" class="btn btn-primary btn-square">Download Report</button>
                                 </div>
                             </div>
@@ -233,22 +233,74 @@
                                     <div class="accordion-item border-0">
                                         <h5 class="accordion-header m-0" id="headingFive">
                                             <button class="accordion-button fw-semibold font-15" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
-                                                Images
+                                                Additional Information
                                             </button>
                                         </h5>
                                         <div id="collapseFive" class="accordion-collapse" aria-labelledby="headingFive" data-bs-parent="#notes" style="">
-                                            <div class="accordion-body">
+                                            <div class="accordion-body pt-0">
                                                 <div class="row mb-5">
-                                                    <div class="col-12 py-4">
-                                                        <div class="media">
-                                                            <img src="assets/images/small/rgb.svg" height="30" class="me-3 align-self-center rounded" alt="...">
-                                                            <div class="media-body align-self-center">
-                                                                <h6 class="m-0">Dastone - Admin Dashboard Dastone - Admin Dashboard Dastone - Admin Dashboard Dastone - Admin Dashboard Dastone - Admin Dashboard </h6>
-                                                                <p class="mb-0 text-muted">June 31, 2022</p>
+
+                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-5">Start : </div>
+                                                        <div class="text-muted fw-normal font-15">15 Nov 2020</div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-5">Start : </div>
+                                                        <div class="text-muted fw-normal font-15">15 Nov 2020</div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-5">Start : </div>
+                                                        <div class="text-muted fw-normal font-15">15 Nov 2020</div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-5">Start : </div>
+                                                        <div class="text-muted fw-normal font-15">15 Nov 2020</div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="accordion" id="agentDetails">
+                                    <div class="accordion-item border-0">
+                                        <h5 class="accordion-header m-0" id="headingSix">
+                                            <button class="accordion-button fw-semibold font-15" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                                                Agent Details
+                                            </button>
+                                        </h5>
+                                        <div id="collapseSix" class="accordion-collapse" aria-labelledby="headingSix" data-bs-parent="#agentDetails" style="">
+                                            <div class="accordion-body pt-0">
+                                            <div class="row">
+                                                    <div class="col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
+                                                        <div class="dastone-profile-main">
+                                                            <div class="dastone-profile-main-pic">
+                                                                <img src="{{asset('assets/images/users/user-4.jpg')}}" alt="" height="110" class="rounded-circle">
                                                             </div>
-                                                            <!--end media body-->
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row border-bottom mb-5">
+
+                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-5">Start : </div>
+                                                        <div class="text-muted fw-normal font-15">15 Nov 2020</div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-5">Start : </div>
+                                                        <div class="text-muted fw-normal font-15">15 Nov 2020</div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-5">Start : </div>
+                                                        <div class="text-muted fw-normal font-15">15 Nov 2020</div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-5">Start : </div>
+                                                        <div class="text-muted fw-normal font-15">15 Nov 2020</div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>

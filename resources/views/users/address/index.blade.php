@@ -110,7 +110,7 @@
                          </div>
                          <div class="col-md-6 align-self-center">
                              <div class="card-body d-flex justify-content-lg-end justify-content-center">
-                                 <button type="button" class="btn btn-primary btn-lg btn-square">Create Candidate</button>
+                                 <a type="button" class="btn btn-primary btn-lg btn-square" href="{{route('showCreateCandidate', $slug->slug)}}">Create Candidate</a>
 
                              </div>
                          </div>

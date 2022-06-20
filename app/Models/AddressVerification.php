@@ -33,8 +33,8 @@ class AddressVerification extends Model
         return $this->belongsTo(Verification::class, 'verification_id', 'id');
     }
 
-    public function addressVerificationDetails()
+    public function addressVerificationDetail()
     {
-        return $this->hasMany(AddressVerificationDetail::class, 'address_verification_id');
+        return $this->hasOne(AddressVerificationDetail::class, 'address_verification_id');
     }
 }
