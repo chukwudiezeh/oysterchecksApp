@@ -31,12 +31,30 @@
              </div>
              <!--end col-->
          </div>
-       
+         <div class="row">
+             <div class="col-lg-12">
+                 <div class="card mb-3" style="background:#f1f5fa">
+                     <div class="row">
+                         <div class="col-md-6">
+                             <div class="card-body">
+                                 <h5 class="card-title">Create a Candidate for your Address Verification</h5>
+                                 <p class="card-text mb-0">A candidate is a person to which a verification is linked. An Individual, Guarantor or Business Verification can be requested with respect to the candidate created.</p>
+                                 <p class="card-text mb-0"><small class="text-muted">The input fields with the red asterisk (<span class="text-danger">*</span>) must be filled.</small></p>
+                             </div>
+                         </div>
+                         
+                         <!--end col-->
+                     </div>
+                     <!--end row-->
+                 </div>
+                 <!--end card-->
+             </div>
+         </div>
          <div class="row">
              <div class="col-lg-12">
                  <div class="card">
                      <div class="card-header">
-                         <h4 class="card-title">{{$slug->name}}</h4>
+                         <h4 class="card-title">Create A Candidate</h4>
                      </div>
                      <!--end card-header-->
                      <form method="post" action="{{route('createCandidate',encrypt($slug->slug))}}" enctype="multipart/form-data">
