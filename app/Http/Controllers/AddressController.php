@@ -126,7 +126,7 @@ class AddressController extends Controller
                 Session::flash('message', 'Candidate Created Successfully');
                 // return view('users.address.verifyAddress', $data);
 
-                dd($service_ref);
+                // dd($service_ref);
                 return redirect()->route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $service_ref]);
             }
             }catch(\Exception $e){
@@ -286,7 +286,7 @@ class AddressController extends Controller
        try{
          $curl = curl_init();
          $datas = json_encode($data, true);
-        // dd($datas);
+        dd($datas);
 
          curl_setopt_array($curl, [
           CURLOPT_URL => $host,
