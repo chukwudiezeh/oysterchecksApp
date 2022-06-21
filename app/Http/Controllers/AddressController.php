@@ -119,17 +119,27 @@ class AddressController extends Controller
                 "image" => asset('assets/candidates/'.$image)
                 ]);
               // return $res;
-              $data = $this->generateAddressReportVerify($slug);
-              $data['service_ref'] = $service_ref;
+              // $data = $this->generateAddressReportVerify($slug);
+              // $data['service_ref'] = $service_ref;
                 DB::commit();
                 Session::flash('alert', 'success');
                 Session::flash('message', 'Candidate Created Successfully');
-                return view('users.address.verifyAddress', $data);
+                // return view('users.address.verifyAddress', $data);
+                return redirect()->route('showVerificationDetailsForm', encrypt($slug->slug), $service_ref);
             }
             }catch(\Exception $e){
             DB::rollBack();
             throw $e;
             }
+    }
+
+    public function showVerificationDetailsForm($slug, $service_ref)
+    {
+      $slug = decrypt($slug);
+      $data = $this->generateAddressReportVerify($slug);
+      $data['service_ref'] = $service_ref;
+
+      return view('users.address.verifyAddress', $data);
     }
 
     public function submitAddressVerify(Request $request, $service_ref){

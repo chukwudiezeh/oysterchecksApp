@@ -56,7 +56,7 @@ Route::get('/user/business/details/{slug}', [BusinessController::class, 'Busines
 Route::get('/user/address/verification/{slug}', [AddressController::class,'AddressIndex'])->name('addressIndex');
 Route::get('/user/address/verification/{slug}/{addressId}', [AddressController::class, 'verificationReport'])->name('addressReport');
 Route::post('/user/address/verification/store/{slug}', [AddressController::class,'submitAddressVerify'])->name('AddressStore');
-
+Route::get('/user/address/verification/{slug}candidate/{service_ref}verification-details', [AddressController::class, 'showVerificationDetailsForm'])->name('showVerificationDetailsForm');
 Route::get('/user/address/verification/candidate/create/{slug}', [AddressController::class,'showCreateCandidate'])->name('showCreateCandidate');
 
 Route::post('/user/address/verification/candidate/create/{slug}', [AddressController::class,'createCandidate'])->name('createCandidate');

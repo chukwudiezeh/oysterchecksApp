@@ -54,7 +54,7 @@
              <div class="col-lg-12">
                  <div class="card">
                      <div class="card-header">
-                         <h4 class="card-title">Create A Candidate</h4>
+                         <h4 class="card-title">Create a Candidate</h4>
                      </div>
                      <!--end card-header-->
                      <form method="post" action="{{route('createCandidate',encrypt($slug->slug))}}" enctype="multipart/form-data">
