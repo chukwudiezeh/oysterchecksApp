@@ -180,7 +180,7 @@
                                                 @if(isset($transaction->addressVerificationDetails))
                                                     <a class="dropdown-item" href="#">View Verification Report</a>
                                                 @else
-                                                    <a class="dropdown-item" href="{{route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref => $transaction->service_ref])}}">Make a Verification Request</a>
+                                                    <a class="dropdown-item" href="{{route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $transaction->service_ref])}}">Make a Verification Request</a>
                                                 @endif
                                              </div>
                                          </div>
