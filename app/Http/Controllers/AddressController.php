@@ -125,7 +125,9 @@ class AddressController extends Controller
                 Session::flash('alert', 'success');
                 Session::flash('message', 'Candidate Created Successfully');
                 // return view('users.address.verifyAddress', $data);
-                return redirect()->route('showVerificationDetailsForm', encrypt($slug->slug), $service_ref);
+
+                dd($service_ref);
+                return redirect()->route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $service_ref]);
             }
             }catch(\Exception $e){
             DB::rollBack();
