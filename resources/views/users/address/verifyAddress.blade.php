@@ -78,45 +78,6 @@
                  </div> <!-- end card -->
              </div> <!-- end col -->
          </div>
-         <div class="col-12">
-             <div class="card">
-                 <div class="card-header">
-                     <h4 class="card-title">{{$slug->name}} log</h4>
-                 </div>
-                 <!--end card-header-->
-                 <div class="card-body">
-                     <table id="datatable-buttons" class=" orders table table-striped table-bordered dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                         <thead>
-                             <tr>
-                                 <th>SN</th>
-                                 <th>Address Verification</th>
-                                 <th>Verified by</th>
-                                 <th>Fee</th>
-                                 <th>Status</th>
-                                 <th>Date</th>
-                                 <th>Action</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             @foreach ($logs as $trans )
-                             <tr>
-                                 <td>{{$trans->id}}</td>
-                                 <td>{{$trans->service_reference}}</td>
-                                 <td>{{$trans->user->name}}</td>
-                                 <td>{{$trans->fee}}</td>
-                                 <td>@if($trans->status == 'successful') <span class="text-success"> {{$trans->status}}</span> @elseif($trans->status == 'pending')<span class="text-warning"> {{$trans->status}}</span> @else <span class="text-danger"> {{$trans->status}}</span> @endif </td>
-                                 <td>{{$trans->created_at}}</td>
-                                 <td> @if($trans->status == 'successful')
-                                     <a href="{{route('verify.details', encrypt($trans->id))}}">View Details</a>
-                                     @endif
-                                 </td>
-                             </tr>
-                             @endforeach
-                         </tbody>
-                     </table>
-                 </div>
-             </div>
-         </div> <!-- end col -->
      </div>
      @endsection
      @section('script')
