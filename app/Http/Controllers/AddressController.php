@@ -286,7 +286,7 @@ class AddressController extends Controller
        try{
          $curl = curl_init();
          $datas = json_encode($data, true);
-        dd($datas);
+        // dd($datas);
 
          curl_setopt_array($curl, [
           CURLOPT_URL => $host,
@@ -362,6 +362,8 @@ class AddressController extends Controller
           Session::flash('alert', 'success');
           Session::flash('message', 'Address submitted for verification');
           return redirect()->route('addressIndex', $request->slug);
+        }else{
+          dd($res);
         }
 
        }catch(\Exception $e){
