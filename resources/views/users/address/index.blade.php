@@ -148,19 +148,19 @@
                                  <tr>
                                      <td>{{$loop->iteration}}</td>
                                      <td>{{$transaction->first_name}} {{$transaction->last_name}}</td>
-                                     <td>{{$transaction->addressVerificationDetails()->exists() ? $transaction->addressVerificationDetails->reference_id : '---'}}</td>
+                                     <td>{{$transaction->addressVerificationDetail()->exists() ? $transaction->addressVerificationDetail->reference_id : '---'}}</td>
                                      <td>
-                                        @if($transaction->addressVerificationDetails()->exists())
-                                            @if($transaction->addressVerificationDetails->status == 'pending')
+                                        @if($transaction->addressVerificationDetail()->exists())
+                                            @if($transaction->addressVerificationDetail->status == 'pending')
                                                 <span class="badge badge-soft-purple">Pending</span>
-                                            @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
-                                                <span class="badge badge-soft-success"> {{$transaction->addressVerificationDetails->status}}</span>
-                                            @elseif($transaction->addressVerificationDetails->status == 'awaiting_schedule')
-                                                <span class="badge badge-soft-dark"> {{$transaction->addressVerificationDetails->status}}</span>
-                                            @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerificationDetails->task_status == 'NOT VERIFIED')
-                                                <span class="badge badge-soft-warning"> {{$transaction->addressVerificationDetails->status}}</span>
+                                            @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'VERIFIED')
+                                                <span class="badge badge-soft-success"> {{$transaction->addressVerificationDetail->status}}</span>
+                                            @elseif($transaction->addressVerificationDetail->status == 'awaiting_schedule')
+                                                <span class="badge badge-soft-dark"> {{$transaction->addressVerificationDetail->status}}</span>
+                                            @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'NOT VERIFIED')
+                                                <span class="badge badge-soft-warning"> {{$transaction->addressVerificationDetail->status}}</span>
                                             @else
-                                                <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetails->status}}</span>
+                                                <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetail->status}}</span>
                                             @endif
                                         @else
                                             <span class="badge badge-soft-secondary">No verification Request Yet</span>
@@ -177,7 +177,7 @@
                                             </a>
                                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="seeMore" style="">
                                              <a class="dropdown-item" href="#">Copy Reference Id</a>
-                                                @if($transaction->addressVerificationDetails()->exists())
+                                                @if($transaction->addressVerificationDetail()->exists())
                                                     <a class="dropdown-item" href="#">View Verification Report</a>
                                                 @else
                                                     <a class="dropdown-item" href="{{route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $transaction->service_reference])}}">Make a Verification Request</a>
