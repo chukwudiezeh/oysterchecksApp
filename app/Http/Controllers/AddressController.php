@@ -379,12 +379,13 @@ class AddressController extends Controller
   {
     $slug = Verification::where('slug', decrypt($slug))->first();
 
-    $get_address_verification = AddressVerification::where([['verification_id','=',$slug->id], ['id', '=', decrypt($addressId)]])->first();
+    $address_verification = AddressVerification::where(['id' => decrypt($addressId)])->first();
 
-    $get_address_verification->addressVerificationDetail;
+    $address_verification->addressVerificationDetail;
 
-    dd($get_address_verification);
-    // return view('users.address.addressReport',['slug'=>$slug,'address_verification' => $get_address_verification]);
+    dd($address_verification);
+
+    return view('users.address.addressReport',['slug'=>$slug,'address_verification' => $address_verification]);
     
   }
 

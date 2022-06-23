@@ -54,11 +54,10 @@ Route::get('/user/business/check/{slug}', [BusinessController::class, 'Index'])-
 Route::post('/user/business/verify/{slug}', [BusinessController::class, 'BusinessStore'])->name('businessStore');
 Route::get('/user/business/details/{slug}', [BusinessController::class, 'BusinessDetails'])->name('business.details');
 Route::get('/user/address/verification/{slug}', [AddressController::class,'AddressIndex'])->name('addressIndex');
-Route::get('/user/address/verification/{slug}/{addressId}', [AddressController::class, 'verificationReport'])->name('addressReport');
+Route::get('/user/address/verification/{slug}/{addressId}', [AddressController::class, 'verificationReport'])->name('showAddressReport');
 Route::post('/user/address/verification/store/{slug}', [AddressController::class,'submitAddressVerify'])->name('AddressStore');
 Route::get('/user/address/verification/{slug}/candidate/{service_ref}/verification-details', [AddressController::class, 'showVerificationDetailsForm'])->name('showVerificationDetailsForm');
-Route::get('/user/address/verification/candidate/create/{slug}', [AddressController::class,'showCreateCandidate'])->name('showCreateCandidate');
-
+Route::get('/user/address/verification/{slug}/candidate/create', [AddressController::class,'showCreateCandidate'])->name('showCreateCandidate');
 Route::post('/user/address/verification/candidate/create/{slug}', [AddressController::class,'createCandidate'])->name('createCandidate');
 Route::get('/user/candidate/index', [CandidateController::class, 'CandidateIndex'])->name('candidate.index');
 Route::get('/user/candidate/create', [CandidateController::class, 'CadidateCreate'])->name('candidate.create');

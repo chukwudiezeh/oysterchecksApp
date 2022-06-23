@@ -178,7 +178,7 @@
                                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="seeMore" style="">
                                              <a class="dropdown-item" href="#">Copy Reference Id</a>
                                                 @if($transaction->addressVerificationDetail()->exists())
-                                                    <a class="dropdown-item" href="#">View Verification Report</a>
+                                                    <a class="dropdown-item" href="{{route('showAddressReport', ['slug' => encrypt($slug->slug), 'addressId' => encrypt($transaction->id)])}}">View Verification Report</a>
                                                 @else
                                                     <a class="dropdown-item" href="{{route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $transaction->service_reference])}}">Make a Verification Request</a>
                                                 @endif
