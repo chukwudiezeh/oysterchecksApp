@@ -45,38 +45,78 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="my-4 fw-semibold text-dark font-16">Address Report - </h4>
+                                    <h4 class="my-4 fw-semibold text-dark font-16">Address Report - {{$address_verification->addressVerificationDetail->reference_id}}</h4>
                                     <button type="button" class="btn btn-primary btn-square">Download Report</button>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <div class="alert alert-success border-0" role="alert">
-                                    <strong>Well done!</strong> You successfully read this important alert message.
+                                @if($address_verification->addressVerificationDetail->status == 'pending')
+                                <div class="alert custom-alert alert-purple icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
+                                    <div class="media">
+                                        <i class="mdi mdi-clock-outline alert-icon text-purple align-self-center font-30 me-3"></i>
+                                        <div class="media-body align-self-center">
+                                            <h5 class="mb-1 fw-bold mt-0">Pending</h5>
+                                            <span>Your address verification request is yet to be accepted by our agent.</span>
+                                        </div>
+                                    </div>
                                 </div>
+                                @elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'VERIFIED')
+                                <div class="alert custom-alert alert-success icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
+                                    <div class="media">
+                                        <i class="mdi mdi-shield-check-outline alert-icon text-success align-self-center font-30 me-3"></i>
+                                        <div class="media-body align-self-center">
+                                            <h5 class="mb-1 fw-bold mt-0 text-success">Completed and Verified</h5>
+                                            <span>Your Address verification request have been completed and confirmed verified.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @elseif($address_verification->addressVerificationDetail->status == 'awaiting_schedule')
+                                <div class="alert custom-alert alert-info icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
+                                    <div class="media">
+                                        <i class="fas fa-hourglass-start alert-icon text-info align-self-center font-30 me-3"></i>
+                                        <div class="media-body align-self-center">
+                                            <h5 class="mb-1 fw-bold mt-0 text-info">Awaitiing Reschedule</h5>
+                                            <span>Your Address verification request is awaiting schedule as agent wasn't able to access the location due to violence in that area.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'NOT VERIFIED')
+                                <div class="alert custom-alert alert-warning icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
+                                    <div class="media">
+                                        <i class="mdi mdi-shield-off-outline alert-icon text-warning align-self-center font-30 me-3"></i>
+                                        <div class="media-body align-self-center">
+                                            <h5 class="mb-1 fw-bold mt-0 text-warning">Completed and Not Verified</h5>
+                                            <span>Your Address verification request have been completed and marked not verified. Candidate does not live here or address does not exist or is not accessible.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="alert custom-alert alert-danger icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
+                                    <div class="media">
+                                        <i class="far fa-times-circle alert-icon text-danger align-self-center font-30 me-3"></i>
+                                        <div class="media-body align-self-center">
+                                            <h5 class="mb-1 fw-bold mt-0 text-danger">Cancelled</h5>
+                                            <span>Your Address verification request have been cancelled due to incomplete or incorrect address details</span>
+                                        </div>
+                                    </div>
+                                </div>  
+                                @endif
                             </div>
                         </div>
                         <div class="row pb-4">
                             <div class="col-12">
-                                <div class="pt-2 px-2 mb-2"><span class="text-muted mr-2">Verification Id :</span> <b>629099ef334f1</b></div>
-
+                                <div class="pt-2 px-2 mb-2 font-15"><span class="text-muted mr-2">Verification Id :</span> <b>{{$address_verification->addressVerificationDetail->reference_id}}</b></div>
                             </div>
                             <div class="col-md-4">
-
-                                <div class="mt-2 mb-2 px-2"><span class="text-muted mr-2">Verification Id :</span> <b>629099ef334f1</b></div>
-
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Verification Type :</span> <b>{{$slug->name}}</b></div>
                             </div>
                             <div class="col-md-4">
-
-                                <div class="mt-2 mb-2 px-2"><span class="text-muted mr-2">Verification Id :</span> <b>629099ef334f1</b></div>
-
-
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> <b>{{$address_verification->addressVerificationDetail->created_at}}</b></div>
                             </div>
                             <div class="col-md-4">
-
-                                <div class="mt-2 mb-2 px-2"><span class="text-muted mr-2">Verification Id :</span> <b>629099ef334f1</b></div>
-
+                                <div class="mt-2 mb-2 px-2"><span class="text-muted mr-2">Executed At :</span> <b>{{$address_verification->addressVerificationDetail->}}</b></div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2"><span class="text-muted mr-2">Verification Id :</span> <b>629099ef334f1</b></div>
@@ -256,7 +296,7 @@
                                                         <div class="fw-semibold m-0 font-15 me-5">Start : </div>
                                                         <div class="text-muted fw-normal font-15">15 Nov 2020</div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -273,7 +313,7 @@
                                         </h5>
                                         <div id="collapseSix" class="accordion-collapse" aria-labelledby="headingSix" data-bs-parent="#agentDetails" style="">
                                             <div class="accordion-body pt-0">
-                                            <div class="row">
+                                                <div class="row">
                                                     <div class="col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
                                                         <div class="dastone-profile-main">
                                                             <div class="dastone-profile-main-pic">

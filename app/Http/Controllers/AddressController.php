@@ -383,7 +383,7 @@ class AddressController extends Controller
 
     $address_verification->addressVerificationDetail;
 
-    dd($address_verification);
+    // dd($address_verification);
 
     return view('users.address.addressReport',['slug'=>$slug,'address_verification' => $address_verification]);
     
