@@ -148,9 +148,9 @@
                                  <tr>
                                      <td>{{$loop->iteration}}</td>
                                      <td>{{$transaction->first_name}} {{$transaction->last_name}}</td>
-                                     <td>{{isset($tansaction->addressVerificationDetails)? $tansaction->addressVerificationDetails->reference_id : '---'}}</td>
+                                     <td>{{$transaction->addressVerificationDetails->exists()? $tansaction->addressVerificationDetails->reference_id : '---'}}</td>
                                      <td>
-                                        @if($tansaction->addressVerificationDetails->exists())
+                                        @if($transaction->addressVerificationDetails->exists())
                                             @if($transaction->addressVerificationDetails->status == 'pending')
                                                 <span class="badge badge-soft-purple">Pending</span>
                                             @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
