@@ -150,7 +150,7 @@
                                      <td>{{$transaction->first_name}} {{$transaction->last_name}}</td>
                                      <td>{{isset($tansaction->addressVerificationDetails)? $tansaction->addressVerificationDetails->reference_id : '---'}}</td>
                                      <td>
-                                        @if(isset($tansaction->addressVerificationDetails))
+                                        @if($tansaction->addressVerificationDetails->exists())
                                             @if($transaction->addressVerificationDetails->status == 'pending')
                                                 <span class="badge badge-soft-purple">Pending</span>
                                             @elseif($transaction->addressVerificationDetails->status == 'completed' && $transaction->addressVerification->task_status == 'VERIFIED')
@@ -177,7 +177,7 @@
                                             </a>
                                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="seeMore" style="">
                                              <a class="dropdown-item" href="#">Copy Reference Id</a>
-                                                @if(isset($transaction->addressVerificationDetails))
+                                                @if($transaction->addressVerificationDetails->exists())
                                                     <a class="dropdown-item" href="#">View Verification Report</a>
                                                 @else
                                                     <a class="dropdown-item" href="{{route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $transaction->service_reference])}}">Make a Verification Request</a>

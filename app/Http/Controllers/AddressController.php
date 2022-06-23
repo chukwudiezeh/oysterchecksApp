@@ -363,7 +363,10 @@ class AddressController extends Controller
           Session::flash('message', 'Address submitted for verification');
           return redirect()->route('addressIndex', $request->slug);
         }else{
-          dd($res);
+          // dd($res);
+          Session::flash('alert', 'danger');
+          Session::flash('message', $res['message']);
+          return redirect()->route('addressIndex', $request->slug);
         }
 
        }catch(\Exception $e){
