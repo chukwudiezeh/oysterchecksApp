@@ -310,7 +310,7 @@
                                                     @else
                                                     @foreach($address_verification->addressverificationDetail->images as $image)
                                                     <div class="mr-2" style="width: 8rem; height: 8rem;">
-                                                        <img src="{{$image->filePath}}" data-bs-toggle="modal" data-bs-target="#imageView{{$loop->iteration}}" alt="" class="img-fluid rounded">
+                                                        <img src="{{$image['filePath']}}" data-bs-toggle="modal" data-bs-target="#imageView{{$loop->iteration}}" alt="" class="img-fluid rounded">
                                                     </div>
                                                     @endforeach
                                                     @endempty
@@ -333,7 +333,7 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center align-self-center">
-                                                    <img src="{{$image->filePath}}" alt="" class="img-fluid" width="{{$image->width}}" height="{{$image->height}}">
+                                                    <img src="{{$image['filePath']}}" alt="" class="img-fluid" width="{{$image['width']}}" height="{{$image['height']}}">
                                                 </div>
                                             </div>
                                             <!--end row-->
@@ -370,8 +370,8 @@
                                                                 <i class="far fa-sticky-note font-20"></i>
                                                             </div>
                                                             <div class="media-body align-self-center">
-                                                                <h6 class="m-0 font-15">{{$note->note}} </h6>
-                                                                <p class="mb-0 text-muted font-13">{{$note->createdAt}}</p>
+                                                                <h6 class="m-0 font-15">{{$note['note']}} </h6>
+                                                                <p class="mb-0 text-muted font-13">{{$note['createdAt']}}</p>
                                                             </div>
                                                             <!--end media body-->
                                                         </div>
@@ -483,7 +483,7 @@
                                                     <div class="col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
                                                         <div class="dastone-profile-main">
                                                             <div class="dastone-profile-main-pic">
-                                                                <img src="{{$address_verification->addressVerificationDetail->agent->photo}}" alt="" height="110" class="rounded-circle">
+                                                                <img src="{{$address_verification->addressVerificationDetail->agent['photo']}}" alt="" height="110" class="rounded-circle">
                                                             </div>
                                                         </div>
                                                     </div>
