@@ -467,6 +467,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             @if($address_verification->addressVerificationDetail->status != 'pending' || $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
                             <div class="col-12">
                                 <div class="accordion" id="agentDetails">
