@@ -58,7 +58,7 @@
                                         <i class="mdi mdi-clock-outline alert-icon text-purple align-self-center font-30 me-3"></i>
                                         <div class="media-body align-self-center">
                                             <h5 class="mb-1 fw-bold mt-0">Pending</h5>
-                                            <span>Your address verification request is yet to be accepted by our agent.</span>
+                                            <span>Your address verification request is yet to be accepted by our agent or is currently in progress.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @else if($address_verification->addressVerificationDetail->status == 'awaiting_schedule')
+                                @else if($address_verification->addressVerificationDetail->status == 'awaiting_reschedule')
                                 <div class="alert custom-alert alert-info icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
                                     <div class="media">
                                         <i class="fas fa-hourglass-start alert-icon text-info align-self-center font-30 me-3"></i>
@@ -115,26 +115,44 @@
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> <b>{{$address_verification->addressVerificationDetail->created_at}}</b></div>
                             </div>
+                            @if($address_verification->addressVerificationDetail->acceptedAt != null)
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> <b>{{$address_verification->addressVerificationDetail->acceptedAt}}</b></div>
                             </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->startDate != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Estimated Start Date :</span> <b>{{$address_verification->addressVerificationDetail->startDate}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Start Date :</span> <b>{{$address_verification->addressVerificationDetail->startDate}}</b></div>
                             </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->endDate != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Estimated End Date :</span> <b>{{$address_verification->addressVerificationDetail->endDate}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">End Date :</span> <b>{{$address_verification->addressVerificationDetail->endDate}}</b></div>
                             </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->completedAt != null)
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Completed At :</span> <b>{{$address_verification->addressVerificationDetail->completedAt}}</b></div>
                             </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->submittedAt != null)
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Submitted At :</span> <b>{{$address_verification->addressVerificationDetail->submittedAt}}</b></div>
                             </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->revalidationDate != null)
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Revalidated At :</span> <b>{{$address_verification->addressVerificationDetail->revalidationDate}}</b></div>
                             </div>
+                            @endif
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Initiated At :</span> <b>{{Auth()->user()->name}}</b></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Estimated Turn Around Time :</span> <b>3 days</b></div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Task Description :</span> <b>{{$address_verification->addressVerificationDetail->description}}</b></div>
                             </div>
                         </div>
 
@@ -275,6 +293,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @if($address_verification->addressVerificationDetail->status != 'pending' ||  $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
                             <div class="col-12">
                                 <div class="accordion" id="images">
                                     <div class="accordion-item border-0">
@@ -291,7 +310,7 @@
                                                     @else
                                                     @foreach($address_verification->addressverificationDetail->images as $image)
                                                     <div class="mr-2" style="width: 8rem; height: 8rem;">
-                                                        <img src="{{$image->filePath}}" data-bs-toggle="modal" data-bs-target="#imageView" alt="" class="img-fluid rounded">
+                                                        <img src="{{$image->filePath}}" data-bs-toggle="modal" data-bs-target="#imageView{{$loop->iteration}}" alt="" class="img-fluid rounded">
                                                     </div>
                                                     @endforeach
                                                     @endempty
@@ -301,6 +320,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(!$address_verification->addressverificationDetail->images->isEmpty())
                             @foreach($address_verification->addressverificationDetail->images as $image)
                             <div class="modal fade" id="imageView" tabindex="-1" aria-labelledby="imageView{{$loop->iteration}}" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
@@ -325,6 +345,10 @@
                                 <!--end modal-dialog-->
                             </div>
                             @endforeach
+                            @endif
+                            @endif
+
+                            @if($address_verification->addressVerificationDetail->status != 'pending' ||  $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
                             <div class="col-12">
                                 <div class="accordion" id="notes">
                                     <div class="accordion-item border-0">
@@ -360,6 +384,8 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->status != 'pending' || $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
                             <div class="col-12">
                                 <div class="accordion" id="buildingDescription">
                                     <div class="accordion-item border-0">
@@ -404,6 +430,8 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->status != 'pending' ||  $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
                             <div class="col-12">
                                 <div class="accordion" id="otherInformation">
                                     <div class="accordion-item border-0">
@@ -427,7 +455,7 @@
                                                     </div>
                                                     @else if($address_verification->addressVerificationDetail->reasons != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-5">Reasons : </div>
+                                                        <div class="fw-semibold m-0 font-15 me-5">Reason for Incompletion : </div>
                                                         <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->reasons}}</div>
                                                     </div>
                                                     @else
@@ -439,6 +467,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @if($address_verification->addressVerificationDetail->status != 'pending' || $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
                             <div class="col-12">
                                 <div class="accordion" id="agentDetails">
                                     <div class="accordion-item border-0">
@@ -459,22 +488,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="row border-bottom mb-5">
-
-                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-5">First Name : </div>
-                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->agent->firstName}}</div>
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-5">Agent's Name : </div>
+                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->agent->firstName}} {{$address_verification->addressVerificationDetail->agent->lastName}}</div>
                                                     </div>
-                                                    @if($address_verification->addressVerificationDetail->agent->middleName != null)
-                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-5">Middle Name : </div>
-                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->agent->middleName}}</div>
-                                                    </div>
-                                                    @endif
-                                                    <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-5">Last Name : </div>
-                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->agent->lastName}}</div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-md-6 d-block py-4 border-top">
+                                                
+                                                    <div class="col-12 col-md-12 d-block py-4 border-top">
                                                         <div class="fw-semibold m-0 font-15 me-5">Signature : </div>
                                                         <div class="dastone-profile-main">
                                                             <div class="dastone-profile-main-pic">
@@ -490,6 +509,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -498,7 +518,5 @@
         @endsection
         @section('script')
         <script>
-
         </script>
-
         @endsection
