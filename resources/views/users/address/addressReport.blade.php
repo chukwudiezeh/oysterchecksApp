@@ -320,7 +320,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if(!$address_verification->addressVerificationDetail->images->isEmpty())
+                            @if(!empty($address_verification->addressVerificationDetail->images))
                             @foreach($address_verification->addressVerificationDetail->images as $image)
                             <div class="modal fade" id="imageView" tabindex="-1" aria-labelledby="imageView{{$loop->iteration}}" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
