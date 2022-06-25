@@ -157,7 +157,7 @@
                                                 <span class="badge badge-soft-success">Completed & Verified</span>
                                             @elseif($transaction->addressVerificationDetail->status == 'awaiting_reschedule')
                                                 <span class="badge badge-soft-dark">Awaiting Reschedule</span>
-                                            @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'NOT VERIFIED')
+                                            @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'NOT_VERIFIED')
                                                 <span class="badge badge-soft-warning">Completed but Not Verified</span>
                                             @elseif($transaction->addressVerificationDetail->status == 'canceled')
                                                 <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetail->status}}</span>

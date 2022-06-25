@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'NOT VERIFIED')
+                                @elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'NOT_VERIFIED')
                                 <div class="alert custom-alert alert-warning icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
                                     <div class="media">
                                         <i class="mdi mdi-shield-off-outline alert-icon text-warning align-self-center font-30 me-3"></i>
@@ -448,12 +448,12 @@
                                                         <div class="fw-semibold m-0 font-15 me-5">Additional Info : </div>
                                                         <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->additional_info}}</div>
                                                     </div>
-                                                    @else if($address_verification->addressVerificationDetail->incident_report != null)
+                                                    @elseif($address_verification->addressVerificationDetail->incident_report != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
                                                         <div class="fw-semibold m-0 font-15 me-5">Incident Report : </div>
                                                         <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->incident_report}}</div>
                                                     </div>
-                                                    @else if($address_verification->addressVerificationDetail->reasons != null)
+                                                    @elseif($address_verification->addressVerificationDetail->reasons != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
                                                         <div class="fw-semibold m-0 font-15 me-5">Reason for Incompletion : </div>
                                                         <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->reasons}}</div>
