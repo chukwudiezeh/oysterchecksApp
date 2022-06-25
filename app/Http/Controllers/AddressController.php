@@ -396,7 +396,7 @@ class AddressController extends Controller
     $address_verification->addressVerificationDetail->links = json_decode($address_verification->addressVerificationDetail->links);
     
 
-    dd($address_verification);
+    // dd($address_verification);
 
     return view('users.address.addressReport',['slug'=>$slug,'address_verification' => $address_verification]);
     

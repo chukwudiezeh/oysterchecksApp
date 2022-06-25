@@ -305,10 +305,10 @@
                                         <div id="collapseThree" class="accordion-collapse" aria-labelledby="headingThree" data-bs-parent="#images" style="">
                                             <div class="accordion-body">
                                                 <div class="row mb-5">
-                                                    @empty($address_verification->addressverificationDetail->images)
+                                                    @empty($address_verification->addressVerificationDetail->images)
                                                     <div class="col-12 text-center py-3">No Images Available</div>
                                                     @else
-                                                    @foreach($address_verification->addressverificationDetail->images as $image)
+                                                    @foreach($address_verification->addressVerificationDetail->images as $image)
                                                     <div class="mr-2" style="width: 8rem; height: 8rem;">
                                                         <img src="{{$image['filePath']}}" data-bs-toggle="modal" data-bs-target="#imageView{{$loop->iteration}}" alt="" class="img-fluid rounded">
                                                     </div>
@@ -320,8 +320,8 @@
                                     </div>
                                 </div>
                             </div>
-                            @if(!$address_verification->addressverificationDetail->images->isEmpty())
-                            @foreach($address_verification->addressverificationDetail->images as $image)
+                            @if(!$address_verification->addressVerificationDetail->images->isEmpty())
+                            @foreach($address_verification->addressVerificationDetail->images as $image)
                             <div class="modal fade" id="imageView" tabindex="-1" aria-labelledby="imageView{{$loop->iteration}}" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content" style="background:none">
@@ -360,10 +360,10 @@
                                         <div id="collapseFour" class="accordion-collapse" aria-labelledby="headingFour" data-bs-parent="#notes" style="">
                                             <div class="accordion-body">
                                                 <div class="row mb-5">
-                                                    @empty($address_verification->addressverificationDetail->notes)
+                                                    @empty($address_verification->addressVerificationDetail->notes)
                                                         <div class="col-12 text-center py-3">No Notes Available</div>
                                                     @else
-                                                    @foreach($address_verification->addressverificationDetail->notes as $note)
+                                                    @foreach($address_verification->addressVerificationDetail->notes as $note)
                                                     <div class="col-12 py-2">
                                                         <div class="media">
                                                             <div class="me-3 align-self-center">
