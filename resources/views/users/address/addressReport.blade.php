@@ -259,7 +259,7 @@
                                                         <div class="fw-semibold m-0 font-15 me-5">State : </div>
                                                         <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->address['state']}}</div>
                                                     </div>
-                                                    @if($address_verification->addressVerificationDetail->address->city'] != null)
+                                                    @if($address_verification->addressVerificationDetail->address->['city'] != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
                                                         <div class="fw-semibold m-0 font-15 me-5">City : </div>
                                                         <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->address['city']}}</div>
