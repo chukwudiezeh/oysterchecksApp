@@ -277,15 +277,15 @@
                                                     </div>
                                                     <div class="col-12 py-4 border-top pb-3">
                                                         <div class="fw-semibold m-0 font-15 mb-2">Address Location : </div>
-                                                        <div class="w-100 overflow-hidden rounded"><iframe src="{{$address_verification->addressverificationDetail->mappAddressUrl}}" width="100%" height="275" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                                                        <div class="w-100 overflow-hidden rounded"><iframe src="{{$address_verification->addressverificationDetail->map_address_url}}" width="100%" height="275" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
                                                     </div>
                                                     <div class="col-6 d-block col-sm-3 col-xl-2 d-sm-flex">
                                                         <div class="fw-semibold m-0 font-15 me-3">Longitude : </div>
-                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']->lon}}</div>
+                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']['lon']}}</div>
                                                     </div>
                                                     <div class="col-6 d-block col-sm-3 col-xl-2 d-sm-flex">
                                                         <div class="fw-semibold m-0 font-15 me-3">Latitude : </div>
-                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']->lat}}</div>
+                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']['lat']}}</div>
                                                     </div>
                                                 </div>
                                             </div>
