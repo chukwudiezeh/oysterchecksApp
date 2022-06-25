@@ -383,6 +383,16 @@ class AddressController extends Controller
 
     $address_verification->addressVerificationDetail;
 
+    $address_verification->addressVerificationDetail->candidate = json_decode($address_verification->addressVerificationDetail->candidate);
+    $address_verification->addressVerificationDetail->business !=null?json_decode($address_verification->addressVerificationDetail->business): null;
+    $address_verification->addressVerificationDetail->guarantor !=null?json_decode($address_verification->addressVerificationDetail->guarantor): null;
+    $address_verification->addressVerificationDetail->agent !=null?json_decode($address_verification->addressVerificationDetail->agent): null;
+    $address_verification->addressVerificationDetail->address !=null?json_decode($address_verification->addressVerificationDetail->address): null;
+    $address_verification->addressVerificationDetail->notes !=null?json_decode($address_verification->addressVerificationDetail->notes): null;
+    $address_verification->addressVerificationDetail->images !=null?json_decode($address_verification->addressVerificationDetail->images): null;
+    $address_verification->addressVerificationDetail->links !=null?json_decode($address_verification->addressVerificationDetail->links): null;
+    
+
     // dd($address_verification);
 
     return view('users.address.addressReport',['slug'=>$slug,'address_verification' => $address_verification]);
