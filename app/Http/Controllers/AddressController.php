@@ -23,11 +23,19 @@ class AddressController extends Controller
     //
 
     public function AddressIndex($slug){
-        if(auth()->user()->user_type == 6)
+        if(auth()->user()->user_type == 3)
         return redirect()->route('admin.index');
         
         $data = $this->generateAddressReport($slug);
         return view('users.address.index', $data);
+    }
+
+    public function showCreateCandidate($slug){
+      if(auth()->user()->user_type == 3)
+        return redirect()->route('admin.index');
+      
+      $data = $this->generateCreateCandidateData($slug);
+      return view('users.address.createAddressCandidate', $data);
     }
 
     public function createCandidate(Request $request, $slug){
@@ -111,17 +119,29 @@ class AddressController extends Controller
                 "image" => asset('assets/candidates/'.$image)
                 ]);
               // return $res;
-              $data = $this->generateAddressReportVerify($slug);
-              $data['service_ref'] = $service_ref;
+              // $data = $this->generateAddressReportVerify($slug);
+              // $data['service_ref'] = $service_ref;
                 DB::commit();
                 Session::flash('alert', 'success');
                 Session::flash('message', 'Candidate Created Successfully');
-                return view('users.address.verifyAddress', $data);
+                // return view('users.address.verifyAddress', $data);
+
+                // dd($service_ref);
+                return redirect()->route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $service_ref]);
             }
             }catch(\Exception $e){
             DB::rollBack();
             throw $e;
             }
+    }
+
+    public function showVerificationDetailsForm($slug, $service_ref)
+    {
+      $slug = decrypt($slug);
+      $data = $this->generateAddressReportVerify($slug);
+      $data['service_ref'] = $service_ref;
+
+      return view('users.address.verifyAddress', $data);
     }
 
     public function submitAddressVerify(Request $request, $service_ref){
@@ -295,13 +315,13 @@ class AddressController extends Controller
             'address_verification_id' => $get_address_verification_id,
             'reference_id' => $res['data']['referenceId'],
             'candidate' => json_encode($res['data']['candidate']),
-            'guarantor' => isset($res['data']['guarantor']) ? json_encode($res['data']['guarantor']) : "",
-            'business' => isset($res['data']['business']) ? json_encode($res['data']['business']) : "",
+            'guarantor' => isset($res['data']['guarantor']) ? json_encode($res['data']['guarantor']) : null,
+            'business' => isset($res['data']['business']) ? json_encode($res['data']['business']) : null,
             'agent' => json_encode($res['data']['agent']),
             'address' => json_encode($res['data']['address']),
             'status' => $res['data']['status'],
             'task_status' => $res['data']['taskStatus'],
-            'subject_consent' => $res['data']['subjectConsent'],
+            'subject_consent' => $res['data']['subjectConsent'] == "true" ? true : false,
             'start_date' => $res['data']['startDate'],
             'end_date' => $res['data']['endDate'],
             'submitted_at' => $res['data']['submittedAt'],
@@ -341,7 +361,12 @@ class AddressController extends Controller
           DB::commit();
           Session::flash('alert', 'success');
           Session::flash('message', 'Address submitted for verification');
-          return back();
+          return redirect()->route('addressIndex', $request->slug);
+        }else{
+          // dd($res);
+          Session::flash('alert', 'danger');
+          Session::flash('message', $res['message']);
+          return redirect()->route('addressIndex', $request->slug);
         }
 
        }catch(\Exception $e){
@@ -350,9 +375,18 @@ class AddressController extends Controller
        }
   }
 
-
-  protected function addGuarantor($res)
+  public function verificationReport($slug, $addressId)
   {
+    $slug = Verification::where('slug', decrypt($slug))->first();
+
+    $address_verification = AddressVerification::where(['id' => decrypt($addressId)])->first();
+
+    $address_verification->addressVerificationDetail;
+
+    // dd($address_verification);
+
+    return view('users.address.addressReport',['slug'=>$slug,'address_verification' => $address_verification]);
     
   }
+
 }

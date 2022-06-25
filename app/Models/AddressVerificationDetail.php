@@ -64,12 +64,18 @@ class AddressVerificationDetail extends Model
      * @var array
      */
     protected $casts = [
-        'candidate' => 'object',
-        'business' => 'object',
-        'agent' => 'object',
-        'address' => 'object',
+        'candidate' => 'array',
+        'business' => 'array',
+        'agent' => 'array',
+        'address' => 'array',
         'notes' => 'array',
         'images' => 'array',
         'links' => 'array'
     ];
+
+
+    public function addressVerification()
+    {
+        return $this->belongsTo(AddressVerification::class, 'address_verification_id');
+    }
 }

@@ -57,16 +57,29 @@ public function generateHeaderReports($slug){
     return $data;   
     }
 
+    public function generateCreateCandidateData($slug){
+        $user = User::where('id', auth()->user()->id)->first();
+        $slug = Verification::where(['slug' => $slug])->first();
+        $data['slug'] = $slug;
+        // $data['success'] = AddressVerification::where(['status'=>'successful', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
+        // $data['failed'] = AddressVerification::where(['status'=>'failed', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
+        // $data['pending'] = AddressVerification::where(['status'=>'pending', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
+        $data['fields'] = FieldInput::where(['slug'=>'candidate'])->get();
+        $data['wallet']= Wallet::where('user_id', $user->id)->first();
+    //    $data['logs'] = AddressVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->latest()->get();
+    return $data;   
+    }
+
     public function generateAddressReportVerify($slug){
         $user = User::where('id', auth()->user()->id)->first();
-        $slug = Verification::where(['slug' => $slug->slug])->first();
-        $data['slug'] = Verification::where(['slug' => $slug->slug])->first();
-        $data['success'] = AddressVerification::where(['status'=>'successful', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
-        $data['failed'] = AddressVerification::where(['status'=>'failed', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
-        $data['pending'] = AddressVerification::where(['status'=>'pending', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
+        $slug = Verification::where(['slug' => $slug])->first();
+        $data['slug'] = $slug;
+        // $data['success'] = AddressVerification::where(['status'=>'successful', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
+        // $data['failed'] = AddressVerification::where(['status'=>'failed', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
+        // $data['pending'] = AddressVerification::where(['status'=>'pending', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
         $data['fields'] = FieldInput::where(['slug'=>$slug->slug])->get();
         $data['wallet']= Wallet::where('user_id', $user->id)->first();
-        $data['logs'] = AddressVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->latest()->get();
+        // $data['logs'] = AddressVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->latest()->get();
     return $data;   
     }
 }

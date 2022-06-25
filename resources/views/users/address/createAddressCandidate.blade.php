@@ -1,4 +1,4 @@
- @extends('layouts.app')
+@extends('layouts.app')
  @section('content')
  <div class="page-content">
      <div class="container-fluid">
@@ -31,31 +31,44 @@
              </div>
              <!--end col-->
          </div>
-         
+         <div class="row">
+             <div class="col-lg-12">
+                 <div class="card mb-3" style="background:#f1f5fa">
+                     <div class="row">
+                         <div class="col-md-6">
+                             <div class="card-body">
+                                 <h5 class="card-title">Create a Candidate for your Address Verification</h5>
+                                 <p class="card-text mb-0">A candidate is a person to which a verification is linked. An Individual, Guarantor or Business Verification can be requested with respect to the candidate created.</p>
+                                 <p class="card-text mb-0"><small class="text-muted">The input fields with the red asterisk (<span class="text-danger">*</span>) must be filled.</small></p>
+                             </div>
+                         </div>
+                         
+                         <!--end col-->
+                     </div>
+                     <!--end row-->
+                 </div>
+                 <!--end card-->
+             </div>
+         </div>
          <div class="row">
              <div class="col-lg-12">
                  <div class="card">
                      <div class="card-header">
-                         <h4 class="card-title">{{$slug->name}}</h4>
+                         <h4 class="card-title">Create a Candidate</h4>
                      </div>
                      <!--end card-header-->
-                     <form method="post" action="{{route('AddressStore', $service_ref)}}">
+                     <form method="post" action="{{route('createCandidate',encrypt($slug->slug))}}" enctype="multipart/form-data">
                          @csrf
                          <div class="card-body bootstrap-select-1">
                              <div class="row">
                                  @foreach($fields as $input)
                                  <div class="col-md-6">
                                      <label class="mb-3" style="font-weight:bolder">{{$input->label}}</label> @if($input->is_required == 1) <span style="color:red; font-weight:bolder"> * </span> @endif
-                                     <input type="{{$input->type}}" value="{{old($input->name)}}" id="{{$input->inputid}}" name="{{$input->name}}" class="form-control mb-3 custom-select @error($input->name) is-invalid @enderror" placeholder="{{$input->placeholder}}" @if($input->is_required == 1) required @endif>
-                                     @error($input->name)
-                                     <span class="invalid-feedback" role="alert">
-                                         {{$message}}
-                                     </span>
-                                     @enderror
-                                    </div><!-- end col -->
-                                    <!-- end col -->
-                                    @endforeach
-                                    <input type="text" value="{{$slug->slug}}" name="slug" hidden>
+                                     <input type="{{$input->type}}" id="{{$input->inputid}}" name="{{$input->name}}" class="form-control mb-3 custom-select" placeholder="{{$input->placeholder}}" @if($input->is_required == 1) required @endif>
+                                 </div><!-- end col -->
+                                 <!-- end col -->
+                                 @endforeach
+
                                  <div class="col-md-12">
                                      @if(Session::has('message'))
                                      <span class="btn btn-{{Session::get('alert')}}">
@@ -66,10 +79,11 @@
                                          <span style="color:red; font-size:11px;"> Note: You will be charged ₦{{number_format($slug->fee, 2)}} for each {{$slug->name}}</span> <br>
                                          <span style="color:darkblue; font-size:11px;">Your wallet Balance is ₦{{number_format($wallet->avail_balance, 2)}}</span> <br>
 
-                                         <input type="checkbox" required name="subject_consent" id="subject_consent">
+                                         <input type="checkbox" required>
+
                                          <span style="font-size:11px;"> By checking this box you acknowledge that you have gotten consent from that data subject to use their data for verification purposes on our platform in accourdance to our <a href="#"> Privacy Policy</a></span>
                                      </div>
-                                     <span class="float-center p-2"><button type="submit" class="btn btn-primary w-23">Submit Address to Verify</button> </span>
+                                     <span class="float-center p-2"><button type="submit" class="btn btn-primary w-23">Create Candidate</button> </span>
                                  </div>
 
                              </div><!-- end row -->
