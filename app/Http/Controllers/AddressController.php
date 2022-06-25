@@ -388,6 +388,7 @@ class AddressController extends Controller
       $address_verification->addressVerificationDetail->business = json_decode($address_verification->addressVerificationDetail->business);
     if($address_verification->addressVerificationDetail->guarantor !=null)
       $address_verification->addressVerificationDetail->guarantor = json_decode($address_verification->addressVerificationDetail->guarantor);
+    
     $address_verification->addressVerificationDetail->agent = json_decode($address_verification->addressVerificationDetail->agent);
     $address_verification->addressVerificationDetail->address = json_decode($address_verification->addressVerificationDetail->address);
     $address_verification->addressVerificationDetail->notes = json_decode($address_verification->addressVerificationDetail->notes);
