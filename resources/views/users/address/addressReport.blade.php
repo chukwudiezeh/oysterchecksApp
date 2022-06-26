@@ -113,9 +113,9 @@
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Verification Type :</span> {{$slug->name}}</div>
                             </div>
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> {{\Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->created_at)->toDateTimeString()}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> {{\Carbon\Carbon::parse($address_verification->addressVerificationDetail->created_at)->format('d-m-Y, H:ia')}}</div>
                             </div>
-                            @if($address_verification->addressVerificationDetail->accepted_at != null)
+                            <!-- @if($address_verification->addressVerificationDetail->accepted_at != null)
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->accepted_at)->toDateTimeString()}}</div>
                             </div>
@@ -144,7 +144,7 @@
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Revalidated At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->revalidation_date)->toDateTimeString()}}</div>
                             </div>
-                            @endif
+                            @endif -->
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Initiated At :</span> {{Auth()->user()->name}}</div>
                             </div>
