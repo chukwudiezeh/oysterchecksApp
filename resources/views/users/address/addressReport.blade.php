@@ -113,36 +113,36 @@
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Verification Type :</span> {{$slug->name}}</div>
                             </div>
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> {{$address_verification->addressVerificationDetail->created_at}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> {{ date('d-m-Y, h:ia', $address_verification->addressVerificationDetail->created_at)}}</div>
                             </div>
                             @if($address_verification->addressVerificationDetail->accepted_at != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->accepted_at)}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ date('d-m-Y, h:ia', $address_verification->addressVerificationDetail->accepted_at)}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->start_date != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Start Date :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->start_date)}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Start Date :</span> {{ date('d-m-Y, h:ia', $address_verification->addressVerificationDetail->start_date)}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->end_date != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">End Date :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->end_date)}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">End Date :</span> {{ date('d-m-Y, h:ia', $address_verification->addressVerificationDetail->end_date)}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->completed_at != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Completed At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->completed_at)}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Completed At :</span> {{ date('d-m-Y, h:ia', $address_verification->addressVerificationDetail->completed_at)}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->submitted_at != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Submitted At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->submitted_at)}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Submitted At :</span> {{ date('d-m-Y, h:ia', $address_verification->addressVerificationDetail->submitted_at)}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->revalidation_date != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Revalidated At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->revalidation_date)}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Revalidated At :</span> {{ date('d-m-Y, h:ia', $address_verification->addressVerificationDetail->revalidation_date)}}</div>
                             </div>
                             @endif
                             <div class="col-md-4">
