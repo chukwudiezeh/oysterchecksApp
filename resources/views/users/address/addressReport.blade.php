@@ -115,36 +115,7 @@
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$address_verification->addressVerificationDetail->created_at)->format('d-m-Y, h:ia')}}</div>
                             </div>
-                            <!-- @if($address_verification->addressVerificationDetail->accepted_at != null)
-                            <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->accepted_at)->toDateTimeString()}}</div>
-                            </div>
-                            @endif
-                            @if($address_verification->addressVerificationDetail->start_date != null)
-                            <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Start Date :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->start_date)->toDateTimeString()}}</div>
-                            </div>
-                            @endif
-                            @if($address_verification->addressVerificationDetail->end_date != null)
-                            <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">End Date :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->end_date)->toDateTimeString()}}</div>
-                            </div>
-                            @endif
-                            @if($address_verification->addressVerificationDetail->completed_at != null)
-                            <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Completed At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->completed_at)->toDateTimeString()}}</div>
-                            </div>
-                            @endif
-                            @if($address_verification->addressVerificationDetail->submitted_at != null)
-                            <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Submitted At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->submitted_at)->toDateTimeString()}}</div>
-                            </div>
-                            @endif
-                            @if($address_verification->addressVerificationDetail->revalidation_date != null)
-                            <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Revalidated At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, H:ia', $address_verification->addressVerificationDetail->revalidation_date)->toDateTimeString()}}</div>
-                            </div>
-                            @endif -->
+                           
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Initiated At :</span> {{Auth()->user()->name}}</div>
                             </div>
