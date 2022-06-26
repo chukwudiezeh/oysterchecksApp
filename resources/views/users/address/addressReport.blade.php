@@ -117,7 +117,7 @@
                             </div>
                             @if($address_verification->addressVerificationDetail->accepted_at != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ Carbon($address_verification->addressVerificationDetail->accepted_at}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ \Carbon\Carbon::createFromFormat('d-m-Y, h:ia', $address_verification->addressVerificationDetail->accepted_at)}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->start_date != null)
