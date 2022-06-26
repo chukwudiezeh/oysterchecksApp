@@ -107,52 +107,52 @@
                         </div>
                         <div class="row pb-4">
                             <div class="col-md-4">
-                                <div class="pt-2 px-2 mb-2 font-15"><span class="text-muted mr-2">Verification Id :</span> <b>{{$address_verification->addressVerificationDetail->reference_id}}</b></div>
+                                <div class="pt-2 px-2 mb-2 font-15"><span class="text-muted mr-2">Verification Id :</span> {{$address_verification->addressVerificationDetail->reference_id}}</div>
                             </div>
                             <div class="col-md-8">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Verification Type :</span> <b>{{$slug->name}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Verification Type :</span> {{$slug->name}}</div>
                             </div>
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> <b>{{$address_verification->addressVerificationDetail->created_at}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> {{$address_verification->addressVerificationDetail->created_at}}</div>
                             </div>
                             @if($address_verification->addressVerificationDetail->accepted_at != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> <b>{{$address_verification->addressVerificationDetail->accepted_at}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ Carbon($address_verification->addressVerificationDetail->accepted_at}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->start_date != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Start Date :</span> <b>{{$address_verification->addressVerificationDetail->start_date}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Start Date :</span> {{$address_verification->addressVerificationDetail->start_date}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->end_date != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">End Date :</span> <b>{{$address_verification->addressVerificationDetail->end_date}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">End Date :</span> {{$address_verification->addressVerificationDetail->end_date}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->completed_at != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Completed At :</span> <b>{{$address_verification->addressVerificationDetail->completed_at}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Completed At :</span> {{$address_verification->addressVerificationDetail->completed_at}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->submitted_at != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Submitted At :</span> <b>{{$address_verification->addressVerificationDetail->submitted_at}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Submitted At :</span> {{$address_verification->addressVerificationDetail->submitted_at}}</div>
                             </div>
                             @endif
                             @if($address_verification->addressVerificationDetail->revalidation_date != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Revalidated At :</span> <b>{{$address_verification->addressVerificationDetail->revalidation_date}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Revalidated At :</span> {{$address_verification->addressVerificationDetail->revalidation_date}}</div>
                             </div>
                             @endif
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Initiated At :</span> <b>{{Auth()->user()->name}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Initiated At :</span> {{Auth()->user()->name}}</div>
                             </div>
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Estimated Turn Around Time :</span> <b>3 days</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Estimated Turn Around Time :</span> 3 days</div>
                             </div>
                             <div class="col-12">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Task Description :</span> <b>{{$address_verification->addressVerificationDetail->description}}</b></div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Task Description :</span> {{$address_verification->addressVerificationDetail->description}}</div>
                             </div>
                         </div>
 
@@ -179,33 +179,33 @@
                                                 <div class="row border-bottom mb-5">
 
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">First Name : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->first_name}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">First Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->first_name}}</div>
                                                     </div>
                                                     @if($address_verification->middle_name != null)
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Middle Name : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->middle_name}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Middle Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->middle_name}}</div>
                                                     </div>
                                                     @endif
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Last Name : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->last_name}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Last Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->last_name}}</div>
                                                     </div>
                                                     @if($address_verification->dob != null)
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Date of Birth : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->dob}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Date of Birth : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->dob}}</div>
                                                     </div>
                                                     @endif
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Phone : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->phone}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Phone : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->phone}}</div>
                                                     </div>
                                                     @if($address_verification->email != null)
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">email : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->email}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">email : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->email}}</div>
                                                     </div>
                                                     @endif
                                                 </div>
@@ -228,52 +228,52 @@
                                                 <div class="row mb-5">
                                                     @if($address_verification->addressVerificationDetail->address['flatNumber'] != null)
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Flat Number : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['flatNumber']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Flat Number : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['flatNumber']}}</div>
                                                     </div>
                                                     @endif
                                                     @if($address_verification->addressVerificationDetail->address['buildingName'])
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Building Name : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['buildingName']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Building Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['buildingName']}}</div>
                                                     </div>
                                                     @endif
 
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Building Number : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['buildingNumber']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Building Number : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['buildingNumber']}}</div>
                                                     </div>
 
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Street : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['street']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Street : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['street']}}</div>
                                                     </div>
                                                     @if($address_verification->addressVerificationDetail->address['subStreet'] != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Sub-Street : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['subStreet']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Sub-Street : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['subStreet']}}</div>
                                                     </div>
                                                     @endif
 
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">State : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['state']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">State : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['state']}}</div>
                                                     </div>
                                                     @if($address_verification->addressVerificationDetail->address['city'] != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">City : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['city']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">City : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['city']}}</div>
                                                     </div>
                                                     @endif
                                                     @if($address_verification->addressVerificationDetail->address['lga'] != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">LGA : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['lga']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">LGA : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['lga']}}</div>
                                                     </div>
                                                     @endif
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Country : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['country']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Country : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->address['country']}}</div>
                                                     </div>
                                                     <div class="col-12 py-4 border-top pb-3">
                                                         <div class="fw-semibold m-0 font-15 mb-2">Address Location : </div>
@@ -281,11 +281,11 @@
                                                     </div>
                                                     <div class="col-6 d-block col-sm-3 col-xl-3 d-sm-flex">
                                                         <div class="fw-semibold m-0 font-15 me-3">Longitude : </div>
-                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']['lon']}}</div>
+                                                        <div class="fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']['lon']}}</div>
                                                     </div>
                                                     <div class="col-6 d-block col-sm-3 col-xl-3 d-sm-flex">
                                                         <div class="fw-semibold m-0 font-15 me-3">Latitude : </div>
-                                                        <div class="text-muted fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']['lat']}}</div>
+                                                        <div class="fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']['lat']}}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -399,30 +399,30 @@
                                                 <div class="row mb-5">
 
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Building has Gate : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->gate_present == true ? 'Yes' : 'No'}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Building has Gate : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->gate_present == true ? 'Yes' : 'No'}}</div>
                                                     </div>
                                                     @if($address_verification->addressVerificationDetail->gate_present == true)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Color of Gate : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->gate_color}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Color of Gate : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->gate_color}}</div>
                                                     </div>
                                                     @endif
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Building Type : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->building_type}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Building Type : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->building_type}}</div>
                                                     </div>
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Building Color : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->building_color}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Building Color : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->building_color}}</div>
                                                     </div>
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Closest Landmark : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->closest_landmark}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Closest Landmark : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->closest_landmark}}</div>
                                                     </div>
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Availability Confirmed By : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->availability_confirmed_by}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Availability Confirmed By : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->availability_confirmed_by}}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -445,18 +445,18 @@
                                                 <div class="row mb-5">
                                                     @if($address_verification->addressVerificationDetail->additional_info != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Additional Info : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->additional_info}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Additional Info : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->additional_info}}</div>
                                                     </div>
                                                     @elseif($address_verification->addressVerificationDetail->incident_report != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Incident Report : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->incident_report}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Incident Report : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->incident_report}}</div>
                                                     </div>
                                                     @elseif($address_verification->addressVerificationDetail->reasons != null)
                                                     <div class="col-xs-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Reason for Incompletion : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->reasons}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Reason for Incompletion : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->reasons}}</div>
                                                     </div>
                                                     @else
                                                         <div class="col-12 text-center py-3">No Other Information Available</div>
@@ -490,8 +490,8 @@
                                                 </div>
                                                 <div class="row border-bottom mb-5">
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
-                                                        <div class="fw-semibold m-0 font-15 me-3 col-4">Agent's Name : </div>
-                                                        <div class="text-muted fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->agent['firstName']}} {{$address_verification->addressVerificationDetail->agent['lastName']}}</div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Agent's Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->agent['firstName']}} {{$address_verification->addressVerificationDetail->agent['lastName']}}</div>
                                                     </div>
                                                 
                                                     <div class="col-12 col-md-12 d-block py-4 border-top">
