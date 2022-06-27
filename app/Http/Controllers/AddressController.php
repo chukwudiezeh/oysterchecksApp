@@ -308,9 +308,9 @@ class AddressController extends Controller
         
         $response = curl_exec($curl);
         $res = json_decode($response, true);
+        dd($res);
 
         if($res['success'] == true && $res['statusCode'] == 201){
-          // dd($res);
           AddressVerificationDetail::create([
             'address_verification_id' => $get_address_verification_id,
             'reference_id' => $res['data']['referenceId'],
