@@ -33,7 +33,7 @@
          </div>
          <div class="row ">
              <div class="col-lg-12">
-                 <div class="row justify-content-center">
+                 <div class="row justify-content-left">
                      <div class="col-md-6 col-lg-3">
                          <div class="card report-card ">
                              <div class="card-body" style="background:rgb(36, 16, 82)">
