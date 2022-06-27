@@ -48,8 +48,8 @@ public function generateHeaderReports($slug){
         $verified= 0; $not_verified= 0; $pending = 0; $cancelled = 0; $awaiting_reschedule = 0;$not_requested = 0;
         $user = User::where('id', auth()->user()->id)->first();
         $slug = Verification::where(['slug' => $slug])->first();
-        $address_verifications = AddressVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->latest()->get();
-        $all_address_verifications = $address_verifications->addressVerificationDetail;
+        $address_verifications = AddressVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->with('addresVerificationDetail')->latest()->get();
+        // $all_address_verifications = $address_verifications->addressVerificationDetail;
         $data['slug'] = $slug;
         foreach($address_verifications as $address_verification){
             if ($address_verification->addressVerificationDetail->status == 'pending'){
