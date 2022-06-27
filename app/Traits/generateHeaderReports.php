@@ -52,19 +52,22 @@ public function generateHeaderReports($slug){
         // $all_address_verifications = $address_verifications->addressVerificationDetail;
         $data['slug'] = $slug;
         foreach($address_verifications as $address_verification){
-            if ($address_verification->addressVerificationDetail->status == 'pending'){
-                $pending++;
-            }elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'VERIFIED'){
-                $verified++;
-            }elseif($address_verification->addressVerificationDetail->status == 'awaiting_reschedule'){
-                $awaiting_reschedule++;
-            }elseif($address_verification->addressVerificationDetail->status == 'canceled'){
-                $cancelled++;
-            }elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'NOT_VERIFIED'){
-                $not_verified++;
-            }elseif(!$address_verification->addressVerificationDetail->exists()){
+            if(!$address_verification->addressVerificationDetail->exists()){
                 $not_requested++;
-            }
+            }else{
+                if ($address_verification->addressVerificationDetail->status == 'pending'){
+                    $pending++;
+                }elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'VERIFIED'){
+                    $verified++;
+                }elseif($address_verification->addressVerificationDetail->status == 'awaiting_reschedule'){
+                    $awaiting_reschedule++;
+                }elseif($address_verification->addressVerificationDetail->status == 'canceled'){
+                    $cancelled++;
+                }elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'NOT_VERIFIED'){
+                    $not_verified++;
+                }
+
+                }
         }
         $data['verified'] = $verified;
         $data['not_verified'] = $not_verified;
@@ -74,7 +77,7 @@ public function generateHeaderReports($slug){
         $data['not_requested'] = $not_requested;
         $data['fields'] = FieldInput::where(['slug'=>'candidate'])->get();
         $data['wallet']= Wallet::where('user_id', $user->id)->first();
-       $data['logs'] = $all_address_verifications;
+       $data['logs'] = $address_verifications;
     return $data;   
     }
 
