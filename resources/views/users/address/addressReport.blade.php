@@ -387,7 +387,7 @@
                             <div class="modal fade" id="imageView{{$loop->iteration}}" tabindex="-1" aria-labelledby="imageView{{$loop->iteration}}" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content" style="background:none">
-                                        <div class="modal-header" style="background:none">
+                                        <div class="modal-header border-0" style="background:none">
                                             <h6 class="modal-title m-0" id="imageView"></h6>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
