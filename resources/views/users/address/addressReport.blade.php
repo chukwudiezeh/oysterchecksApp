@@ -216,6 +216,65 @@
 
                                 </div>
                             </div>
+                            @if($address_verification->addressVerificationDetail->guarantor != null)
+                            <div class="col-12">
+                                <div class="accordion" id="personalInformation">
+                                    <div class="accordion-item border-0">
+                                        <h5 class="accordion-header m-0" id="headingOne">
+                                            <button class="accordion-button fw-semibold font-16" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Guarantor's information
+                                            </button>
+                                        </h5>
+                                        <div id="collapseOne" class="accordion-collapse" aria-labelledby="headingOne" data-bs-parent="#personalInformation" style="">
+                                            <div class="accordion-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
+                                                        <div class="dastone-profile-main">
+                                                            <div class="dastone-profile-main-pic">
+                                                                <img src="{{$address_verification->image}}" alt="" height="110" class="rounded-circle">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom mb-5">
+
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">First Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->first_name}}</div>
+                                                    </div>
+                                                    @if($address_verification->middle_name != null)
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Middle Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->middle_name}}</div>
+                                                    </div>
+                                                    @endif
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Last Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->last_name}}</div>
+                                                    </div>
+                                                    @if($address_verification->dob != null)
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Date of Birth : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->dob}}</div>
+                                                    </div>
+                                                    @endif
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Phone : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->phone}}</div>
+                                                    </div>
+                                                    @if($address_verification->email != null)
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">email : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->email}}</div>
+                                                    </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                             <div class="col-12">
                                 <div class="accordion" id="addressDetails">
                                     <div class="accordion-item border-0">
@@ -311,7 +370,7 @@
                                                     @else
                                                     @foreach($address_verification->addressVerificationDetail->images as $image)
                                                     <div class="mr-2" style="width: 8rem; height: 8rem;">
-                                                        <a href="#imageView{{$loop->iteration}}" data-bs-toggle="modal" data-bs-target="#imageView{{$loop->iteration}}">
+                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#imageView{{$loop->iteration}}">
                                                             <img src="{{$image['filePath']}}" alt="" class="img-fluid rounded">
                                                         </a>
                                                     </div>
@@ -325,7 +384,7 @@
                             </div>
                             @if(!empty($address_verification->addressVerificationDetail->images))
                             @foreach($address_verification->addressVerificationDetail->images as $image)
-                            <div class="modal fade" id="imageView" tabindex="-1" aria-labelledby="imageView{{$loop->iteration}}" style="display: none;" aria-hidden="true">
+                            <div class="modal fade" id="imageView{{$loop->iteration}}" tabindex="-1" aria-labelledby="imageView{{$loop->iteration}}" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content" style="background:none">
                                         <div class="modal-header" style="background:none">
