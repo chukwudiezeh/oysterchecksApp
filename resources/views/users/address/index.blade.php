@@ -154,11 +154,13 @@
                                             @if($transaction->addressVerificationDetail->status == 'pending')
                                                 <span class="badge badge-soft-purple">Pending</span>
                                             @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'VERIFIED')
-                                                <span class="badge badge-soft-success"> {{$transaction->addressVerificationDetail->status}}</span>
-                                            @elseif($transaction->addressVerificationDetail->status == 'awaiting_schedule')
-                                                <span class="badge badge-soft-dark"> {{$transaction->addressVerificationDetail->status}}</span>
-                                            @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'NOT VERIFIED')
-                                                <span class="badge badge-soft-warning"> {{$transaction->addressVerificationDetail->status}}</span>
+                                                <span class="badge badge-soft-success">Completed & Verified</span>
+                                            @elseif($transaction->addressVerificationDetail->status == 'awaiting_reschedule')
+                                                <span class="badge badge-soft-dark">Awaiting Reschedule</span>
+                                            @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'NOT_VERIFIED')
+                                                <span class="badge badge-soft-warning">Completed but Not Verified</span>
+                                            @elseif($transaction->addressVerificationDetail->status == 'canceled')
+                                                <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetail->status}}</span>
                                             @else
                                                 <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetail->status}}</span>
                                             @endif
