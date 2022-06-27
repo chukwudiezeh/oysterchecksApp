@@ -52,7 +52,7 @@ public function generateHeaderReports($slug){
         // $all_address_verifications = $address_verifications->addressVerificationDetail;
         $data['slug'] = $slug;
         foreach($address_verifications as $address_verification){
-            if(!$address_verification->addressVerificationDetail->exists() || !isset($address_verification->addressVerificationDetail)){
+            if(!isset($address_verification->addressVerificationDetail)){
                 $not_requested++;
             }else{
                 if ($address_verification->addressVerificationDetail->status == 'pending'){
