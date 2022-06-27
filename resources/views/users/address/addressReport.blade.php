@@ -117,7 +117,7 @@
                             </div>
                             @if($address_verification->addressVerificationDetail->accepted_at != null)
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ date('d-m-Y, h:ia', strtotime($address_verification->addressVerificationDetail->accepted_at))}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ date('jS F Y, h:iA', strtotime($address_verification->addressVerificationDetail->accepted_at))}}</div>
                             </div>
                             @endif
                             <div class="col-md-4">
