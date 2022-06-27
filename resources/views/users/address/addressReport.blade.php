@@ -470,7 +470,6 @@
                                                         <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Agent's Name : </div>
                                                         <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->agent['firstName']}} {{$address_verification->addressVerificationDetail->agent['lastName']}}</div>
                                                     </div>
-
                                                     <div class="col-12 col-md-12 d-block py-4 border-top">
                                                         <div class="fw-semibold m-0 font-15 me-3">Signature : </div>
                                                         <div class="dastone-profile-main">
@@ -478,7 +477,6 @@
                                                                 <img src="{{$address_verification->addressVerificationDetail->agent['signature']}}" alt="" height="80" class="rounded">
                                                             </div>
                                                         </div>
-
                                                     </div>
 
                                                 </div>
