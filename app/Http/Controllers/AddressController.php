@@ -57,7 +57,7 @@ class AddressController extends Controller
           //  dd($request->all());
            if($request->file('image')){
 
-            $candidate_image = cloudinary()->upload($request->file('image'), [
+            $candidate_image = cloudinary()->upload($request->file('image')->getRealPath(), [
               'folder' => 'oysterchecks/candidates'
             ])->getSecurePath();
 
