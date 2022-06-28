@@ -55,18 +55,23 @@ class AddressController extends Controller
                     return redirect()->back()->withErrors($valid)->withInput($request->all());
                 }
           //  dd($request->all());
-           if(request()->file('image')){
-            $image = request()->file('image');
-            $name =  $image->getClientOriginalName();
-            $FileName = \pathinfo($name, PATHINFO_FILENAME);
-            $ext =  $image->getClientOriginalExtension();
-            $time = time().$FileName;
-            $dd = md5($time);
-            $fileName = $dd.'.'.$ext;
-            if($image->move('assets/candidates', $fileName)){
-              $image = $fileName;
+           if($request->file('image')){
 
-            }
+            $candidate_image = cloudinary()->upload($request->file('image'), [
+              'folder' => 'oysterchecks/candidates'
+            ])->getSecurePath();
+
+            // $image = request()->file('image');
+            // $name =  $image->getClientOriginalName();
+            // $FileName = \pathinfo($name, PATHINFO_FILENAME);
+            // $ext =  $image->getClientOriginalExtension();
+            // $time = time().$FileName;
+            // $dd = md5($time);
+            // $fileName = $dd.'.'.$ext;
+            // if($image->move('assets/candidates', $fileName)){
+            //   $image = $fileName;
+
+            // }
            }
 
             $ref = $this->GenerateRef();
@@ -80,7 +85,7 @@ class AddressController extends Controller
                     "mobile" => $request->phone,
                     "email" => $request->email != null ? $request->email : "",
                     "dateOfBirth" => $request->dob != null ? $request->dob : "",
-                    "image" => asset('assets/candidates/'.$image) 
+                    "image" => $candidate_image
                 ];
                 $datas = json_encode($data, true);
                 //return $datas;
@@ -116,7 +121,7 @@ class AddressController extends Controller
                 "phone" => $request->phone,
                 "email" => $request->email != null ? $request->email : "",
                 "dob" => $request->dob != null ? $request->dob : "",
-                "image" => asset('assets/candidates/'.$image)
+                "image" => $candidate_image
                 ]);
               // return $res;
               // $data = $this->generateAddressReportVerify($slug);
