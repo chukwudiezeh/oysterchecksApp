@@ -106,6 +106,9 @@ class AddressController extends Controller
               ],
             ]);
             $response = curl_exec($curl);
+            if(curl_errno($curl)){
+              dd('error:'. curl_errno($curl));
+            }else{
             $res = json_decode($response, true);
             if($res['success'] == true && $res['statusCode'] == 201){
                 $service_ref = $res['data']['id'];
@@ -133,8 +136,8 @@ class AddressController extends Controller
 
                 // dd($service_ref);
                 return redirect()->route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $service_ref]);
-            }
-            }catch(\Exception $e){
+              }
+            }}catch(\Exception $e){
             DB::rollBack();
             throw $e;
             }
@@ -298,10 +301,11 @@ class AddressController extends Controller
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 2180,
+          CURLOPT_TIMEOUT => 45,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "POST",
           CURLOPT_POSTFIELDS => $datas,
+          CURLOPT_FAILONERROR => 1,
           CURLOPT_HTTPHEADER => [
             "Content-Type: application/json",
             // "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
