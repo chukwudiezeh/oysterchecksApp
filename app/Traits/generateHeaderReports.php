@@ -51,24 +51,24 @@ public function generateHeaderReports($slug){
         $address_verifications = AddressVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->with('addressVerificationDetail')->latest()->get();
         // $all_address_verifications = $address_verifications->addressVerificationDetail;
         $data['slug'] = $slug;
-        foreach($address_verifications as $address_verification){
-            if(!isset($address_verification->addressVerificationDetail)){
-                $not_requested++;
-            }else{
-                if ($address_verification->addressVerificationDetail->status == 'pending'){
-                    $pending++;
-                }elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'VERIFIED'){
-                    $verified++;
-                }elseif($address_verification->addressVerificationDetail->status == 'awaiting_reschedule'){
-                    $awaiting_reschedule++;
-                }elseif($address_verification->addressVerificationDetail->status == 'canceled'){
-                    $cancelled++;
-                }elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'NOT_VERIFIED'){
-                    $not_verified++;
-                }
+        // foreach($address_verifications as $address_verification){
+        //     if(!isset($address_verification->addressVerificationDetail)){
+        //         $not_requested++;
+        //     }else{
+        //         if ($address_verification->addressVerificationDetail->status == 'pending'){
+        //             $pending++;
+        //         }elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'VERIFIED'){
+        //             $verified++;
+        //         }elseif($address_verification->addressVerificationDetail->status == 'awaiting_reschedule'){
+        //             $awaiting_reschedule++;
+        //         }elseif($address_verification->addressVerificationDetail->status == 'canceled'){
+        //             $cancelled++;
+        //         }elseif($address_verification->addressVerificationDetail->status == 'completed' && $address_verification->addressVerificationDetail->task_status == 'NOT_VERIFIED'){
+        //             $not_verified++;
+        //         }
 
-                }
-        }
+        //         }
+        // }
         $data['verified'] = $verified;
         $data['not_verified'] = $not_verified;
         $data['pending'] = $pending;
