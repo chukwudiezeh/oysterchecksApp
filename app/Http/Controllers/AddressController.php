@@ -314,6 +314,9 @@ class AddressController extends Controller
         ]);
         
         $response = curl_exec($curl);
+        if(curl_errno($curl)){
+          dd('error:'. curl_errno($curl));
+        }else{
         $res = json_decode($response, true);
         dd($res);
 
@@ -376,7 +379,7 @@ class AddressController extends Controller
           return redirect()->route('addressIndex', $request->slug);
         }
 
-       }catch(\Exception $e){
+       }}catch(\Exception $e){
           DB::rollBack();
           throw $e;
        }
