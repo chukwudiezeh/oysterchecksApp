@@ -6,7 +6,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
-use App\Events\AddressVerificationUpdated;
+use App\Events\AddressVerificationCreated;
 use App\Listeners\InsertAddressVerificationPayload;
 use Illuminate\Support\Facades\Event;
 
@@ -22,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 
-        AddressVerificationUpdated::class => [
+        AddressVerificationCreated::class => [
             InsertAddressVerificationPayload::class,
         ],
 
