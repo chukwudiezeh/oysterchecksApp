@@ -55,18 +55,23 @@ class AddressController extends Controller
                     return redirect()->back()->withErrors($valid)->withInput($request->all());
                 }
           //  dd($request->all());
-           if(request()->file('image')){
-            $image = request()->file('image');
-            $name =  $image->getClientOriginalName();
-            $FileName = \pathinfo($name, PATHINFO_FILENAME);
-            $ext =  $image->getClientOriginalExtension();
-            $time = time().$FileName;
-            $dd = md5($time);
-            $fileName = $dd.'.'.$ext;
-            if($image->move('assets/candidates', $fileName)){
-              $image = $fileName;
+           if($request->file('image')){
 
-            }
+            $candidate_image = cloudinary()->upload($request->file('image')->getRealPath(), [
+              'folder' => 'oysterchecks/candidates'
+            ])->getSecurePath();
+
+            // $image = request()->file('image');
+            // $name =  $image->getClientOriginalName();
+            // $FileName = \pathinfo($name, PATHINFO_FILENAME);
+            // $ext =  $image->getClientOriginalExtension();
+            // $time = time().$FileName;
+            // $dd = md5($time);
+            // $fileName = $dd.'.'.$ext;
+            // if($image->move('assets/candidates', $fileName)){
+            //   $image = $fileName;
+
+            // }
            }
 
             $ref = $this->GenerateRef();
@@ -80,7 +85,7 @@ class AddressController extends Controller
                     "mobile" => $request->phone,
                     "email" => $request->email != null ? $request->email : "",
                     "dateOfBirth" => $request->dob != null ? $request->dob : "",
-                    "image" => asset('assets/candidates/'.$image) 
+                    "image" => $candidate_image
                 ];
                 $datas = json_encode($data, true);
                 //return $datas;
@@ -101,6 +106,9 @@ class AddressController extends Controller
               ],
             ]);
             $response = curl_exec($curl);
+            if(curl_errno($curl)){
+              dd('error:'. curl_errno($curl));
+            }else{
             $res = json_decode($response, true);
             if($res['success'] == true && $res['statusCode'] == 201){
                 $service_ref = $res['data']['id'];
@@ -116,7 +124,7 @@ class AddressController extends Controller
                 "phone" => $request->phone,
                 "email" => $request->email != null ? $request->email : "",
                 "dob" => $request->dob != null ? $request->dob : "",
-                "image" => asset('assets/candidates/'.$image)
+                "image" => $candidate_image
                 ]);
               // return $res;
               // $data = $this->generateAddressReportVerify($slug);
@@ -128,8 +136,8 @@ class AddressController extends Controller
 
                 // dd($service_ref);
                 return redirect()->route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $service_ref]);
-            }
-            }catch(\Exception $e){
+              }
+            }}catch(\Exception $e){
             DB::rollBack();
             throw $e;
             }
@@ -293,12 +301,11 @@ class AddressController extends Controller
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 2180,
+          CURLOPT_TIMEOUT => 45,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "POST",
           CURLOPT_POSTFIELDS => $datas,
-          CURLOPT_SSL_VERIFYHOST => 0,
-          CURLOPT_SSL_VERIFYPEER => 0,
+          CURLOPT_FAILONERROR => 1,
           CURLOPT_HTTPHEADER => [
             "Content-Type: application/json",
             // "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
@@ -307,10 +314,13 @@ class AddressController extends Controller
         ]);
         
         $response = curl_exec($curl);
+        if(curl_errno($curl)){
+          dd('error:'. curl_errno($curl));
+        }else{
         $res = json_decode($response, true);
+        dd($res);
 
         if($res['success'] == true && $res['statusCode'] == 201){
-          // dd($res);
           AddressVerificationDetail::create([
             'address_verification_id' => $get_address_verification_id,
             'reference_id' => $res['data']['referenceId'],
@@ -369,7 +379,7 @@ class AddressController extends Controller
           return redirect()->route('addressIndex', $request->slug);
         }
 
-       }catch(\Exception $e){
+       }}catch(\Exception $e){
           DB::rollBack();
           throw $e;
        }

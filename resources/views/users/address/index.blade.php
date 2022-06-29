@@ -33,14 +33,14 @@
          </div>
          <div class="row ">
              <div class="col-lg-12">
-                 <div class="row justify-content-center">
-                     <div class="col-md-6 col-lg-4">
+                 <div class="row justify-content-left">
+                     <div class="col-md-6 col-lg-3">
                          <div class="card report-card ">
                              <div class="card-body" style="background:rgb(36, 16, 82)">
                                  <div class="row d-flex justify-content-center">
                                      <div class="col">
-                                         <p class="mb-0 fw-semibold text-white">Successful {{$slug->name}}</p>
-                                         <h3 class="m-0 text-white">{{count($success)}}</h3>
+                                         <p class="mb-0 fw-semibold text-white">Verified Requests</p>
+                                         <h3 class="m-0 text-white">{{$verified}}</h3>
                                      </div>
                                      <div class="col-auto align-self-center">
                                          <div class="report-main-icon bg-light-alt">
@@ -53,13 +53,13 @@
                          </div>
                          <!--end card-->
                      </div>
-                     <div class="col-md-6 col-lg-4">
+                     <div class="col-md-6 col-lg-3">
                          <div class="card report-card">
                              <div class="card-body" style="background:rgb(36, 16, 82)">
                                  <div class="row d-flex justify-content-center">
                                      <div class="col">
-                                         <p class="text-white mb-0 fw-semibold">Failed {{$slug->name}}</p>
-                                         <h3 class="m-0 text-white">{{count($failed)}}</h3>
+                                         <p class="text-white mb-0 fw-semibold">Unverified Requests</p>
+                                         <h3 class="m-0 text-white">{{$not_verified}}</h3>
                                      </div>
                                      <div class="col-auto align-self-center">
                                          <div class="report-main-icon bg-light-alt">
@@ -72,13 +72,73 @@
                          </div>
                          <!--end card-->
                      </div>
-                     <div class="col-md-6 col-lg-4">
+                     <div class="col-md-6 col-lg-3">
                          <div class="card report-card">
                              <div class="card-body" style="background:rgb(36, 16, 82)">
                                  <div class="row d-flex justify-content-center">
                                      <div class="col">
-                                         <p class="text-white mb-0 fw-semibold">Pending Request</p>
-                                         <h3 class="m-0 text-white">{{count($pending)}}</h3>
+                                         <p class="text-white mb-0 fw-semibold">Pending Requests</p>
+                                         <h3 class="m-0 text-white">{{$pending}}</h3>
+                                     </div>
+                                     <div class="col-auto align-self-center">
+                                         <div class="report-main-icon bg-light-alt">
+                                             <i data-feather="users" class="align-self-center text-muted icon-sm"></i>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             <!--end card-body-->
+                         </div>
+                         <!--end card-->
+                     </div>
+                     <!--end col-->
+                     <div class="col-md-6 col-lg-3">
+                         <div class="card report-card">
+                             <div class="card-body" style="background:rgb(36, 16, 82)">
+                                 <div class="row d-flex justify-content-center">
+                                     <div class="col">
+                                         <p class="text-white mb-0 fw-semibold">Cancelled Requests</p>
+                                         <h3 class="m-0 text-white">{{$cancelled}}</h3>
+                                     </div>
+                                     <div class="col-auto align-self-center">
+                                         <div class="report-main-icon bg-light-alt">
+                                             <i data-feather="users" class="align-self-center text-muted icon-sm"></i>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             <!--end card-body-->
+                         </div>
+                         <!--end card-->
+                     </div>
+                     <!--end col-->
+                     <div class="col-md-6 col-lg-3">
+                         <div class="card report-card">
+                             <div class="card-body" style="background:rgb(36, 16, 82)">
+                                 <div class="row d-flex justify-content-center">
+                                     <div class="col">
+                                         <p class="text-white mb-0 fw-semibold">Requests Awaiting Reschedule</p>
+                                         <h3 class="m-0 text-white">{{$awaiting_reschedule}}</h3>
+                                     </div>
+                                     <div class="col-auto align-self-center">
+                                         <div class="report-main-icon bg-light-alt">
+                                             <i data-feather="users" class="align-self-center text-muted icon-sm"></i>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             <!--end card-body-->
+                         </div>
+                         <!--end card-->
+                     </div>
+                     <!--end col-->
+                     <div class="col-md-6 col-lg-3">
+                         <div class="card report-card">
+                             <div class="card-body" style="background:rgb(36, 16, 82)">
+                                 <div class="row d-flex justify-content-center">
+                                     <div class="col">
+                                         <p class="text-white mb-0 fw-semibold">Verification not Requested</p>
+                                         <h3 class="m-0 text-white">{{$not_requested}}</h3>
                                      </div>
                                      <div class="col-auto align-self-center">
                                          <div class="report-main-icon bg-light-alt">
@@ -150,23 +210,23 @@
                                      <td>{{$transaction->first_name}} {{$transaction->last_name}}</td>
                                      <td>{{$transaction->addressVerificationDetail()->exists() ? $transaction->addressVerificationDetail->reference_id : '---'}}</td>
                                      <td>
-                                        @if($transaction->addressVerificationDetail()->exists())
-                                            @if($transaction->addressVerificationDetail->status == 'pending')
-                                                <span class="badge badge-soft-purple">Pending</span>
-                                            @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'VERIFIED')
-                                                <span class="badge badge-soft-success">Completed & Verified</span>
-                                            @elseif($transaction->addressVerificationDetail->status == 'awaiting_reschedule')
-                                                <span class="badge badge-soft-dark">Awaiting Reschedule</span>
-                                            @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'NOT_VERIFIED')
-                                                <span class="badge badge-soft-warning">Completed but Not Verified</span>
-                                            @elseif($transaction->addressVerificationDetail->status == 'canceled')
-                                                <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetail->status}}</span>
-                                            @else
-                                                <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetail->status}}</span>
-                                            @endif
-                                        @else
-                                            <span class="badge badge-soft-secondary">No verification Request Yet</span>
-                                        @endif
+                                         @if($transaction->addressVerificationDetail()->exists())
+                                         @if($transaction->addressVerificationDetail->status == 'pending')
+                                         <span class="badge badge-soft-purple">Pending</span>
+                                         @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'VERIFIED')
+                                         <span class="badge badge-soft-success">Completed & Verified</span>
+                                         @elseif($transaction->addressVerificationDetail->status == 'awaiting_reschedule')
+                                         <span class="badge badge-soft-dark">Awaiting Reschedule</span>
+                                         @elseif($transaction->addressVerificationDetail->status == 'completed' && $transaction->addressVerificationDetail->task_status == 'NOT_VERIFIED')
+                                         <span class="badge badge-soft-warning">Completed but Not Verified</span>
+                                         @elseif($transaction->addressVerificationDetail->status == 'canceled')
+                                         <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetail->status}}</span>
+                                         @else
+                                         <span class="badge badge-soft-danger"> {{$transaction->addressVerificationDetail->status}}</span>
+                                         @endif
+                                         @else
+                                         <span class="badge badge-soft-secondary">No verification Request Yet</span>
+                                         @endif
                                      </td>
                                      <td>{{$transaction->user->name}}</td>
                                      <td>{{$transaction->fee}}</td>
@@ -174,16 +234,16 @@
 
                                      <td>
                                          <div class="dropdown d-inline-block">
-                                            <a class="dropdown-toggle arrow-none" id="seeMore" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                            <i class="fa fa-ellipsis-h font-12 text-muted"></i>
-                                            </a>
+                                             <a class="dropdown-toggle arrow-none" id="seeMore" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                 <i class="fa fa-ellipsis-h font-12 text-muted"></i>
+                                             </a>
                                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="seeMore" style="">
-                                             <a class="dropdown-item" href="#">Copy Reference Id</a>
-                                                @if($transaction->addressVerificationDetail()->exists())
-                                                    <a class="dropdown-item" href="{{route('showAddressReport', ['slug' => encrypt($slug->slug), 'addressId' => encrypt($transaction->id)])}}">View Verification Report</a>
-                                                @else
-                                                    <a class="dropdown-item" href="{{route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $transaction->service_reference])}}">Make a Verification Request</a>
-                                                @endif
+                                                 <a class="dropdown-item" href="#">Copy Reference Id</a>
+                                                 @if($transaction->addressVerificationDetail()->exists())
+                                                 <a class="dropdown-item" href="{{route('showAddressReport', ['slug' => encrypt($slug->slug), 'addressId' => encrypt($transaction->id)])}}">View Verification Report</a>
+                                                 @else
+                                                 <a class="dropdown-item" href="{{route('showVerificationDetailsForm', ['slug' => encrypt($slug->slug), 'service_ref' => $transaction->service_reference])}}">Make a Verification Request</a>
+                                                 @endif
                                              </div>
                                          </div>
                                      </td>
@@ -202,7 +262,7 @@
          @endsection
          @section('script')
          <script>
-             
+
          </script>
 
          @endsection

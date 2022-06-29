@@ -30,7 +30,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-       $this->API_Token = 'FLWSECK_TEST-b754b22c91f541503f75b0d74d29a034-X';
+       $this->API_Token = 'FLWSECK_TEST-4b55ad219d2376bebfb6bc146b02a781-X';
     }
 
     /**

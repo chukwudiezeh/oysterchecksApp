@@ -113,9 +113,39 @@
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Verification Type :</span> {{$slug->name}}</div>
                             </div>
                             <div class="col-md-4">
-                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$address_verification->addressVerificationDetail->created_at)->format('d-m-Y, h:ia')}}</div>
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Created At:</span> {{ date('jS F Y, h:iA', strtotime($address_verification->addressVerificationDetail->created_at))}}</div>
                             </div>
-                           
+                            @if($address_verification->addressVerificationDetail->accepted_at != null)
+                            <div class="col-md-4">
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Accepted At :</span> {{ date('jS F Y, h:iA', strtotime($address_verification->addressVerificationDetail->accepted_at))}}</div>
+                            </div>
+                            @endif
+
+                            @if($address_verification->addressVerificationDetail->start_date != null)
+                            <div class="col-md-4">
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Start Date :</span> {{date('jS F Y, h:iA', strtotime($address_verification->addressVerificationDetail->start_date))}}</div>
+                            </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->end_date != null)
+                            <div class="col-md-4">
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">End Date :</span> {{ date('jS F Y, h:iA', strtotime($address_verification->addressVerificationDetail->end_date))}}</div>
+                            </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->completed_at != null)
+                            <div class="col-md-4">
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Completed At :</span> {{ date('jS F Y, h:iA', strtotime($address_verification->addressVerificationDetail->completed_at))}}</div>
+                            </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->submitted_at != null)
+                            <div class="col-md-4">
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Submitted At :</span> {{ date('jS F Y, h:iA', strtotime($address_verification->addressVerificationDetail->submitted_at))}}</div>
+                            </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->revalidation_date != null)
+                            <div class="col-md-4">
+                                <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Revalidated At :</span> {{ date('jS F Y, h:iA', strtotime($address_verification->addressVerificationDetail->revalidation_date))}}</div>
+                            </div>
+                            @endif
                             <div class="col-md-4">
                                 <div class="mt-2 mb-2 px-2 font-15"><span class="text-muted mr-2">Initiated At :</span> {{Auth()->user()->name}}</div>
                             </div>
@@ -186,6 +216,88 @@
 
                                 </div>
                             </div>
+                            @if($address_verification->addressVerificationDetail->guarantor != null)
+                            <div class="col-12">
+                                <div class="accordion" id="guarantorInformation">
+                                    <div class="accordion-item border-0">
+                                        <h5 class="accordion-header m-0" id="headingOneTwo">
+                                            <button class="accordion-button fw-semibold font-16" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneTwo" aria-expanded="true" aria-controls="collapseOneTwo">
+                                                Guarantor's information
+                                            </button>
+                                        </h5>
+                                        <div id="collapseOneTwo" class="accordion-collapse" aria-labelledby="headingOneTwo" data-bs-parent="#guarantorInformation" style="">
+                                            <div class="accordion-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
+                                                        <div class="dastone-profile-main">
+                                                            <div class="dastone-profile-main-pic">
+                                                                <img src="{{$address_verification->addresVerificationDetail->guarantor['photo']}}" alt="" height="110" class="rounded-circle">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom mb-5">
+
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">First Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addresVerificationDetail->guarantor['firstName']}}</div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Last Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addresVerificationDetail->guarantor['lastName']}}</div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Phone : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verificationaddresVerificationDetail->guarantor['mobile']}}</div>
+                                                    </div>
+                                                    @if($address_verification->addresVerificationDetail->guarantor['email'] != null)
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">email : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addresVerificationDetail->guarantor['email']}}</div>
+                                                    </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            @if($address_verification->addressVerificationDetail->guarantor != null)
+                            <div class="col-12">
+                                <div class="accordion" id="businessInformation">
+                                    <div class="accordion-item border-0">
+                                        <h5 class="accordion-header m-0" id="headingOneThree">
+                                            <button class="accordion-button fw-semibold font-16" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneThree" aria-expanded="true" aria-controls="collapseOneThree">
+                                                Business information
+                                            </button>
+                                        </h5>
+                                        <div id="collapseOneThree" class="accordion-collapse" aria-labelledby="headingOneThree" data-bs-parent="#businessInformation" style="">
+                                            <div class="accordion-body">
+                                                <div class="row border-bottom mb-5">
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addresVerificationDetail->business['name']}}</div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Last Name : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addresVerificationDetail->business['email']}}</div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Phone : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verificationaddresVerificationDetail->business['mobile']}}</div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 d-flex py-4 border-top">
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Registration Number : </div>
+                                                        <div class="fw-normal font-15 col-8">{{$address_verification->addresVerificationDetail->business['registrationNumber']}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                             <div class="col-12">
                                 <div class="accordion" id="addressDetails">
                                     <div class="accordion-item border-0">
@@ -251,11 +363,11 @@
                                                         <div class="w-100 overflow-hidden rounded"><iframe src="{{$address_verification->addressverificationDetail->map_address_url}}" width="100%" height="275" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
                                                     </div>
                                                     <div class="col-6 d-block col-sm-3 col-xl-3 d-sm-flex">
-                                                        <div class="fw-semibold m-0 font-15 me-3">Longitude : </div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted">Longitude : </div>
                                                         <div class="fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']['lon']}}</div>
                                                     </div>
                                                     <div class="col-6 d-block col-sm-3 col-xl-3 d-sm-flex">
-                                                        <div class="fw-semibold m-0 font-15 me-3">Latitude : </div>
+                                                        <div class="fw-semibold m-0 font-15 me-3 text-muted">Latitude : </div>
                                                         <div class="fw-normal font-15">{{$address_verification->addressVerificationDetail->address['latlong']['lat']}}</div>
                                                     </div>
                                                 </div>
@@ -264,7 +376,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if($address_verification->addressVerificationDetail->status != 'pending' ||  $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
+                            @if($address_verification->addressVerificationDetail->status != 'pending' || $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
                             <div class="col-12">
                                 <div class="accordion" id="images">
                                     <div class="accordion-item border-0">
@@ -281,7 +393,9 @@
                                                     @else
                                                     @foreach($address_verification->addressVerificationDetail->images as $image)
                                                     <div class="mr-2" style="width: 8rem; height: 8rem;">
-                                                        <img src="{{$image['filePath']}}" data-bs-toggle="modal" data-bs-target="#imageView{{$loop->iteration}}" alt="" class="img-fluid rounded">
+                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#imageView{{$loop->iteration}}">
+                                                            <img src="{{$image['filePath']}}" alt="" class="img-fluid rounded">
+                                                        </a>
                                                     </div>
                                                     @endforeach
                                                     @endempty
@@ -293,10 +407,10 @@
                             </div>
                             @if(!empty($address_verification->addressVerificationDetail->images))
                             @foreach($address_verification->addressVerificationDetail->images as $image)
-                            <div class="modal fade" id="imageView" tabindex="-1" aria-labelledby="imageView{{$loop->iteration}}" style="display: none;" aria-hidden="true">
+                            <div class="modal fade" id="imageView{{$loop->iteration}}" tabindex="-1" aria-labelledby="imageView{{$loop->iteration}}" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content" style="background:none">
-                                        <div class="modal-header" style="background:none">
+                                        <div class="modal-header border-0" style="background:none">
                                             <h6 class="modal-title m-0" id="imageView"></h6>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
@@ -319,7 +433,7 @@
                             @endif
                             @endif
 
-                            @if($address_verification->addressVerificationDetail->status != 'pending' ||  $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
+                            @if($address_verification->addressVerificationDetail->status != 'pending' || $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
                             <div class="col-12">
                                 <div class="accordion" id="notes">
                                     <div class="accordion-item border-0">
@@ -332,7 +446,7 @@
                                             <div class="accordion-body">
                                                 <div class="row mb-5">
                                                     @empty($address_verification->addressVerificationDetail->notes)
-                                                        <div class="col-12 text-center py-3">No Notes Available</div>
+                                                    <div class="col-12 text-center py-3">No Notes Available</div>
                                                     @else
                                                     @foreach($address_verification->addressVerificationDetail->notes as $note)
                                                     <div class="col-12 py-2">
@@ -402,7 +516,7 @@
                                 </div>
                             </div>
                             @endif
-                            @if($address_verification->addressVerificationDetail->status != 'pending' ||  $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
+                            @if($address_verification->addressVerificationDetail->status != 'pending' || $address_verification->addressVerificationDetail->status != 'canceled' || $address_verification->addressVerificationDetail->status != 'awaiting_reschedule')
                             <div class="col-12">
                                 <div class="accordion" id="otherInformation">
                                     <div class="accordion-item border-0">
@@ -430,7 +544,7 @@
                                                         <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->reasons}}</div>
                                                     </div>
                                                     @else
-                                                        <div class="col-12 text-center py-3">No Other Information Available</div>
+                                                    <div class="col-12 text-center py-3">No Other Information Available</div>
                                                     @endif
                                                 </div>
                                             </div>
@@ -464,7 +578,6 @@
                                                         <div class="fw-semibold m-0 font-15 me-3 text-muted col-4">Agent's Name : </div>
                                                         <div class="fw-normal font-15 col-8">{{$address_verification->addressVerificationDetail->agent['firstName']}} {{$address_verification->addressVerificationDetail->agent['lastName']}}</div>
                                                     </div>
-                                                
                                                     <div class="col-12 col-md-12 d-block py-4 border-top">
                                                         <div class="fw-semibold m-0 font-15 me-3">Signature : </div>
                                                         <div class="dastone-profile-main">
@@ -472,7 +585,6 @@
                                                                 <img src="{{$address_verification->addressVerificationDetail->agent['signature']}}" alt="" height="80" class="rounded">
                                                             </div>
                                                         </div>
-                                                
                                                     </div>
 
                                                 </div>
