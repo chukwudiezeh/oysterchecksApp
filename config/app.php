@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -230,7 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
-        'Rave' => KingFlamez\Rave\Facades\Rave::class,
+        'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
     ],
 
 ];
