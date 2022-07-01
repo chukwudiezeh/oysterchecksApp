@@ -8,9 +8,9 @@
                 <div class="page-title-box">
                     <div class="row">
                         <div class="col">
-                            <h4 class="page-title">Transactions</h4>
+                            <h4 class="page-title">Wallet Transactions</h4>
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item">This Dashboard shows overview of your transactions</li>
+                                <li class="breadcrumb-item">This Page shows an overview of your transactions and allows you manage and fund your wallet.</li>
                             </ol>
                         </div>
                         <!--end col-->
@@ -36,142 +36,140 @@
         <!-- end page title end breadcrumb -->
 
         <div class="row ">
-            <div class="card">
-                <h3 class="pt-2 pl-2"> Balances </h3>
-                <div class="col-lg-12">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 col-lg-4">
-                            <div class="card report-card">
-                                <div class="card-body">
-                                    <div class="col">
-                                        <h5 class="card-title mb-2">Available Balance</h5>
-                                        <p class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</p>
-                                    </div>
-                                    <div class="col">
-                                        <h5 class="card-title mb-2">Available Balance</h5>
-                                        <p class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</p>
-                                    </div>
-                                    <a href="#" class="btn btn-primary btn-sm">Fund Wallet</a>
-                                </div>
-                                <!--end card-body-->
-                            </div>
-                            <!--end card-->
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <div class="card report-card">
-                                <div class="card-body">
-                                    <div class="row d-flex justify-content-center">
-                                        <div class="col">
-                                            <p class=" mb-0 fw-semibold">Available Balances</p>
-                                            <h3 class="m-0 ">{{moneyFormat($balances->avail_balance, 'NG')}}</h3>
-                                        </div>
-                                        <div class="col-auto align-self-center">
-                                            <div class="report-main-icon bg-light-alt">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end card-body-->
-                            </div>
-                            <!--end card-->
-                        </div>
-                        <!--end col-->
-
-                        <!--end col-->
-                    </div>
-                    <!--end row-->
-                </div>
-            </div>
-        </div>
-        @if(Session::has('message'))
-        <span class="btn btn-success"> {{Session::get('message')}}</span>
-        @endif
-        <div class="row">
-            <div class="col-lg-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">WALLET TOPUP</h4>
-                        <p class="text-muted mb-0">Easily Add money to your wallet</p>
+                        <h4 class="card-title"> My Wallet</h4>
+                    </div>
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-12 col-lg-3">
+                                <div class="card report-card">
+                                    <div class="card-body d-lg-block d-sm-flex">
+                                        <div class="col">
+                                            <h5 class="card-title mb-2">Available Balance</h5>
+                                            <h3 class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</h3>
+                                        </div>
+                                        <div class="col mt-lg-4">
+                                            <h5 class="card-title mb-2">Available Balance</h5>
+                                            <h3 class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</h3>
+                                        </div>
+
+                                        <div class="col align-self-center mt-lg-4">
+                                            <button type="button" class="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#fundWallet">
+                                                Fund Wallet
+                                            </button>
+                                        </div>
+                                        <!-- <a href="#" class="">Fund Wallet</a> -->
+                                    </div>
+                                    <!--end card-body-->
+                                </div>
+                                <!--end card-->
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"> Payment Transactions log</h4>
+
                     </div>
                     <!--end card-header-->
-                    <form method="post" action="{{route('fundRequest')}}" id="formSubmit">
-                        @csrf
-                        <div class="card-body">
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Amount ({{naira()}})</span>
-                                    <input type="text" id="customAmount" name="amount" class="form-control" required />
-                                    <span class="input-group-text">.00</span>
-                                    <span class="btn btn-danger Error" hidden> </span>
-                                </div>
-
-                            </div>
-                            <span> Payment Method</span>
-                            <div class="card-body">
-                                <div class="radio radio-info form-check-inline">
-                                    <input type="radio" id="inlineRadio1" class="paymentMethod" value="card" name="paymentMethod" checked="">
-                                    <label for="inlineRadio1"> Card Payment</label>
-                                </div>
-                                <div class="radio  radio-info form-check-inline">
-                                    <input type="radio" id="bank_transfer" class="cardMethod" value="bank_transfer" name="paymentMethod">
-                                    <label for="bank_transfer"> Bank Transfer</label>
-                                </div>
-                            </div>
-
-                            <button type="button" id="btnsubmit" class="btn btn-primary btn-lg w-50">Complete Payment</button>
-                        </div>
-                    </form>
+                    <div class="card-body">
+                        <table id="datatable-buttons" class=" orders table table-striped table-bordered dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>Ref</th>
+                                    <th>External Ref</th>
+                                    <th>Amount</th>
+                                    <th>Purpose</th>
+                                    <th>Type</th>
+                                    <th>Prev Balance</th>
+                                    <th>Avail Balance</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($transactions as $trans )
+                                <tr>
+                                    <td>{{$trans->id}}</td>
+                                    <td>{{$trans->ref}}</td>
+                                    <td>{{$trans->external_ref}}</td>
+                                    <td>{{moneyFormat($trans->amount, 'NG')}}</td>
+                                    <td>{{$trans->purpose}}</td>
+                                    @if($trans->type == 'DEBIT') <td class="badge badge-soft-danger">{{$trans->type}}</td> @else <td class="badge badge-soft-success"> {{$trans->type}}</td>@endif
+                                    <td>{{moneyFormat($trans->prev_balance, 'NG')}}</td>
+                                    <td>{{moneyFormat($trans->avail_balance, 'NG')}}</td>
+                                    <td> {{$trans->created_at}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <!--end card-body-->
-            </div>
-            <!--end card-->
-        </div>
-        <!--end col-->
-    </div>
-    <!--end row-->
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title"> Payment Transactions log</h4>
+            </div> <!-- end col -->
 
-            </div>
-            <!--end card-header-->
-            <div class="card-body">
-                <table id="datatable-buttons" class=" orders table table-striped table-bordered dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>SN</th>
-                            <th>Ref</th>
-                            <th>External Ref</th>
-                            <th>Amount</th>
-                            <th>Purpose</th>
-                            <th>Type</th>
-                            <th>Prev Balance</th>
-                            <th>Avail Balance</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($transactions as $trans )
-                        <tr>
-                            <td>{{$trans->id}}</td>
-                            <td>{{$trans->ref}}</td>
-                            <td>{{$trans->external_ref}}</td>
-                            <td>{{moneyFormat($trans->amount, 'NG')}}</td>
-                            <td>{{$trans->purpose}}</td>
-                            @if($trans->type == 'DEBIT') <td class="badge badge-soft-danger">{{$trans->type}}</td> @else <td class="badge badge-soft-success"> {{$trans->type}}</td>@endif
-                            <td>{{moneyFormat($trans->prev_balance, 'NG')}}</td>
-                            <td>{{moneyFormat($trans->avail_balance, 'NG')}}</td>
-                            <td> {{$trans->created_at}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div> <!-- end col -->
-</div><!-- container -->
 
-@endsection
-@section('script')
-@endsection
+            <div class="modal fade" id="fundWallet" tabindex="-1" aria-labelledby="fundWalletLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h6 class="modal-title m-0" id="fundWalletLabel">Fund Wallet</h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!--end modal-header-->
+                        <div class="modal-body">
+                            <form method="POST" action="" id="fundWalletForm">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-4">
+                                        <label class="form-label" for="customAmount">Add Money to Wallet ({{naira()}})</label>
+                                        <input type="number" class="form-control" id="customAmount" aria-describedby="Add Money to Wallet" placeholder="Enter Amount" required>
+                                        <small id="emailHelp" class="form-text text-muted">Wallet can be funded with a minimum of {{naira()}}5,000</small>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-5">
+                                        <label class="form-label" for="paymentMethod">Payment Method</label>
+                                        <div class="col-md-9">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod1" value="card" checked required>
+                                                <label class="form-check-label" for="paymentMethod1">Card/Bank Payment</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod2" value="bank_transfer" required>
+                                                <label class="form-check-label" for="paymentMethod2">Bank Transfer</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-2">
+                                        <button type="submit" id="fundWalletSubmit" class="btn btn-primary btn-lg w-100" disabled>
+                                            Pay Securely
+                                        </button>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            </form>
+                        </div>
+                        <!--end modal-body-->
+                    </div>
+                    <!--end modal-content-->
+                </div>
+                <!--end modal-dialog-->
+            </div>
+
+        </div><!-- container -->
+
+        @endsection
+        @section('script')
+        @endsection
