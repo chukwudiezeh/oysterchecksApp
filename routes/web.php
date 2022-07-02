@@ -67,6 +67,7 @@ Route::get('/user/candidate/upload/', [CandidateController::class, 'CandidateFil
 Route::post('/user/candidate/upload/store', [CandidateController::class, 'CandidateFileStore'])->name('candidate.FileStore');
 Route::get('/user/candidate/upload/index', [CandidateController::class, 'candidateHomePage'])->name('candidate.homepage');
 Route::get('/user/transactions', [HomeController::class, 'UserTransactions'])->name('user.transactions');
+Route::post('/');
 Route::post('/user/fund/request', [HomeController::class, 'fundRequest'])->name('fundRequest');
 Route::get('/user/payment/{trxref}', [HomeController::class, 'PaymentVerify'])->name('verify.pay');
 Route::get('/user/reports', [HomeController::class, 'UserReports'])->name('users.report');

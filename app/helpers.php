@@ -47,8 +47,11 @@ function executeCurl($data, $host, $method)
      dd('error:'. curl_errno($curl));
    }else{
    $res = json_decode($response, true);
+   
+   curl_close($curl);
    return $res;
    }
+
 }
 
 
