@@ -15,9 +15,12 @@ class CreateFundRequestsTable extends Migration
     {
         Schema::create('fund_requests', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
-            $table->integer('is_approved')->nullable();
-            $table->double('amount')->nullable();
+            $table->integer('user_id');
+            $table->decimal('amount');
+            $table->decimal('tax');
+            $table->decimal('total_amount');
+            $table->string('payment_method');
+            $table->boolean('is_approved')->default(false);
             $table->string('approved_by')->nullable();
             $table->timestamps();
         });

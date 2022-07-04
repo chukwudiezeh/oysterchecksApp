@@ -35,7 +35,7 @@
         <!--end row-->
         <!-- end page title end breadcrumb -->
 
-        <div class="row ">
+        <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="card-body ">
                         <div class="row">
-                            <div class="col-12 col-lg-3">
+                            <div class="col-12 col-lg-4">
                                 <div class="card report-card">
                                     <div class="card-body d-lg-block d-sm-flex">
                                         <div class="col">
@@ -51,7 +51,7 @@
                                             <h3 class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</h3>
                                         </div>
                                         <div class="col mt-lg-4">
-                                            <h5 class="card-title mb-2">Available Balance</h5>
+                                            <h5 class="card-title mb-2">Book Balance</h5>
                                             <h3 class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</h3>
                                         </div>
 
@@ -118,24 +118,25 @@
             <div class="modal fade" id="fundWallet" tabindex="-1" aria-labelledby="fundWalletLabel" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h6 class="modal-title m-0" id="fundWalletLabel">Fund Wallet</h6>
+                        <div class="modal-header bg-white">
+                            <h6 class="modal-title m-0" id="fundWalletLabel" style="color:#303e67">Fund Wallet</h6>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <!--end modal-header-->
                         <div class="modal-body">
-                            <form method="POST" action="" id="fundWalletForm">
-                            <div class="row">
+                            <form method="POST" action="" id="fundWalletForm" class="form-parsley" novalidate>
+                                @csrf
+                                <div class="row">
                                 <div class="col-12">
                                     <div class="mb-4">
-                                        <label class="form-label" for="customAmount">Add Money to Wallet ({{naira()}})</label>
-                                        <input type="number" class="form-control" id="customAmount" aria-describedby="Add Money to Wallet" placeholder="Enter Amount" required>
-                                        <small id="emailHelp" class="form-text text-muted">Wallet can be funded with a minimum of {{naira()}}5,000</small>
+                                        <label class="mb-2 font-14" for="customAmount">Add Money to Wallet ({{naira()}})</label>
+                                        <input type="number" class="form-control" id="customAmount" aria-describedby="Add Money to Wallet" placeholder="Enter Amount" required data-parsley-min="5000">
+                                        <small id="help" class="form-text text-muted">Wallet can be funded with a minimum of {{naira()}}5,000</small>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-5">
-                                        <label class="form-label" for="paymentMethod">Payment Method</label>
+                                        <label class="mb-2 font-14" for="paymentMethod">Payment Method</label>
                                         <div class="col-md-9">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod1" value="card" checked required>
@@ -149,7 +150,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12" id="fundWalletSubmitDiv">
                                     <div class="mb-2">
                                         <button type="submit" id="fundWalletSubmit" class="btn btn-primary btn-lg w-100" disabled>
                                             Pay Securely
@@ -167,9 +168,12 @@
                 </div>
                 <!--end modal-dialog-->
             </div>
+            <div id="instructionsModal"></div>
 
         </div><!-- container -->
 
         @endsection
         @section('script')
+        <script src="{{asset('plugins/parsleyjs/parsley.min.js')}}"></script>
+        <script src="{{asset('assets/pages/jquery.validation.init.js')}}"></script>
         @endsection
