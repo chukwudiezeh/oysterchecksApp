@@ -15,6 +15,7 @@ class CreateFundRequestsTable extends Migration
     {
         Schema::create('fund_requests', function (Blueprint $table) {
             $table->id();
+            $table->string('reference');
             $table->integer('user_id');
             $table->decimal('amount');
             $table->decimal('tax');

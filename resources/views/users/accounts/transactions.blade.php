@@ -34,7 +34,9 @@
         </div>
         <!--end row-->
         <!-- end page title end breadcrumb -->
-
+        @if(Session::has('alert'))
+        <span class="btn btn-{{Session::get('alert')}}"> {{Session::get('message')}}</span>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -124,42 +126,42 @@
                         </div>
                         <!--end modal-header-->
                         <div class="modal-body">
-                            <form method="POST" action="" id="fundWalletForm" class="form-parsley" novalidate>
+                            <form method="POST" action="{{route('fundWallet')}}" id="fundWalletForm" class="form-parsley" novalidate>
                                 @csrf
                                 <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-4">
-                                        <label class="mb-2 font-14" for="customAmount">Add Money to Wallet ({{naira()}})</label>
-                                        <input type="number" class="form-control" id="customAmount" aria-describedby="Add Money to Wallet" placeholder="Enter Amount" required data-parsley-min="5000">
-                                        <small id="help" class="form-text text-muted">Wallet can be funded with a minimum of {{naira()}}5,000</small>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-5">
-                                        <label class="mb-2 font-14" for="paymentMethod">Payment Method</label>
-                                        <div class="col-md-9">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod1" value="card" checked required>
-                                                <label class="form-check-label" for="paymentMethod1">Card/Bank Payment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod2" value="bank_transfer" required>
-                                                <label class="form-check-label" for="paymentMethod2">Bank Transfer</label>
-                                            </div>
-
+                                    <div class="col-12">
+                                        <div class="mb-4">
+                                            <label class="mb-2 font-14" for="customAmount">Add Money to Wallet ({{naira()}})</label>
+                                            <input type="number" class="form-control" name="customAmount" id="customAmount" aria-describedby="Add Money to Wallet" placeholder="Enter Amount" required data-parsley-min="5000">
+                                            <small id="help" class="form-text text-muted">Wallet can be funded with a minimum of {{naira()}}5,000</small>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12" id="fundWalletSubmitDiv">
-                                    <div class="mb-2">
-                                        <button type="submit" id="fundWalletSubmit" class="btn btn-primary btn-lg w-100" disabled>
-                                            Pay Securely
-                                        </button>
+                                    <div class="col-12">
+                                        <div class="mb-5">
+                                            <label class="mb-2 font-14" for="paymentMethod">Payment Method</label>
+                                            <div class="col-md-9">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod1" value="card" checked required>
+                                                    <label class="form-check-label" for="paymentMethod1">Card/Bank Payment</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod2" value="bank_transfer" required>
+                                                    <label class="form-check-label" for="paymentMethod2">Bank Transfer</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="col-12" id="fundWalletSubmitDiv">
+                                        <div class="mb-2">
+                                            <button type="submit" id="fundWalletSubmit" class="btn btn-primary btn-lg w-100" disabled>
+                                                Pay Securely
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
                                 </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
+                                <!--end row-->
                             </form>
                         </div>
                         <!--end modal-body-->
@@ -168,7 +170,23 @@
                 </div>
                 <!--end modal-dialog-->
             </div>
-            <div id="instructionsModal"></div>
+            <div class="modal fade" id="instructionsModal" tabindex="-1" aria-labelledby="instructionsModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-white">
+                            <h6 class="modal-title m-0" id="instructionsModalLabel" style="color:#303e67"></h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="instructionsModalBody">
+                        </div>
+                        <div class="modal-footer gap-5 justify-content-center">
+                            <button type="button" id="proceedModal" class="btn btn-soft-primary btn-sm"></button>
+                            <button type="submit" class="btn btn-soft-danger btn-sm" id="cancelModal"></button>
+                        </div>
+                        <!--end modal-footer-->
+                    </div>
+                </div>
+            </div>
 
         </div><!-- container -->
 

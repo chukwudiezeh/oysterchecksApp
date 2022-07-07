@@ -114,9 +114,9 @@ class HomeController extends Controller
     }
 
     public function fundRequest(Request $request){
-        $required_data = $request->only('amount', 'paymenetMethod');
+        $required_data = $request->only('customAmount', 'paymentMethod');
         $validator = Validator::make($required_data, [
-            'amount' => 'bail|required|integer|gte:5000',
+            'customAmount' => 'bail|required|integer|gte:5000',
             'paymentMethod' => 'bail|required|string|in:card,bank_transfer'
         ]);
         if($validator->fails()){
@@ -130,18 +130,19 @@ class HomeController extends Controller
         // }
         if($required_data['paymentMethod'] == 'bank_transfer'){
             $user = auth()->user();
-            $tax = (7.5*$required_data['amount'])/100;
+            $tax = (7.5*$required_data['customAmount'])/100;
             $funds =  FundRequest::create([
+                'reference' => generateReference(24),
                  'user_id' => $user->id,
-                 'amount' => $required_data['amount'],
+                 'amount' => $required_data['customAmount'],
                  'tax' => $tax,
-                 'total_amount' => $tax + $required_data['amount'],
+                 'total_amount' => $tax + $required_data['customAmount'],
                  'payment_method' => $required_data['paymentMethod']
              ]);
 
         }
      if($funds){
-        response()->json(['success'=> true, 'message' => 'Fund Request Successful', 'data' => $funds], 201);
+        return response()->json(['success'=> true, 'statusCode'=> 201, 'message' => 'Fund Request Successful', 'data' => $funds], 201);
         //  Session::flash('alert', 'success');
         //  Session::flash('message', 'Fund request send, your account will be credited once payment is approved');
         //  return redirect()->back();

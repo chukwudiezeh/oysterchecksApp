@@ -11,6 +11,6 @@ class FundRequest extends Model
 
     protected $fillable = [
 
-        'user_id', 'approved_by', 'is_approved', 'amount'
+        'reference','user_id', 'tax', 'approved_by', 'is_approved', 'amount', 'total_amount', 'payment_method'
     ];
 }
