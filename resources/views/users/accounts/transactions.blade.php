@@ -124,7 +124,7 @@
                         </div>
                         <!--end modal-header-->
                         <div class="modal-body">
-                            <form method="POST" action="" id="fundWalletForm" class="form-parsley" novalidate>
+                            <form method="POST" action="{{route('fundwallet')}}" id="fundWalletForm" class="form-parsley" novalidate>
                                 @csrf
                                 <div class="row">
                                     <div class="col-12">
