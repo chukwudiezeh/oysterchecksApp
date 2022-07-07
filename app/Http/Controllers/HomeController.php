@@ -20,6 +20,8 @@ use App\Models\Transaction;
 use Illuminate\Support\Facades\Session;
 use App\Models\FundRequest;
 
+use Illuminate\Support\Facades\Validator;
+
 class HomeController extends Controller
 {
     use GenerateRef;
@@ -112,23 +114,38 @@ class HomeController extends Controller
     }
 
     public function fundRequest(Request $request){
-        if($request->paymentMethod == 'card'){
-            Session::flash('alert', 'success');
-            Session::flash('message', 'Wallet top-up completed successfully');
-            return redirect()->back();
-        }
-        
-    $user = User::where('id', auth()->user()->id)->first();
-       $funds =  FundRequest::create([
-            'user_id' => $user->id,
-            'amount' => $request->amount,
-            'is_approved' => 0,
-            'approved_by' => null,
+        $required_data = $request->only('customAmount', 'paymentMethod');
+        $validator = Validator::make($required_data, [
+            'customAmount' => 'bail|required|integer|gte:5000',
+            'paymentMethod' => 'bail|required|string|in:card,bank_transfer'
         ]);
+        if($validator->fails()){
+            return response()->json(['errors' => $validator->errors()], 401);
+        }
+
+        // if($request->paymentMethod == 'card'){
+        //     Session::flash('alert', 'success');
+        //     Session::flash('message', 'Wallet top-up completed successfully');
+        //     return redirect()->back();
+        // }
+        if($required_data['paymentMethod'] == 'bank_transfer'){
+            $user = auth()->user();
+            $tax = (7.5*$required_data['customAmount'])/100;
+            $funds =  FundRequest::create([
+                'reference' => generateReference(24),
+                 'user_id' => $user->id,
+                 'amount' => $required_data['customAmount'],
+                 'tax' => $tax,
+                 'total_amount' => $tax + $required_data['customAmount'],
+                 'payment_method' => $required_data['paymentMethod']
+             ]);
+
+        }
      if($funds){
-         Session::flash('alert', 'success');
-         Session::flash('message', 'Fund request send, your account will be credited once payment is approved');
-         return redirect()->back();
+        return response()->json(['success'=> true, 'statusCode'=> 201, 'message' => 'Fund Request Successful', 'data' => $funds], 201);
+        //  Session::flash('alert', 'success');
+        //  Session::flash('message', 'Fund request send, your account will be credited once payment is approved');
+        //  return redirect()->back();
      }
     }
 
