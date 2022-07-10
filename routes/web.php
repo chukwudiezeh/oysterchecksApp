@@ -8,6 +8,7 @@ use App\Http\Controllers\LandingPages;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PaymentController;
 use App\Models\Admin;
 
 /*

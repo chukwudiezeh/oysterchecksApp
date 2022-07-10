@@ -34,7 +34,9 @@
         </div>
         <!--end row-->
         <!-- end page title end breadcrumb -->
-
+        @if(Session::has('alert'))
+        <span class="btn btn-{{Session::get('alert')}}"> {{Session::get('message')}}</span>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -124,7 +126,7 @@
                         </div>
                         <!--end modal-header-->
                         <div class="modal-body">
-                            <form method="POST" action="{{route('fundwallet')}}" id="fundWalletForm" class="form-parsley" novalidate>
+                            <form method="POST" action="{{route('fundWallet')}}" id="fundWalletForm" class="form-parsley" novalidate>
                                 @csrf
                                 <div class="row">
                                     <div class="col-12">
