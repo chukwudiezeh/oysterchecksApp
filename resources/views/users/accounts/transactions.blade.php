@@ -50,11 +50,11 @@
                                     <div class="card-body d-lg-block d-sm-flex">
                                         <div class="col">
                                             <h5 class="card-title mb-2">Available Balance</h5>
-                                            <h3 class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</h3>
+                                            <h3 class="card-text">{{moneyFormat($balances->avail_balance, 'NG')}}</h3>
                                         </div>
                                         <div class="col mt-lg-4">
                                             <h5 class="card-title mb-2">Book Balance</h5>
-                                            <h3 class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</h3>
+                                            <h3 class="card-text">{{moneyFormat($balances->book_balance, 'NG')}}</h3>
                                         </div>
 
                                         <div class="col align-self-center mt-lg-4">
@@ -86,25 +86,34 @@
                             <thead>
                                 <tr>
                                     <th>SN</th>
-                                    <th>Ref</th>
-                                    <th>External Ref</th>
+                                    <th>Transaction Reference</th>
+                                    <th>Status</th>
                                     <th>Amount</th>
-                                    <th>Purpose</th>
                                     <th>Type</th>
-                                    <th>Prev Balance</th>
-                                    <th>Avail Balance</th>
-                                    <th>Date</th>
+                                    <th>Transaction Date</th>
+                                    <th>Purpose</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($transactions as $trans )
+                                @foreach ($transactions as $trans)
                                 <tr>
                                     <td>{{$trans->id}}</td>
                                     <td>{{$trans->ref}}</td>
                                     <td>{{$trans->external_ref}}</td>
                                     <td>{{moneyFormat($trans->amount, 'NG')}}</td>
                                     <td>{{$trans->purpose}}</td>
-                                    @if($trans->type == 'DEBIT') <td class="badge badge-soft-danger">{{$trans->type}}</td> @else <td class="badge badge-soft-success"> {{$trans->type}}</td>@endif
+                                    <td>@if($trans->type == 'credit')
+                                        <span class="btn btn-soft-success btn-icon-circle btn-icon-circle-sm mr-2">
+                                            <i class="mdi mdi-arrow-down font-16"></i>
+                                        </span>
+                                        @else
+                                        <span class="btn btn-soft-success btn-icon-circle btn-icon-circle-sm mr-2">
+                                            <i class="mdi mdi-arrow-down font-16"></i>
+                                        </span> 
+                                        @endif
+
+                                        ucwords({{$trans->type}})
+                                    </td>
                                     <td>{{moneyFormat($trans->prev_balance, 'NG')}}</td>
                                     <td>{{moneyFormat($trans->avail_balance, 'NG')}}</td>
                                     <td> {{$trans->created_at}}</td>
@@ -148,7 +157,6 @@
                                                     <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod2" value="bank_transfer" required>
                                                     <label class="form-check-label" for="paymentMethod2">Bank Transfer</label>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>

@@ -22,9 +22,16 @@ class CreateTransactionsTable extends Migration
             $table->string('purpose')->nullable();
             $table->string('service_type')->nullable();
             $table->string('type')->nullable();
-            $table->double('amount')->nullable();
-            $table->double('prev_balance')->nullable();
-            $table->double('avail_balance')->nullable();
+            $table->double('total_amount_payable');
+            $table->double('amount');
+            $table->double('tax')->nullable();
+            $table->double('discount')->nullable();
+            $table->string('currency')->default('NGN');
+            // $table->double('prev_balance')->nullable();
+            // $table->double('avail_balance')->nullable();
+            $table->string('status')->nullable(); //incomplete, reversed, failed, successful, declined, ongoing
+            $table->string('payment_method');
+            $table->string('paid_at')->nullable();
             $table->timestamps();
         });
     }

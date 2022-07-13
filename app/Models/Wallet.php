@@ -12,8 +12,12 @@ class Wallet extends Model
     protected $fillable = [
 
         'user_id',
-        'prev_balance',
+        'book_balance',
         'avail_balance',
         'total_balance'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

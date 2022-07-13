@@ -16,7 +16,7 @@ class WalletSeeder extends Seeder
     {
         $wallets = [
 
-            ['user_id'=> 1, 'avail_balance' => 5000, 'prev_balance'=>5000, 'total_balance' => 5000]
+            ['user_id'=> 1, 'avail_balance' => 5000, 'book_balance'=>5000, 'total_balance' => 5000]
         ];
 
         foreach($wallets as $wallet){
