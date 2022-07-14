@@ -29,7 +29,7 @@ class CreateTransactionsTable extends Migration
             $table->string('currency')->default('NGN');
             // $table->double('prev_balance')->nullable();
             // $table->double('avail_balance')->nullable();
-            $table->string('status')->nullable(); //incomplete, reversed, failed, successful, declined, ongoing
+            $table->string('status')->nullable(); //processing, reversed, failed, successful, declined, abandoned
             $table->string('payment_method');
             $table->string('paid_at')->nullable();
             $table->timestamps();

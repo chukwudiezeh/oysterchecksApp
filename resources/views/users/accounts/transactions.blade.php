@@ -82,45 +82,60 @@
                     </div>
                     <!--end card-header-->
                     <div class="card-body">
-                        <table id="datatable-buttons" class=" orders table table-striped table-bordered dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <div class="table-responsive">
+                        <table id="datatable-buttons" class="table table-striped table-hover dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>SN</th>
-                                    <th>Transaction Reference</th>
-                                    <th>Status</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
-                                    <th>Transaction Date</th>
-                                    <th>Purpose</th>
+                                    <th class="px-2 py-3">S/N</th>
+                                    <th class="px-2 py-3">Transaction Reference</th>
+                                    <th class="px-2 py-3">Status</th>
+                                    <th class="px-2 py-3">Amount (&#x20A6;)</th>
+                                    <th class="px-2 py-3">Transaction Type</th>
+                                    <th class="px-2 py-3">Transaction Date</th>
+                                    <th class="px-2 py-3">Purpose</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($transactions as $trans)
                                 <tr>
-                                    <td>{{$trans->id}}</td>
-                                    <td>{{$trans->ref}}</td>
-                                    <td>{{$trans->external_ref}}</td>
-                                    <td>{{moneyFormat($trans->amount, 'NG')}}</td>
-                                    <td>{{$trans->purpose}}</td>
-                                    <td>@if($trans->type == 'credit')
-                                        <span class="btn btn-soft-success btn-icon-circle btn-icon-circle-sm mr-2">
-                                            <i class="mdi mdi-arrow-down font-16"></i>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('user.transaction', $trans->id)}}"><div class="px-2 py-3">{{$loop->iteration}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('user.transaction', $trans->id)}}"><div class="px-2 py-3">{{$trans->ref}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('user.transaction', $trans->id)}}"><div class="px-2 py-3">@if($trans->status == 'processing')
+                                        <span class="badge badge-soft-purple"> {{ucwords($trans->status)}}</span>
+                                        @elseif($trans->status == 'successful')
+                                        <span class="badge badge-soft-success"> {{ucwords($trans->status)}}</span>
+                                        @elseif($trans->status == 'reversed')
+                                        <span class="badge badge-soft-dark"> {{ucwords($trans->status)}}</span>
+                                        @elseif($trans->status == 'failed')
+                                        <span class="badge badge-soft-danger"> {{ucwords($trans->status)}}</span>
+                                        @elseif($trans->status == 'declined')
+                                        <span class="badge badge-soft-warning"> {{ucwords($trans->status)}}</span>
+                                        @else
+                                        <span class="badge badge-soft-secondary"> {{ucwords($trans->status)}}</span>
+                                        @endif
+                                        </div>
+                                        </a>
+                                    </td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('user.transaction', $trans->id)}}"><div class="px-2 py-3">{{moneyFormat($trans->amount, 'NG')}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('user.transaction', $trans->id)}}"><div class="px-2 py-3">@if($trans->type == 'credit')
+                                        <span class="badge badge-soft-success rounded-circle me-2 px-1 py-1 fw-bold">
+                                            <i class="mdi mdi-arrow-up font-10"></i>
                                         </span>
                                         @else
                                         <span class="btn btn-soft-success btn-icon-circle btn-icon-circle-sm mr-2">
                                             <i class="mdi mdi-arrow-down font-16"></i>
                                         </span> 
                                         @endif
-
-                                        ucwords({{$trans->type}})
+                                        {{ucwords($trans->type)}}
+                                        </div></a>
                                     </td>
-                                    <td>{{moneyFormat($trans->prev_balance, 'NG')}}</td>
-                                    <td>{{moneyFormat($trans->avail_balance, 'NG')}}</td>
-                                    <td> {{$trans->created_at}}</td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('user.transaction', $trans->id)}}"><div class="px-2 py-3">{{date('jS F Y, h:iA', strtotime($trans->created_at))}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('user.transaction', $trans->id)}}"><div class="px-2 py-3">{{$trans->purpose}}</div></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div> <!-- end col -->

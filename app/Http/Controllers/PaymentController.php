@@ -33,7 +33,7 @@ class PaymentController extends Controller
             'total_amount_payable' => intval($required_data['customAmount']) + $tax,
             'amount' => intval($required_data['customAmount']),
             'tax' => $tax,
-            'status' => 'incomplete',
+            'status' => 'processing',
             'payment_method' => $required_data['paymentMethod']
         ]);
         
