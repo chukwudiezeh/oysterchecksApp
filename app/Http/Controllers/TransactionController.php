@@ -17,7 +17,7 @@ class TransactionController extends Controller
 
     public function getTransaction(Transaction $transaction)
     {
-        return view('users.accounts.transaction', $transaction);
+        return view('users.accounts.transaction', ['transaction'=>$transaction]);
     }
 
     public function updateTransaction()

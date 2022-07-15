@@ -12,7 +12,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TransactionController;
 
 use App\Models\Admin;
-use App\Models\Transaction;
+// use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ Route::get('/user/candidate/upload/', [CandidateController::class, 'CandidateFil
 Route::post('/user/candidate/upload/store', [CandidateController::class, 'CandidateFileStore'])->name('candidate.FileStore');
 Route::get('/user/candidate/upload/index', [CandidateController::class, 'candidateHomePage'])->name('candidate.homepage');
 Route::get('/user/transactions', [HomeController::class, 'UserTransactions'])->name('user.transactions');
-Route::get('/user/transactions/{transaction}', [Transaction::class, 'getTransaction'])->name('user.transaction');
+Route::get('/user/transactions/{transaction}', [TransactionController::class, 'getTransaction'])->name('user.transaction');
 
 Route::post('/user/fund/wallet', [PaymentController::class, 'pay'])->name('fundWallet');
 Route::post('/user/fund/request', [HomeController::class, 'fundRequest'])->name('fundRequest');
