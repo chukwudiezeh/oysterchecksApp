@@ -72,6 +72,7 @@ Route::post('/user/candidate/upload/store', [CandidateController::class, 'Candid
 Route::get('/user/candidate/upload/index', [CandidateController::class, 'candidateHomePage'])->name('candidate.homepage');
 Route::get('/user/transactions', [HomeController::class, 'UserTransactions'])->name('user.transactions');
 Route::get('/user/transactions/{transaction}', [TransactionController::class, 'getTransaction'])->name('user.transaction');
+Route::get('/user/transactions/{transaction}/download', [TransactionController::class, 'downloadTransaction'])->name('user.transaction.download');
 
 Route::post('/user/fund/wallet', [PaymentController::class, 'pay'])->name('fundWallet');
 Route::post('/user/fund/request', [HomeController::class, 'fundRequest'])->name('fundRequest');

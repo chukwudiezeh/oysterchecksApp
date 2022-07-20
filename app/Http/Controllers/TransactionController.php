@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\{Transaction};
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransactionController extends Controller
 {
@@ -23,5 +23,10 @@ class TransactionController extends Controller
     public function updateTransaction()
     {
 
+    }
+    public function downloadTransaction(Transaction $transaction)
+    {
+        
+        
     }
 }

@@ -168,6 +168,7 @@ return [
          */
         CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
         Unicodeveloper\Paystack\PaystackServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -232,6 +233,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
+        
     ],
 
 ];
