@@ -182,7 +182,7 @@ class AdminController extends Controller
        $user = User::latest()->first();
         Wallet::create([
             'user_id' => $user->id,
-            'prev_balance' => 0,
+            'book_balance' => 0,
             'avail_balance' => 0,
             'total_balance' => 0,
         ]);
