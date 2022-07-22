@@ -21,7 +21,7 @@ class CreateFieldInputsTable extends Migration
             $table->string('name')->nullable();
             $table->string('placeholder')->nullable();
             $table->string('type')->nullable();
-            $table->integer('is_required')->nullable();
+            $table->boolean('is_required')->nullable();
             $table->string('label')->nullable();
             $table->string('inputid')->nullable();
             $table->timestamps();

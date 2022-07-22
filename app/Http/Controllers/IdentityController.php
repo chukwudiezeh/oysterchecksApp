@@ -127,6 +127,22 @@ class IdentityController extends Controller
         return view('users.individual.identityIndex', $data);
     }
 
+    public function showIdentityVerificationForm($slug)
+    {
+        $this->RedirectUser();
+        $user = auth()->user();
+
+        $slug = Verification::where('slug', $slug)->first();
+        $data['slug'] = $slug;
+        // $data['success'] = IdentityVerification::where(['status' => 'successful', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
+        // $data['failed'] = IdentityVerification::where(['status' => 'failed', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
+        // $data['pending'] = IdentityVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
+        $data['fields'] = FieldInput::where(['slug' => $slug->slug])->get();
+        // $data['wallet'] = Wallet::where('user_id', $user->id)->first();
+
+        return view('users.individual.identityVerify', $data);
+    }
+
     public function StoreVerify(Request $request, $slug)
     {
         $this->RedirectUser();
@@ -159,7 +175,7 @@ class IdentityController extends Controller
             } else {
                 $amount = $slug->fee;
             }
-            
+
             if ($userWallet->avail_balance < $amount) {
                 Session::flash('alert', 'error');
                 Session::flash('message', 'Your walllet is too low for this transaction');

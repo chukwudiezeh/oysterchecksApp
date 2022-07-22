@@ -14,21 +14,26 @@ class InputFieldSeeder extends Seeder
     public function run()
     {
         $input_fields = [
-            ['slug' => 'nin', 'name'=>'reference', 'placeholder'=>'Enter NIN number', 'type'=>'text', 'is_required'=>'1', 'label'=>'NIN Number', 'inputid'=>'reference'], 
-            ['slug' => 'nip', 'name'=>'reference', 'placeholder'=>'Enter NIP number', 'type'=>'text', 'is_required'=>'1', 'label'=>'NIP Number', 'inputid'=>'reference'], 
-            ['slug' => 'pvc', 'name'=>'reference', 'placeholder'=>'Enter PVC number', 'type'=>'text', 'is_required'=>'1', 'label'=>'PVC Number', 'inputid'=>'reference'], 
-            ['slug' => 'bvn', 'name'=>'reference', 'placeholder'=>'Enter BVN number', 'type'=>'text', 'is_required'=>'1', 'label'=>'BVN Number', 'inputid'=>'reference'], 
-            ['slug' => 'nin', 'name'=>'first_name', 'placeholder'=>'Enter First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 
-            ['slug' => 'nip', 'name'=>'first_name', 'placeholder'=>'Enter First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 
-            ['slug' => 'pvc', 'name'=>'first_name', 'placeholder'=>'Enter First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 
-            ['slug' => 'bvn', 'name'=>'first_name', 'placeholder'=>'Enter First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 
-            ['slug' => 'nin', 'name'=>'last_name', 'placeholder'=>'Enter Last Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Last Name', 'inputid'=>'last_name'], 
-            ['slug' => 'nip', 'name'=>'last_name', 'placeholder'=>'Enter Last Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Last Name', 'inputid'=>'last_name'], 
-            ['slug' => 'pvc', 'name'=>'last_name', 'placeholder'=>'Enter Last Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Last Name', 'inputid'=>'last_name'], 
-            ['slug' => 'bvn', 'name'=>'last_name', 'placeholder'=>'Enter Last Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Last Name', 'inputid'=>'last_name'], 
-            ['slug' => 'ndl', 'name'=>'reference', 'placeholder'=>'Enter NDL number', 'type'=>'text', 'is_required'=>'1', 'label'=>'NDL number', 'inputid'=>'reference'], 
-            ['slug' => 'ndl', 'name'=>'first_name', 'placeholder'=>'Enter First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 
-            ['slug' => 'ndl', 'name'=>'last_name', 'placeholder'=>'Enter Last Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Last Name', 'inputid'=>'last_name'], 
+            ['slug' => 'nin', 'name'=>'reference', 'placeholder'=>'Enter NIN number', 'type'=>'text', 'is_required'=>true, 'label'=>'NIN Number', 'inputid'=>'reference'], 
+            ['slug' => 'nin', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
+            ['slug' => 'nin', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'],
+
+            ['slug' => 'nip', 'name'=>'reference', 'placeholder'=>'Enter NIP number', 'type'=>'text', 'is_required'=>true, 'label'=>'NIP Number', 'inputid'=>'reference'], 
+            ['slug' => 'nip', 'name'=>'last_name', 'placeholder'=>'Enter Last Name', 'type'=>'text', 'is_required'=>true, 'label'=>'Last Name', 'inputid'=>'last_name'], 
+            ['slug' => 'nip', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
+            ['slug' => 'nip', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'], 
+            
+            ['slug' => 'pvc', 'name'=>'reference', 'placeholder'=>'Enter PVC number', 'type'=>'text', 'is_required'=>true, 'label'=>'PVC Number', 'inputid'=>'reference'], 
+            ['slug' => 'pvc', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
+            
+            ['slug' => 'bvn', 'name'=>'reference', 'placeholder'=>'Enter BVN number', 'type'=>'text', 'is_required'=>true, 'label'=>'BVN Number', 'inputid'=>'reference'], 
+            ['slug' => 'bvn', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
+            ['slug' => 'bvn', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'], 
+            ['slug' => 'bvn', 'name'=>'advance_search', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Advance Search', 'inputid'=>'advanceSearch'],
+            
+            ['slug' => 'ndl', 'name'=>'reference', 'placeholder'=>'Enter NDL number', 'type'=>'text', 'is_required'=>true, 'label'=>'NDL number', 'inputid'=>'reference'], 
+            ['slug' => 'ndl', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
+            ['slug' => 'ndl', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'], 
             
             ['slug' => 'tin', 'name'=>'reference', 'placeholder'=>'Enter Reference', 'type'=>'text', 'is_required'=>'1', 'label'=>'TIN Number', 'inputid'=>'reference'], 
             ['slug' => 'cac', 'name'=>'company_name', 'placeholder'=>'Enter Company Full Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Registered Company Name', 'inputid'=>'company_name'], 
