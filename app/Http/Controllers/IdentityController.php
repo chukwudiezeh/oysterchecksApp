@@ -146,18 +146,19 @@ class IdentityController extends Controller
     public function StoreVerify(Request $request, $slug)
     {
         $this->RedirectUser();
-        $validate = Validator::make($request->all(), [
-            'reference' => 'required'
-        ]);
+
+        $this->validator($request->all(), $slug)->validate();
+
+        
         $ref = $this->GenerateRef();
         $slug = Verification::where('slug', $slug)->first();
         $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
 
-        if ($validate->fails()) {
-            Session::flash('alert', 'error');
-            Session::flash('msg', 'Please provide the data to verify');
-            return redirect()->back();
-        }
+        // if ($validate->fails()) {
+        //     Session::flash('alert', 'error');
+        //     Session::flash('msg', 'Please provide the data to verify');
+        //     return redirect()->back();
+        // }
 
         $createVerify =  IdentityVerification::create([
             'verification_id' => $slug->id,
@@ -178,15 +179,21 @@ class IdentityController extends Controller
 
             if ($userWallet->avail_balance < $amount) {
                 Session::flash('alert', 'error');
-                Session::flash('message', 'Your walllet is too low for this transaction');
+                Session::flash('message', 'Your wallet is too low for this transaction');
                 return back();
             } else {
                 $this->chargeUser($amount, $ref, $slug->report_type);
             }
         }
 
+        
+        
+        
+        
+        
+        
         //check if the reference exist on the local data
-        $res = IdentityVerificationDetail::where(['reference' => $request->reference, 'slug' => $slug->slug])->where('expires_at', '>=', now())->latest()->first();
+        //$res = IdentityVerificationDetail::where(['reference' => $request->reference, 'slug' => $slug->slug])->where('expires_at', '>=', now())->latest()->first();
         //  dd($res);
         sleep(5);
         if (!$res) {
@@ -513,5 +520,19 @@ class IdentityController extends Controller
             $data['logs'] = IdentityVerification::where(['user_id' => auth()->user()->id, 'status' => 'pending'])->get();
         }
         return view('users.individual.identityVerify', $data);
+    }
+
+    protected function validator(array $data, $slug)
+    {
+        return Validator::make($data, [
+            'reference' => 'bail|required|alpha_num',
+            'first_name' => 'bail|nullable|string|alpha',
+            'last_name' => $slug == 'nip' ? 'bail|required|string|alpha' : 'bail|nullable|string|alpha',
+            'validate_data' => 'bail|nullable|accepted|required_with:first_name,dob',
+            'compare_image' => 'bail|nullable|accepted|required_with:image',
+            'dob' => 'bail|nullable|date',
+            'image' => 'bail|nullable|image|mimes:jpg,jpeg,png',
+            'advance_search' => 'bail|nullable|accepted'
+        ]);
     }
 }

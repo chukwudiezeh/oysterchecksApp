@@ -52,6 +52,7 @@
         <script src="{{asset('/assets/js/simplebar.min.js')}}"></script>
         <script src="{{asset('/assets/js/moment.js')}}"></script>
         <script src="{{asset('/plugins/daterangepicker/daterangepicker.js')}}"></script>
+        <script src="{{asset('/plugins/dropify/js/dropify.min.js')}}"></script>
         <!-- Required datatable js -->
         
         <script src="{{asset('/plugins/datatables/jquery.dataTables.min.js')}}"></script>

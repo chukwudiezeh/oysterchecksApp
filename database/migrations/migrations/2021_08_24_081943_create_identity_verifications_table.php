@@ -17,7 +17,7 @@ class CreateIdentityVerificationsTable extends Migration
             $table->id();
             $table->foreignId('verification_id')->constrained();
             $table->string('ref')->nullable();
-            $table->string('service_reference')->nullable();
+            $table->string('pin')->nullable();
             $table->string('user_id')->nullable();
             $table->double('fee')->nullable();
             $table->double('discount')->nullable();
