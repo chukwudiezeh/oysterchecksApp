@@ -18,7 +18,7 @@ class InputFieldSeeder extends Seeder
             ['slug' => 'nin', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
             ['slug' => 'nin', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'],
 
-            ['slug' => 'nip', 'name'=>'reference', 'placeholder'=>'Enter NIP number', 'type'=>'text', 'is_required'=>true, 'label'=>'NIP Number', 'inputid'=>'reference'], 
+            ['slug' => 'passport', 'name'=>'reference', 'placeholder'=>'Enter NIP number', 'type'=>'text', 'is_required'=>true, 'label'=>'NIP Number', 'inputid'=>'reference'], 
             ['slug' => 'nip', 'name'=>'last_name', 'placeholder'=>'Enter Last Name', 'type'=>'text', 'is_required'=>true, 'label'=>'Last Name', 'inputid'=>'last_name'], 
             ['slug' => 'nip', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
             ['slug' => 'nip', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'], 
