@@ -146,12 +146,33 @@ class IdentityController extends Controller
     public function StoreVerify(Request $request, $slug)
     {
         $this->RedirectUser();
+        $slug = Verification::where('slug', $slug)->first();
 
+        if($slug){
+            if($slug->slug == 'bvn'){
+                $this->processBvn($request);
+            }elseif($slug->slug == 'nip'){
+                // $this->processNip($request);
+            }elseif($slug->slug == 'nin'){
+                // $this->processNip($request);
+            }elseif($slug->slug == 'pvc'){
+                // $this->processNip($request);
+            }elseif($slug->slug == 'ndl'){
+                // $this->processNip($request);
+            }elseif($slug->slug == 'compare-images'){
+                // $this->processNip($request);
+            }elseif($slug->slug == 'bank-account'){
+                // $this->processNip($request);
+            }elseif($slug->slug == 'phone-number'){
+                // $this->processNip($request);
+            }
+        }else{
+
+        }
         $this->validator($request->all(), $slug)->validate();
 
         
         $ref = $this->GenerateRef();
-        $slug = Verification::where('slug', $slug)->first();
         $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
 
         // if ($validate->fails()) {
@@ -193,7 +214,7 @@ class IdentityController extends Controller
         
         
         //check if the reference exist on the local data
-        //$res = IdentityVerificationDetail::where(['reference' => $request->reference, 'slug' => $slug->slug])->where('expires_at', '>=', now())->latest()->first();
+        $res = IdentityVerificationDetail::where(['reference' => $request->reference, 'slug' => $slug->slug])->where('expires_at', '>=', now())->latest()->first();
         //  dd($res);
         sleep(5);
         if (!$res) {
@@ -522,6 +543,20 @@ class IdentityController extends Controller
         return view('users.individual.identityVerify', $data);
     }
 
+    protected function processBvn(Request $request)
+    {
+        Validator::make($request->all(), [
+            'pin' => 'bail|required|alpha_num|size:11',
+            'first_name' => 'bail|nullable|string|alpha',
+            'last_name' => 'bail|nullable|string|alpha',
+            'validate_data' => 'bail|nullable|accepted|required_with:first_name,dob',
+            'compare_image' => 'bail|nullable|accepted|required_with:image',
+            'dob' => 'bail|nullable|date',
+            'image' => 'bail|nullable|image|mimes:jpg,jpeg,png',
+            'advance_search' => 'bail|nullable|accepted'
+        ]);
+    }
+    
     protected function validator(array $data, $slug)
     {
         return Validator::make($data, [

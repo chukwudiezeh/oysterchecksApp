@@ -14,30 +14,39 @@ class InputFieldSeeder extends Seeder
     public function run()
     {
         $input_fields = [
-            ['slug' => 'nin', 'name'=>'reference', 'placeholder'=>'Enter NIN number', 'type'=>'text', 'is_required'=>true, 'label'=>'NIN Number', 'inputid'=>'reference'], 
+            ['slug' => 'nin', 'name'=>'pin', 'placeholder'=>'Enter NIN number', 'type'=>'text', 'is_required'=>true, 'label'=>'NIN Number', 'inputid'=>'pin'], 
             ['slug' => 'nin', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
             ['slug' => 'nin', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'],
 
-            ['slug' => 'passport', 'name'=>'reference', 'placeholder'=>'Enter NIP number', 'type'=>'text', 'is_required'=>true, 'label'=>'NIP Number', 'inputid'=>'reference'], 
+            ['slug' => 'nip', 'name'=>'pin', 'placeholder'=>'Enter NIP number', 'type'=>'text', 'is_required'=>true, 'label'=>'NIP Number', 'inputid'=>'pin'], 
             ['slug' => 'nip', 'name'=>'last_name', 'placeholder'=>'Enter Last Name', 'type'=>'text', 'is_required'=>true, 'label'=>'Last Name', 'inputid'=>'last_name'], 
             ['slug' => 'nip', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
             ['slug' => 'nip', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'], 
             
-            ['slug' => 'pvc', 'name'=>'reference', 'placeholder'=>'Enter PVC number', 'type'=>'text', 'is_required'=>true, 'label'=>'PVC Number', 'inputid'=>'reference'], 
+            ['slug' => 'pvc', 'name'=>'pin', 'placeholder'=>'Enter PVC number', 'type'=>'text', 'is_required'=>true, 'label'=>'PVC Number', 'inputid'=>'pin'], 
             ['slug' => 'pvc', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
             
-            ['slug' => 'bvn', 'name'=>'reference', 'placeholder'=>'Enter BVN number', 'type'=>'text', 'is_required'=>true, 'label'=>'BVN Number', 'inputid'=>'reference'], 
+            ['slug' => 'compare-images', 'name'=>'first_image', 'type'=>'file', 'is_required'=>true, 'label'=>'First Image', 'inputid'=>'firstImage'], 
+            ['slug' => 'compare-images', 'name'=>'second_image', 'type'=>'file', 'is_required'=>true, 'label'=>'Second Image', 'inputid'=>'secondImage'], 
+            
+            ['slug' => 'bank-account', 'name'=>'account_number', 'placeholder'=>'Enter Account Number', 'type'=>'text', 'is_required'=>true, 'label'=>'Account Number', 'inputid'=>'accountNumber'],
+            ['slug' => 'bank-account', 'name'=>'bank', 'placeholder'=>'Select Bank', 'type'=>'select', 'is_required'=>true, 'label'=>'Bank', 'inputid'=>'reference'],
+
+            ['slug' => 'phone-number', 'name'=>'phone_number', 'placeholder'=>'Enter Phone Number', 'type'=>'text', 'is_required'=>true, 'label'=>'Phone Number', 'inputid'=>'phoneNumber'],
+            ['slug' => 'phone-number', 'name'=>'advance_search', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Advance Search', 'inputid'=>'advanceSearch'],
+            
+            ['slug' => 'bvn', 'name'=>'pin', 'placeholder'=>'Enter BVN number', 'type'=>'text', 'is_required'=>true, 'label'=>'BVN Number', 'inputid'=>'pin'], 
             ['slug' => 'bvn', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
             ['slug' => 'bvn', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'], 
             ['slug' => 'bvn', 'name'=>'advance_search', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Advance Search', 'inputid'=>'advanceSearch'],
             
-            ['slug' => 'ndl', 'name'=>'reference', 'placeholder'=>'Enter NDL number', 'type'=>'text', 'is_required'=>true, 'label'=>'NDL number', 'inputid'=>'reference'], 
+            ['slug' => 'ndl', 'name'=>'pin', 'placeholder'=>'Enter NDL number', 'type'=>'text', 'is_required'=>true, 'label'=>'NDL number', 'inputid'=>'pin'], 
             ['slug' => 'ndl', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
             ['slug' => 'ndl', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'], 
             
-            ['slug' => 'tin', 'name'=>'reference', 'placeholder'=>'Enter Reference', 'type'=>'text', 'is_required'=>'1', 'label'=>'TIN Number', 'inputid'=>'reference'], 
+            ['slug' => 'tin', 'name'=>'pin', 'placeholder'=>'Enter Reference', 'type'=>'text', 'is_required'=>'1', 'label'=>'TIN Number', 'inputid'=>'pin'], 
             ['slug' => 'cac', 'name'=>'company_name', 'placeholder'=>'Enter Company Full Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Registered Company Name', 'inputid'=>'company_name'], 
-            ['slug' => 'Bank_account', 'name'=>'account_number', 'placeholder'=>'Enter Account Number', 'type'=>'text', 'is_required'=>'1', 'label'=>'Account Number', 'inputid'=>'account_number'], 
+            // ['slug' => 'Bank_account', 'name'=>'account_number', 'placeholder'=>'Enter Account Number', 'type'=>'text', 'is_required'=>'1', 'label'=>'Account Number', 'inputid'=>'account_number'], 
             ['slug' => 'candidate', 'name'=>'first_name', 'placeholder'=>'Enter Candidate\'s First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 
             ['slug' => 'candidate', 'name'=>'middle_name', 'placeholder'=>'Enter Candidate\'s Middle Name', 'type'=>'text', 'is_required'=>'0', 'label'=>'Middle Name', 'inputid'=>'middle_name'],
             ['slug' => 'candidate', 'name'=>'last_name', 'placeholder'=>'Enter Candidate\'s Last Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Last Name', 'inputid'=>'last_name'], 

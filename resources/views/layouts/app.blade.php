@@ -14,6 +14,7 @@
         <!-- jvectormap -->
         <link href="{{asset('/plugins/jvectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet">
         <!-- App css -->
+        <link href="{{asset('/plugins/select2/select2.min.css')}}" rel="stylesheet" type="text/css" />
          <link href="{{asset('/plugins/dropify/css/dropify.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
@@ -53,6 +54,8 @@
         <script src="{{asset('/assets/js/moment.js')}}"></script>
         <script src="{{asset('/plugins/daterangepicker/daterangepicker.js')}}"></script>
         <script src="{{asset('/plugins/dropify/js/dropify.min.js')}}"></script>
+        <script src="{{asset('/plugins/select2/select2.min.js')}}"></script>
+
         <!-- Required datatable js -->
         
         <script src="{{asset('/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -76,9 +79,10 @@
          <script src="{{asset('plugins/apex-charts/apexcharts.min.js')}}"></script>
         <script src="{{asset('/plugins/apex-charts/irregular-data-series.js')}}"></script>
         <script src="{{asset('/plugins/apex-charts/ohlc.js')}}"></script>
+        <script src="{{asset('/assets/pages/jquery.forms-advanced.js')}}"></script>
         <script src="{{asset('/assets/pages/jquery.apexcharts.init.js')}}"></script>
         <!-- Session timeout js -->
-        <script src="{{asset('/plugins/bootstrap-session-timeout/bootstrap-session-timeout.min.js')}}"></script>
+        <!-- <script src="{{asset('/plugins/bootstrap-session-timeout/bootstrap-session-timeout.min.js')}}"></script> -->
         
         <script src="{{asset('/assets/pages/jquery.animate.init.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

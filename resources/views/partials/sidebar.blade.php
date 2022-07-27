@@ -32,7 +32,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('identityIndex',$menu->slug)}}">
                                     <i class="ti-control-record"></i>
-                                    {{count($menu->slug) == 3 ? strtoupper($menu->slug) : ucwords(str_replace('-',' ', $menu->slug))}} Verification
+                                    {{strlen($menu->slug) == 3 ? strtoupper($menu->slug) : ucwords(str_replace('-',' ', $menu->slug))}} Verification
                                 </a>
                             </li>
                              @endforeach
