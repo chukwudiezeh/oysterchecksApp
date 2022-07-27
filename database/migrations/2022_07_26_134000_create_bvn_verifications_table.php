@@ -17,7 +17,7 @@ class CreateBvnVerificationsTable extends Migration
             $table->id();
             $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
             $table->string('service_reference');
-            $table->json('validations');
+            $table->json('validations')->nullable();
             $table->string('status');
             $table->string('reason')->nullable();
             $table->boolean('data_validation');
@@ -25,14 +25,14 @@ class CreateBvnVerificationsTable extends Migration
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->string('image');
-            $table->string('enrollment_branch');
-            $table->string('enrollment_institution');
+            $table->string('image')->nullable();
+            $table->string('enrollment_branch')->nullable();
+            $table->string('enrollment_institution')->nullable();
             $table->string('phone');
             $table->string('dob');
             $table->boolean('subject_consent');
             $table->string('pin');
-            $table->boolean('should_retrieve_nin');
+            $table->boolean('should_retrieve_nin')->nullable();
             $table->string('type');
             $table->string('gender')->nullable();
             $table->string('country');

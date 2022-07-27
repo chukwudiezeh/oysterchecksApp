@@ -20,7 +20,7 @@ class CreateCompareImageVerificationsTable extends Migration
             $table->string('status');
             $table->string('reason')->nullable();
             $table->boolean('selfie_validation');
-            $table->json('image_comparison');
+            $table->json('image_comparison')->nullable();
             $table->boolean('subject_consent');
             $table->string('type');
             $table->string('requested_at');

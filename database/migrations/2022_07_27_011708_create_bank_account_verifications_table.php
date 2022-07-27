@@ -23,7 +23,7 @@ class CreateBankAccountVerificationsTable extends Migration
             $table->boolean('selfie_validation');
             $table->boolean('subject_consent');
             $table->string('pin');
-            $table->json('bank_details');
+            $table->json('bank_details')->nullable();
             $table->string('type');
             $table->string('requested_at');
             $table->string('last_modified_at');

@@ -17,15 +17,15 @@ class CreatePvcVerificationsTable extends Migration
             $table->id();
             $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
             $table->string('service_reference');
-            $table->json('validations');
+            $table->json('validations')->nullable();
             $table->string('status');
             $table->string('reason')->nullable();
             $table->boolean('data_validation');
             $table->boolean('selfie_validation');
-            $table->string('first_name');
+            $table->string('first_name')->nullable();
             $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->string('dob');
+            $table->string('dob')->nullable();
             $table->boolean('subject_consent');
             $table->string('pin');
             $table->string('type');
