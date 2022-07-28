@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "1daaad135c699aa7cff709b17631f0d5",
+=======
+    "content-hash": "be37cd90f5b13edc98ea379a2c0ff394",
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1281,6 +1285,7 @@
                 }
             ],
             "time": "2022-06-20T21:43:11+00:00"
+<<<<<<< HEAD
         },
         {
             "name": "hashids/hashids",
@@ -1351,6 +1356,8 @@
                 "source": "https://github.com/vinkla/hashids/tree/4.1.0"
             },
             "time": "2020-11-26T19:24:33+00:00"
+=======
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
         },
         {
             "name": "intervention/image",
@@ -1438,6 +1445,7 @@
         },
         {
             "name": "laravel/framework",
+<<<<<<< HEAD
             "version": "v8.83.19",
             "source": {
                 "type": "git",
@@ -1448,6 +1456,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/4264f2ee12330bdb1be050998f58ba7271236395",
                 "reference": "4264f2ee12330bdb1be050998f58ba7271236395",
+=======
+            "version": "v8.83.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "db8188e9cc8359a5c6706fa9d9f55aad7f235077"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/db8188e9cc8359a5c6706fa9d9f55aad7f235077",
+                "reference": "db8188e9cc8359a5c6706fa9d9f55aad7f235077",
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
                 "shasum": ""
             },
             "require": {
@@ -1607,7 +1627,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
+<<<<<<< HEAD
             "time": "2022-07-13T13:23:09+00:00"
+=======
+            "time": "2022-06-28T14:30:38+00:00"
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
         },
         {
             "name": "laravel/serializable-closure",
@@ -3113,6 +3137,7 @@
         },
         {
             "name": "psy/psysh",
+<<<<<<< HEAD
             "version": "v0.11.7",
             "source": {
                 "type": "git",
@@ -3123,6 +3148,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/bobthecow/psysh/zipball/77fc7270031fbc28f9a7bea31385da5c4855cb7a",
                 "reference": "77fc7270031fbc28f9a7bea31385da5c4855cb7a",
+=======
+            "version": "v0.11.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bobthecow/psysh.git",
+                "reference": "c23686f9c48ca202710dbb967df8385a952a2daf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/c23686f9c48ca202710dbb967df8385a952a2daf",
+                "reference": "c23686f9c48ca202710dbb967df8385a952a2daf",
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
                 "shasum": ""
             },
             "require": {
@@ -3183,9 +3220,15 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/bobthecow/psysh/tree/v0.11.7"
             },
             "time": "2022-07-07T13:49:11+00:00"
+=======
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.5"
+            },
+            "time": "2022-05-27T18:03:49+00:00"
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
         },
         {
             "name": "ralouphie/getallheaders",
@@ -6038,6 +6081,7 @@
             "time": "2022-06-11T08:14:22+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "vinkla/hashids",
             "version": "9.1.0",
             "source": {
@@ -6106,6 +6150,8 @@
             "time": "2020-11-26T19:38:22+00:00"
         },
         {
+=======
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
             "name": "vlucas/phpdotenv",
             "version": "v5.4.1",
             "source": {

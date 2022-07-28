@@ -3,17 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Unicodeveloper\Paystack\Facades\Paystack;
 use Illuminate\Support\Facades\{Redirect, Validator};
 use App\Models\{ActivityLog, Transaction, User, Wallet};
+=======
+// use Unicodeveloper\Paystack\Paystack;
+use Illuminate\Support\Facades\{Redirect, Validator};
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
 
 
 class PaymentController extends Controller
 {
+<<<<<<< HEAD
     /**
      * Redirect the User to Paystack Payment Page
      * @return Url
      */
+=======
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
     
     public function pay(Request $request)
     {
@@ -22,6 +30,7 @@ class PaymentController extends Controller
             'customAmount' => 'bail|required|integer|gte:5000',
             'paymentMethod' => 'bail|required|string|in:card,bank_transfer'
         ])->validate();
+<<<<<<< HEAD
         
         $tax = (intval($required_data['customAmount']) * 7.5)/100;
         $trans_reference = generateReference(24);
@@ -83,4 +92,25 @@ class PaymentController extends Controller
 
         //status true, create transaction, wallet activity logs
     }
+=======
+        // if($validator->fails()){
+        //     return response()->json(['errors' => $validator->errors()], 401);
+        // }
+
+        $pay_data = [
+            'amount' => intval($required_data['customAmount']) * 100,
+            'reference' => generateReference(24),
+            'email' => auth()->user()->email,
+            'currency' => 'NGN'
+        ];
+        
+        try{
+            return Paystack()->getAuthorizationUrl()->redirectNow();
+        }catch(\Exception $e) { 
+
+            dd($e);
+            return Redirect::back()->withMessage(['msg'=>'The paystack token has expired. Please refresh the page and try again.', 'type'=>'error']);
+        }        
+    }
+>>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
 }
