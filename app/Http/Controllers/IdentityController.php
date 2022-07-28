@@ -116,7 +116,7 @@ class IdentityController extends Controller
         $user = auth()->user();
         // $slug = strtoupper($slug);
         $slug = Verification::where('slug', $slug)->first();
-        $data['slug'] = Verification::where('slug', $slug->slug)->first();
+        $data['slug'] = $slug;
         if ($slug) {
             if ($slug->slug == 'bvn') {
                 $data['success'] = BvnVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
@@ -124,7 +124,7 @@ class IdentityController extends Controller
                 $data['pending'] = BvnVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['wallet'] = Wallet::where('user_id', $user->id)->first();           
                 $data['logs'] = BvnVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
-                return view('users.individual.identityIndex', $data);
+                return view('users.individual.identity_indexes.bvn_index', $data);
             } elseif ($slug->slug == 'nip') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'nin') {
@@ -702,6 +702,34 @@ class IdentityController extends Controller
 
     public function verificationReport($slug, $verificationId)
     {
+        $this->RedirectUser();
+        $user = auth()->user();
+        // $slug = strtoupper($slug);
+        $slug = Verification::where('slug', $slug)->first();
+        $data['slug'] = $slug;
+        if ($slug) {
+            if ($slug->slug == 'bvn') {
+                $bvn_verification = BvnVerification::find($verificationId);
+                if($bvn_verification){
+                    return view('users.individual.identity_reports.bvn_report', $bvn_verification);
+                }
+            } elseif ($slug->slug == 'nip') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'nin') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'pvc') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'ndl') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'compare-images') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'bank-account') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'phone-number') {
+                // $this->processNip($request);
+            }
+        } else {
 
+        }
     }
 }
