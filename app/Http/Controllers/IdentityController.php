@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Session,Validator,DB};
+use Illuminate\Support\Facades\{Session, Validator, DB};
 use App\Traits\GenerateRef;
 use App\Models\Transaction;
 use App\Models\FieldInput;
@@ -148,26 +148,25 @@ class IdentityController extends Controller
         $this->RedirectUser();
         $slug = Verification::where('slug', $slug)->first();
 
-        if($slug){
-            if($slug->slug == 'bvn'){
+        if ($slug) {
+            if ($slug->slug == 'bvn') {
                 $validated = $this->processBvn($request, $slug);
-            }elseif($slug->slug == 'nip'){
+            } elseif ($slug->slug == 'nip') {
                 // $this->processNip($request);
-            }elseif($slug->slug == 'nin'){
+            } elseif ($slug->slug == 'nin') {
                 // $this->processNip($request);
-            }elseif($slug->slug == 'pvc'){
+            } elseif ($slug->slug == 'pvc') {
                 // $this->processNip($request);
-            }elseif($slug->slug == 'ndl'){
+            } elseif ($slug->slug == 'ndl') {
                 // $this->processNip($request);
-            }elseif($slug->slug == 'compare-images'){
+            } elseif ($slug->slug == 'compare-images') {
                 // $this->processNip($request);
-            }elseif($slug->slug == 'bank-account'){
+            } elseif ($slug->slug == 'bank-account') {
                 // $this->processNip($request);
-            }elseif($slug->slug == 'phone-number'){
+            } elseif ($slug->slug == 'phone-number') {
                 // $this->processNip($request);
             }
-        }else{
-
+        } else {
         }
         // $ref = $this->GenerateRef();
         // $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
@@ -198,12 +197,12 @@ class IdentityController extends Controller
         //     }
         // }
 
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
         //check if the reference exist on the local data
         // $res = IdentityVerificationDetail::where(['reference' => $request->reference, 'slug' => $slug->slug])->where('expires_at', '>=', now())->latest()->first();
         //  dd($res);
@@ -548,8 +547,7 @@ class IdentityController extends Controller
             'subject_consent' => 'bail|required|accepted'
         ]);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             Session::flash('alert', 'error');
             Session::flash('msg', 'Failed! There was some errors in your input');
 
@@ -563,30 +561,30 @@ class IdentityController extends Controller
             'isSubjectConsent' => $request->subject_consent ? true : false,
         ];
 
-         if($request->validate_data){
+        if ($request->validate_data) {
             $data = [];
             $request->first_name != null ? $data['firstName'] = $request->first_name : null;
             $request->last_name != null ? $data['lastName'] = $request->last_name : null;
-            $request->dob != null ? $data['dateOfBirth'] = $request->dob : null ;
+            $request->dob != null ? $data['dateOfBirth'] = $request->dob : null;
             $requestData['validations']['data'] = $data;
         }
-         if($request->compare_image){
+        if ($request->compare_image) {
             $selfie = [];
-            if($request->file('image')){
-                $image_url = cloudinary()->upload($request->file('image')->getRealPath(),[
+            if ($request->file('image')) {
+                $image_url = cloudinary()->upload($request->file('image')->getRealPath(), [
                     'folder' => 'oysterchecks/bvn/compareImages'
                 ])->getSecurePath();
-                if($image_url){
+                if ($image_url) {
                     $selfie['image'] = $image_url;
                     $requestData['validations']['selfie'] = $selfie;
                 }
             }
         }
-        if($request->advance_search){
+        if ($request->advance_search) {
             $should_retrieve_nin = true;
             $requestData['shouldRetrivedNin'] = $should_retrieve_nin;
         }
-        
+
         // $createBvn = BvnVerification::create([
         //     'verification_id' => $slug->id,
         //     'user_id' => auth()->user()->id,
@@ -596,10 +594,10 @@ class IdentityController extends Controller
         //     'type' => 'bvn',
         //     'country' => 'Nigeria',
         // ]);
-// dd($requestData);
+        // dd($requestData);
 
         DB::beginTransaction();
-        try{
+        try {
             $curl = curl_init();
             $encodedRequestData = json_encode($requestData, true);
             curl_setopt_array($curl, [
@@ -612,16 +610,57 @@ class IdentityController extends Controller
                 CURLOPT_CUSTOMREQUEST => "POST",
                 CURLOPT_POSTFIELDS => $encodedRequestData,
                 CURLOPT_HTTPHEADER => [
-                  "Content-Type: application/json",
-                  "Token: N0R9AJ4L.PWYaM5cXggThkdCtkVSCsWz4fMsfeMIp6CKL"
+                    "Content-Type: application/json",
+                    "Token: N0R9AJ4L.PWYaM5cXggThkdCtkVSCsWz4fMsfeMIp6CKL"
                 ],
-              ]);
-        }catch(\Exception $e){
+            ]);
 
+            $response = curl_exec($curl);
+            if (curl_errno($curl)) {
+                dd('error:' . curl_errno($curl));
+            } else {
+                $decodedResponse = json_decode($response, true);
+                if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 201) {
+                    BvnVerification::create([
+                        'verification_id' => $slug->id,
+                        'user_id' => auth()->user()->id,
+                        'ref' => $ref,
+                        'service_reference' => $decodedResponse['data']['id'] != null ? $decodedResponse['data']['id'] : null,
+                        'validations' => $decodedResponse['data']['validations'] != null ? json_encode($decodedResponse['data']['validations']) : null,
+                        'status' => $decodedResponse['data']['status'],
+                        'reason' => $decodedResponse['data']['reason'] != null ? $decodedResponse['data']['reason'] : null,
+                        'data_validation' => $decodedResponse['data']['dataValidation'],
+                        'selfie_validation' => $decodedResponse['data']['selfieValidation'],
+                        'first_name' => $decodedResponse['data']['firstName'] != null ? $decodedResponse['data']['firstName'] : null,
+                        'middle_name' => $decodedResponse['data']['middleName'] != null ? $decodedResponse['data']['middleName'] : null,
+                        'last_name' => $decodedResponse['data']['lastName'] != null ? $decodedResponse['data']['lastName'] : null,
+                        'image' => $decodedResponse['data']['image'] != null ? $decodedResponse['data']['image'] : null,
+                        'enrollment_branch' => $decodedResponse['data']['enrollmentBranch'] != null ? $decodedResponse['data']['enrollmentBranch'] : null,
+                        'enrollment_institution' => $decodedResponse['data']['enrollmentInstitution'] != null ? $decodedResponse['data']['enrollmentInstitution'] : null,
+                        'phone' => $decodedResponse['data']['mobile'] != null ? $decodedResponse['data']['mobile'] : null,
+                        'dob' => $decodedResponse['data']['dateOfBirth'] != null ? $decodedResponse['data']['dateOfBirth'] : null,
+                        'subject_consent' => true,
+                        'pin' => $request->pin,
+                        'should_retrieve_nin' => $decodedResponse['data']['shouldRetrivedNin'] != null ? $decodedResponse['data']['shouldRetrivedNin'] : null,
+                        'type' => 'bvn',
+                        'gender' => $decodedResponse['data']['gender'] != null ? $decodedResponse['data']['gender'] : null,
+                        'country' => 'Nigeria',
+                        'requested_at' => $decodedResponse['data']['requestedAt'] != null ? $decodedResponse['data']['requestedAt'] : null,
+                        'last_modified_at' => $decodedResponse['data']['lastModifiedAt'] != null ? $decodedResponse['data']['lastModifiedAt'] : null,
+                    ]);
+
+                    DB::commit();
+                    Session::flash('alert', 'success');
+                    Session::flash('message', 'Verification Successful');
+                    return redirect()->route('identityIndex', $slug->slug);
+                }
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
-
     }
-    
+
     protected function validator(array $data, $slug)
     {
         return Validator::make($data, [
