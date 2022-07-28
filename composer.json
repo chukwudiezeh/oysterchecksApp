@@ -16,12 +16,8 @@
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
         "spatie/laravel-webhook-client": "^3.1",
-<<<<<<< HEAD
         "unicodeveloper/laravel-paystack": "^1.0",
         "vinkla/hashids": "9.1.0"
-=======
-        "unicodeveloper/laravel-paystack": "^1.0"
->>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
     },
     "require-dev": {
         "facade/ignition": "^2.5",
