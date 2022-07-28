@@ -35,7 +35,7 @@
                                             <div class="row d-flex justify-content-center">
                                                 <div class="col">
                                                     <p class="mb-0 fw-semibold text-white">Successful {{$slug['slug']}} verifications</p>
-                                                    <h3 class="m-0 text-white">{{count($success)}}</h3>
+                                                    <h3 class="m-0 text-white">{{$success}}</h3>
                                                 </div>
                                                 <div class="col-auto align-self-center">
                                                     <div class="report-main-icon bg-light-alt">
@@ -52,7 +52,7 @@
                                             <div class="row d-flex justify-content-center">
                                                 <div class="col">
                                                     <p class="text-white mb-0 fw-semibold">Failed {{$slug['slug']}}  verifications</p>
-                                                    <h3 class="m-0 text-white">{{count($failed)}}</h3>
+                                                    <h3 class="m-0 text-white">{{$failed}}</h3>
                                                 </div>
                                                 <div class="col-auto align-self-center">
                                                     <div class="report-main-icon bg-light-alt">
@@ -69,7 +69,7 @@
                                             <div class="row d-flex justify-content-center">
                                                 <div class="col">
                                                     <p class="text-white mb-0 fw-semibold">Pending Request</p>
-                                                    <h3 class="m-0 text-white">{{count($pending)}}</h3>
+                                                    <h3 class="m-0 text-white">{{$pending}}</h3>
                                                 </div>
                                                 <div class="col-auto align-self-center">
                                                     <div class="report-main-icon bg-light-alt">
@@ -143,8 +143,8 @@
                                     <th class="px-2 py-3">S/N</th>
                                     <th class="px-2 py-3">Verification ID</th>
                                     <th class="px-2 py-3">Name</th>
-                                    <th class="px-2 py-3">Fee</th>
                                     <th class="px-2 py-3">Status</th>
+                                    <th class="px-2 py-3">Fee</th>
                                     <th class="px-2 py-3">Verified by</th>
                                     <th class="px-2 py-3">Initiated At</th>
                                      <th class="px-2 py-3">Action</th>
@@ -154,16 +154,31 @@
                           
                             @foreach ($logs as $trans)
                                 <tr>
-                                    <td class="px-0 py-0"><div class="px-2 py-3">{{$loop->iteration}}</div></td>
-                                    <td class="px-0 py-0"><div class="px-2 py-3">{{$trans->service_reference}}</div></td>
-                                    <td class="px-0 py-0"><div class="px-2 py-3">{{$trans->user->name}}</div></td>
-                                    <td class="px-0 py-0"><div class="px-2 py-3">{{$trans->fee}}</div></td>
-                                    <td class="px-0 py-0"><div class="px-2 py-3">@if($trans->status == 'successful') <span class="text-success"> {{$trans->status}}</span> @elseif($trans->status == 'pending')<span class="text-warning"> {{$trans->status}}</span>  @else <span class="text-danger"> {{$trans->status}}</span> @endif  </div></td>
-                                    <td class="px-0 py-0"><div class="px-2 py-3">{{$trans->created_at}}</div></td>
-                                    <td class="px-0 py-0"><div class="px-2 py-3"> @if($trans->status == 'successful')
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$loop->iteration}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$trans->ref}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$trans->status == 'found' ? $trans->first_name.' '.$trans->last_name : 'N/A'}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}">
+                                        <div class="px-2 py-3">
+                                            @if($trans->status == 'found')
+                                            @if($trans->validations != null && json_decode($trans->validations)->validationMessages != "")
+                                            <span class="badge badge-soft-warning">Found</span>
+                                            @else
+                                            <span class="badge badge-soft-success"> Found</span> 
+                                            @endif
+                                            @elseif($trans->status == 'not_found')
+                                            <span class="badge badge-soft-danger">Not Found</span>
+                                            @else
+                                            <span class="badge badge-soft-purple"> {{$trans->status}}</span>
+                                            @endif  
+                                        </div></a>
+                                    </td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$trans->fee}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{auth()->user()->name}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{date('jS F Y, h:iA', strtotime($trans->requested_at))}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3"> @if($trans->status == 'successful')
                                     <a href="{{route('verify.details', encrypt($trans->id))}}">View Details</a>
                                      @endif
-                                    </div></td>
+                                    </div></a></td>
                                    
                                 </tr>
                                  @endforeach

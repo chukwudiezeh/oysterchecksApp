@@ -12,6 +12,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TransactionController;
 
 use App\Models\Admin;
+
 // use App\Models\Transaction;
 
 /*
@@ -54,6 +55,7 @@ Route::get('/user/identities/{slug}', [IdentityController::class, 'identityIndex
 Route::get('/user/identities/check/{slug}',[IdentityController::class, 'showIdentityVerificationForm'])->name('showIdentityVerificationForm');
 Route::post('/user/identities/verify/{slug}', [IdentityController::class, 'StoreVerify'])->name('StoreVerify');
 Route::get('/test', [IdentityController::class, 'test']);
+Route::get('/user/identities/{slug}/{verificationId}', [IdentityController::class, 'verificationReport'])->name('showIdentityReport');
 Route::get('/user/identities/details/{id}', [IdentityController::class, 'verifyDetails'])->name('verify.details');
 Route::get('/user/business/check/{slug}', [BusinessController::class, 'Index'])->name('businessIndex');
 Route::post('/user/business/verify/{slug}', [BusinessController::class, 'BusinessStore'])->name('businessStore');

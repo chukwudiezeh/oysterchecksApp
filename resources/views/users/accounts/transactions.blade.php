@@ -50,19 +50,11 @@
                                     <div class="card-body d-lg-block d-sm-flex">
                                         <div class="col">
                                             <h5 class="card-title mb-2">Available Balance</h5>
-<<<<<<< HEAD
                                             <h3 class="card-text">{{moneyFormat($balances->avail_balance, 'NG')}}</h3>
                                         </div>
                                         <div class="col mt-lg-4">
                                             <h5 class="card-title mb-2">Book Balance</h5>
                                             <h3 class="card-text">{{moneyFormat($balances->book_balance, 'NG')}}</h3>
-=======
-                                            <h3 class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</h3>
-                                        </div>
-                                        <div class="col mt-lg-4">
-                                            <h5 class="card-title mb-2">Book Balance</h5>
-                                            <h3 class="card-text">{{moneyFormat($balances->prev_balance, 'NG')}}</h3>
->>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
                                         </div>
 
                                         <div class="col align-self-center mt-lg-4">
@@ -90,7 +82,6 @@
                     </div>
                     <!--end card-header-->
                     <div class="card-body">
-<<<<<<< HEAD
                         <div class="table-responsive">
                         <table id="datatable-buttons" class="table table-striped table-hover dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
@@ -140,42 +131,11 @@
                                     </td>
                                     <td class="px-0 py-0"><a class="table-link" href="{{route('user.transaction', $trans->id)}}"><div class="px-2 py-3">{{date('jS F Y, h:iA', strtotime($trans->created_at))}}</div></a></td>
                                     <td class="px-0 py-0"><a class="table-link" href="{{route('user.transaction', $trans->id)}}"><div class="px-2 py-3">{{$trans->purpose}}</div></a></td>
-=======
-                        <table id="datatable-buttons" class=" orders table table-striped table-bordered dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>SN</th>
-                                    <th>Ref</th>
-                                    <th>External Ref</th>
-                                    <th>Amount</th>
-                                    <th>Purpose</th>
-                                    <th>Type</th>
-                                    <th>Prev Balance</th>
-                                    <th>Avail Balance</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($transactions as $trans )
-                                <tr>
-                                    <td>{{$trans->id}}</td>
-                                    <td>{{$trans->ref}}</td>
-                                    <td>{{$trans->external_ref}}</td>
-                                    <td>{{moneyFormat($trans->amount, 'NG')}}</td>
-                                    <td>{{$trans->purpose}}</td>
-                                    @if($trans->type == 'DEBIT') <td class="badge badge-soft-danger">{{$trans->type}}</td> @else <td class="badge badge-soft-success"> {{$trans->type}}</td>@endif
-                                    <td>{{moneyFormat($trans->prev_balance, 'NG')}}</td>
-                                    <td>{{moneyFormat($trans->avail_balance, 'NG')}}</td>
-                                    <td> {{$trans->created_at}}</td>
->>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
-<<<<<<< HEAD
                         </div>
-=======
->>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
                     </div>
                 </div>
             </div> <!-- end col -->
@@ -212,10 +172,6 @@
                                                     <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod2" value="bank_transfer" required>
                                                     <label class="form-check-label" for="paymentMethod2">Bank Transfer</label>
                                                 </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 1b8580e7997c79cffc4ad952d85becccbb5989d1
                                             </div>
                                         </div>
                                     </div>

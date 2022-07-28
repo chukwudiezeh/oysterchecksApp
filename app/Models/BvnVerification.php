@@ -12,14 +12,32 @@ class BvnVerification extends Model
     protected $table = 'bvn_verifications';
 
 
-    protected $filled = [
+    protected $fillable = [
         'verification_id',
         'user_id',
         'ref',
+        'service_reference',
+        'validations',
+        'status',
+        'reason',
+        'data_validation',
+        'selfie_validation',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'image',
+        'enrollment_branch',
+        'enrollment_institution',
+        'phone',
+        'dob',
+        'should_retrieve_nin','gender',
         'pin',
         'subject_consent',
         'type',
-        'country'
+        'country',
+        'requested_at',
+        'last_modified_at',
+        'fee'
     ];
 
     protected $casts = [

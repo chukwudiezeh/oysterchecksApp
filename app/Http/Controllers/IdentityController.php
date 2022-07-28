@@ -117,6 +117,33 @@ class IdentityController extends Controller
         // $slug = strtoupper($slug);
         $slug = Verification::where('slug', $slug)->first();
         $data['slug'] = Verification::where('slug', $slug->slug)->first();
+        if ($slug) {
+            if ($slug->slug == 'bvn') {
+                $data['success'] = BvnVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['failed'] = BvnVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['pending'] = BvnVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['wallet'] = Wallet::where('user_id', $user->id)->first();           
+                $data['logs'] = BvnVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
+                return view('users.individual.identityIndex', $data);
+            } elseif ($slug->slug == 'nip') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'nin') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'pvc') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'ndl') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'compare-images') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'bank-account') {
+                // $this->processNip($request);
+            } elseif ($slug->slug == 'phone-number') {
+                // $this->processNip($request);
+            }
+        } else {
+
+        }
+
         $data['success'] = IdentityVerification::where(['status' => 'successful', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
         $data['failed'] = IdentityVerification::where(['status' => 'failed', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
         $data['pending'] = IdentityVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
@@ -150,7 +177,7 @@ class IdentityController extends Controller
 
         if ($slug) {
             if ($slug->slug == 'bvn') {
-                $validated = $this->processBvn($request, $slug);
+                return $this->processBvn($request, $slug);
             } elseif ($slug->slug == 'nip') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'nin') {
@@ -167,7 +194,7 @@ class IdentityController extends Controller
                 // $this->processNip($request);
             }
         } else {
-            
+
         }
         // $ref = $this->GenerateRef();
         // $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
@@ -549,11 +576,9 @@ class IdentityController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // Session::flash('alert', 'error');
-            // Session::flash('msg', 'Failed! There was some errors in your input');
-
-            // return redirect()->back();
-            dd($validator->errors());
+            Session::flash('alert', 'error');
+            Session::flash('msg', 'Failed! There was some errors in your input');
+            return redirect()->back();
         }
 
         $ref = $this->GenerateRef();
@@ -574,7 +599,7 @@ class IdentityController extends Controller
             $selfie = [];
             if ($request->file('image')) {
                 $image_url = cloudinary()->upload($request->file('image')->getRealPath(), [
-                    'folder' => 'oysterchecks/bvn/compareImages'
+                    'folder' => 'oysterchecks/identityVerifications/bvn'
                 ])->getSecurePath();
                 if ($image_url) {
                     $selfie['image'] = $image_url;
@@ -586,17 +611,6 @@ class IdentityController extends Controller
             $should_retrieve_nin = true;
             $requestData['shouldRetrivedNin'] = $should_retrieve_nin;
         }
-
-        // $createBvn = BvnVerification::create([
-        //     'verification_id' => $slug->id,
-        //     'user_id' => auth()->user()->id,
-        //     'ref' => $ref,
-        //     'pin' => $request->pin,
-        //     'subject_consent' => true,
-        //     'type' => 'bvn',
-        //     'country' => 'Nigeria',
-        // ]);
-        // dd($requestData);
 
         DB::beginTransaction();
         try {
@@ -622,7 +636,13 @@ class IdentityController extends Controller
                 dd('error:' . curl_errno($curl));
             } else {
                 $decodedResponse = json_decode($response, true);
-                if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 201) {
+                // dd($decodedResponse);
+                if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
+                    if ($decodedResponse['data']['image'] != null) {
+                        $response_image = cloudinary()->upload($decodedResponse['data']['image'], [
+                            'folder' => 'oysterchecks/identityVerifications/bvn'
+                        ])->getSecurePath();
+                    }
                     BvnVerification::create([
                         'verification_id' => $slug->id,
                         'user_id' => auth()->user()->id,
@@ -636,14 +656,14 @@ class IdentityController extends Controller
                         'first_name' => $decodedResponse['data']['firstName'] != null ? $decodedResponse['data']['firstName'] : null,
                         'middle_name' => $decodedResponse['data']['middleName'] != null ? $decodedResponse['data']['middleName'] : null,
                         'last_name' => $decodedResponse['data']['lastName'] != null ? $decodedResponse['data']['lastName'] : null,
-                        'image' => $decodedResponse['data']['image'] != null ? $decodedResponse['data']['image'] : null,
+                        'image' => $decodedResponse['data']['image'] != null ? $response_image : null,
                         'enrollment_branch' => $decodedResponse['data']['enrollmentBranch'] != null ? $decodedResponse['data']['enrollmentBranch'] : null,
                         'enrollment_institution' => $decodedResponse['data']['enrollmentInstitution'] != null ? $decodedResponse['data']['enrollmentInstitution'] : null,
                         'phone' => $decodedResponse['data']['mobile'] != null ? $decodedResponse['data']['mobile'] : null,
                         'dob' => $decodedResponse['data']['dateOfBirth'] != null ? $decodedResponse['data']['dateOfBirth'] : null,
                         'subject_consent' => true,
                         'pin' => $request->pin,
-                        'should_retrieve_nin' => $decodedResponse['data']['shouldRetrivedNin'] != null ? $decodedResponse['data']['shouldRetrivedNin'] : null,
+                        'should_retrieve_nin' => $decodedResponse['data']['shouldRetrivedNin'],
                         'type' => 'bvn',
                         'gender' => $decodedResponse['data']['gender'] != null ? $decodedResponse['data']['gender'] : null,
                         'country' => 'Nigeria',
@@ -655,6 +675,8 @@ class IdentityController extends Controller
                     Session::flash('alert', 'success');
                     Session::flash('message', 'Verification Successful');
                     return redirect()->route('identityIndex', $slug->slug);
+                }else{
+
                 }
             }
         } catch (\Exception $e) {
@@ -675,5 +697,11 @@ class IdentityController extends Controller
             'image' => 'bail|nullable|image|mimes:jpg,jpeg,png',
             'advance_search' => 'bail|nullable|accepted'
         ]);
+    }
+
+
+    public function verificationReport($slug, $verificationId)
+    {
+
     }
 }
