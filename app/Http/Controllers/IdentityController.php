@@ -167,6 +167,7 @@ class IdentityController extends Controller
                 // $this->processNip($request);
             }
         } else {
+            
         }
         // $ref = $this->GenerateRef();
         // $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
