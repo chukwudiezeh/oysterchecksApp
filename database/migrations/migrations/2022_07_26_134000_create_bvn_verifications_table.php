@@ -15,29 +15,31 @@ class CreateBvnVerificationsTable extends Migration
     {
         Schema::create('bvn_verifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
-            $table->string('service_reference');
+            $table->foreignId('verification_id')->constrained('verifications');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('ref');
+            $table->string('service_reference')->nullable();
             $table->json('validations')->nullable();
-            $table->string('status');
+            $table->string('status')->default('pending');
             $table->string('reason')->nullable();
-            $table->boolean('data_validation');
-            $table->boolean('selfie_validation');
-            $table->string('first_name');
+            $table->boolean('data_validation')->default(false);
+            $table->boolean('selfie_validation')->default(false);
+            $table->string('first_name')->nullable();
             $table->string('middle_name')->nullable();
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
             $table->string('image')->nullable();
             $table->string('enrollment_branch')->nullable();
             $table->string('enrollment_institution')->nullable();
-            $table->string('phone');
-            $table->string('dob');
+            $table->string('phone')->nullable();
+            $table->string('dob')->nullable();
             $table->boolean('subject_consent');
             $table->string('pin');
             $table->boolean('should_retrieve_nin')->nullable();
             $table->string('type');
             $table->string('gender')->nullable();
             $table->string('country');
-            $table->string('requested_at');
-            $table->string('last_modified_at');
+            $table->string('requested_at')->nullable();
+            $table->string('last_modified_at')->nullable();
             $table->timestamps();
         });
     }

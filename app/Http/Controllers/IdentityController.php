@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Session,Validator,DB};
 use App\Traits\GenerateRef;
 use App\Models\Transaction;
 use App\Models\FieldInput;
 use \Illuminate\Support\Arr;
 use App\Models\ApiResponse;
+use App\Models\BvnVerification;
 use Illuminate\Support\Facades\Storage;
 use App\Traits\generateHeaderReports;
 use App\Models\IdentityVerification;
@@ -150,7 +150,7 @@ class IdentityController extends Controller
 
         if($slug){
             if($slug->slug == 'bvn'){
-                $this->processBvn($request);
+                $validated = $this->processBvn($request, $slug);
             }elseif($slug->slug == 'nip'){
                 // $this->processNip($request);
             }elseif($slug->slug == 'nin'){
@@ -169,43 +169,34 @@ class IdentityController extends Controller
         }else{
 
         }
-        $this->validator($request->all(), $slug)->validate();
+        // $ref = $this->GenerateRef();
+        // $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
 
-        
-        $ref = $this->GenerateRef();
-        $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
+        // $createVerify =  IdentityVerification::create([
+        //     'verification_id' => $slug->id,
+        //     'ref' => $ref,
+        //     'pin' => $request->pin,
+        //     'user_id' => auth()->user()->id,
+        //     'fee' => $slug->fee,
+        //     'discount' => $slug->discount,
+        //     'status' => 'pending'
+        // ]);
 
-        // if ($validate->fails()) {
-        //     Session::flash('alert', 'error');
-        //     Session::flash('msg', 'Please provide the data to verify');
-        //     return redirect()->back();
+        // if ($createVerify) {
+        //     if (isset($slug->discount) && $slug->discount > 0) {
+        //         $amount = ($slug->discount * $slug->fee) / 100;
+        //     } else {
+        //         $amount = $slug->fee;
+        //     }
+
+        //     if ($userWallet->avail_balance < $amount) {
+        //         Session::flash('alert', 'error');
+        //         Session::flash('message', 'Your wallet is too low for this transaction');
+        //         return back();
+        //     } else {
+        //         $this->chargeUser($amount, $ref, $slug->report_type);
+        //     }
         // }
-
-        $createVerify =  IdentityVerification::create([
-            'verification_id' => $slug->id,
-            'ref' => $ref,
-            'service_reference' => $request->reference,
-            'user_id' => auth()->user()->id,
-            'fee' => $slug->fee,
-            'discount' => $slug->discount,
-            'status' => 'pending'
-        ]);
-
-        if ($createVerify) {
-            if (isset($slug->discount) && $slug->discount > 0) {
-                $amount = ($slug->discount * $slug->fee) / 100;
-            } else {
-                $amount = $slug->fee;
-            }
-
-            if ($userWallet->avail_balance < $amount) {
-                Session::flash('alert', 'error');
-                Session::flash('message', 'Your wallet is too low for this transaction');
-                return back();
-            } else {
-                $this->chargeUser($amount, $ref, $slug->report_type);
-            }
-        }
 
         
         
@@ -214,35 +205,35 @@ class IdentityController extends Controller
         
         
         //check if the reference exist on the local data
-        $res = IdentityVerificationDetail::where(['reference' => $request->reference, 'slug' => $slug->slug])->where('expires_at', '>=', now())->latest()->first();
+        // $res = IdentityVerificationDetail::where(['reference' => $request->reference, 'slug' => $slug->slug])->where('expires_at', '>=', now())->latest()->first();
         //  dd($res);
-        sleep(5);
-        if (!$res) {
-            IdentityVerification::where(['user_id' => auth()->user()->id])->latest()->first()
-                ->update(['status' => 'successful']);
-            $data = $this->generateIdentityReport($slug);
-            Session::flash('alert', 'success');
-            Session::flash('message', $slug->slug . ' Verification Completed Successfully');
-            return view('users.individual.identityVerify', $data)->with('verified', $res);
-        } else {
-            $res =  $this->getIdentityVerify($request, $slug, $request->reference);
-            //   return $res;
-            if ($res['message'] == 'Successful') {
-                IdentityVerification::where(['user_id' => auth()->user()->id])->latest()->first()
-                    ->update(['status' => 'successful']);
-                $data = $this->generateIdentityReport($slug);
-                //  $data['res'] = $res;
-                //  dd($data);
-                Session::flash('alert', 'success');
-                Session::flash('message', $slug->slug . ' Verification Completed Successfully');
-                return view('users.individual.identityVerify', $data);
-            } else {
-                $this->RefundUser($amount, $ref, $slug->report_type);
-                Session::flash('alert', 'error');
-                Session::flash('message', 'Verification failed, please confirm input');
-                return redirect()->back();
-            }
-        }
+        // sleep(5);
+        // if (!$res) {
+        //     IdentityVerification::where(['user_id' => auth()->user()->id])->latest()->first()
+        //         ->update(['status' => 'successful']);
+        //     $data = $this->generateIdentityReport($slug);
+        //     Session::flash('alert', 'success');
+        //     Session::flash('message', $slug->slug . ' Verification Completed Successfully');
+        //     return view('users.individual.identityVerify', $data)->with('verified', $res);
+        // } else {
+        //     $res =  $this->getIdentityVerify($request, $slug, $request->reference);
+        //     //   return $res;
+        //     if ($res['message'] == 'Successful') {
+        //         IdentityVerification::where(['user_id' => auth()->user()->id])->latest()->first()
+        //             ->update(['status' => 'successful']);
+        //         $data = $this->generateIdentityReport($slug);
+        //         //  $data['res'] = $res;
+        //         //  dd($data);
+        //         Session::flash('alert', 'success');
+        //         Session::flash('message', $slug->slug . ' Verification Completed Successfully');
+        //         return view('users.individual.identityVerify', $data);
+        //     } else {
+        //         $this->RefundUser($amount, $ref, $slug->report_type);
+        //         Session::flash('alert', 'error');
+        //         Session::flash('message', 'Verification failed, please confirm input');
+        //         return redirect()->back();
+        //     }
+        // }
     }
 
     public function chargeUser($amount, $ext_ref, $type)
@@ -543,18 +534,92 @@ class IdentityController extends Controller
         return view('users.individual.identityVerify', $data);
     }
 
-    protected function processBvn(Request $request)
+    protected function processBvn(Request $request, $slug)
     {
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'pin' => 'bail|required|alpha_num|size:11',
             'first_name' => 'bail|nullable|string|alpha',
             'last_name' => 'bail|nullable|string|alpha',
-            'validate_data' => 'bail|nullable|accepted|required_with:first_name,dob',
-            'compare_image' => 'bail|nullable|accepted|required_with:image',
+            'validate_data' => 'bail|nullable|required_with:first_name,dob',
+            'compare_image' => 'bail|nullable|required_with:image',
             'dob' => 'bail|nullable|date',
             'image' => 'bail|nullable|image|mimes:jpg,jpeg,png',
-            'advance_search' => 'bail|nullable|accepted'
+            'advance_search' => 'bail|nullable',
+            'subject_consent' => 'bail|required|accepted'
         ]);
+
+        if($validator->fails())
+        {
+            Session::flash('alert', 'error');
+            Session::flash('msg', 'Failed! There was some errors in your input');
+
+            return redirect()->back();
+        }
+
+        $ref = $this->GenerateRef();
+        $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
+        $requestData = [
+            'id' => $request->pin,
+            'isSubjectConsent' => $request->subject_consent ? true : false,
+        ];
+
+         if($request->validate_data){
+            $data = [];
+            $request->first_name != null ? $data['firstName'] = $request->first_name : null;
+            $request->last_name != null ? $data['lastName'] = $request->last_name : null;
+            $request->dob != null ? $data['dateOfBirth'] = $request->dob : null ;
+            $requestData['validations']['data'] = $data;
+        }
+         if($request->compare_image){
+            $selfie = [];
+            if($request->file('image')){
+                $image_url = cloudinary()->upload($request->file('image')->getRealPath(),[
+                    'folder' => 'oysterchecks/bvn/compareImages'
+                ])->getSecurePath();
+                if($image_url){
+                    $selfie['image'] = $image_url;
+                    $requestData['validations']['selfie'] = $selfie;
+                }
+            }
+        }
+        if($request->advance_search){
+            $should_retrieve_nin = true;
+            $requestData['shouldRetrivedNin'] = $should_retrieve_nin;
+        }
+        
+        // $createBvn = BvnVerification::create([
+        //     'verification_id' => $slug->id,
+        //     'user_id' => auth()->user()->id,
+        //     'ref' => $ref,
+        //     'pin' => $request->pin,
+        //     'subject_consent' => true,
+        //     'type' => 'bvn',
+        //     'country' => 'Nigeria',
+        // ]);
+// dd($requestData);
+
+        DB::beginTransaction();
+        try{
+            $curl = curl_init();
+            $encodedRequestData = json_encode($requestData, true);
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.sandbox.youverify.co/v2/api/identity/ng/bvn",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 1,
+                CURLOPT_TIMEOUT => 2180,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => $encodedRequestData,
+                CURLOPT_HTTPHEADER => [
+                  "Content-Type: application/json",
+                  "Token: N0R9AJ4L.PWYaM5cXggThkdCtkVSCsWz4fMsfeMIp6CKL"
+                ],
+              ]);
+        }catch(\Exception $e){
+
+        }
+
     }
     
     protected function validator(array $data, $slug)
