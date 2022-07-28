@@ -548,10 +548,11 @@ class IdentityController extends Controller
         ]);
 
         if ($validator->fails()) {
-            Session::flash('alert', 'error');
-            Session::flash('msg', 'Failed! There was some errors in your input');
+            // Session::flash('alert', 'error');
+            // Session::flash('msg', 'Failed! There was some errors in your input');
 
-            return redirect()->back();
+            // return redirect()->back();
+            dd($validator->errors());
         }
 
         $ref = $this->GenerateRef();
