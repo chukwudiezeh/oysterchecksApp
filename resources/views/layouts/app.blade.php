@@ -82,7 +82,7 @@
         <script src="{{asset('/assets/pages/jquery.forms-advanced.js')}}"></script>
         <script src="{{asset('/assets/pages/jquery.apexcharts.init.js')}}"></script>
         <!-- Session timeout js -->
-        <!-- <script src="{{asset('/plugins/bootstrap-session-timeout/bootstrap-session-timeout.min.js')}}"></script> -->
+        <script src="{{asset('/plugins/bootstrap-session-timeout/bootstrap-session-timeout.min.js')}}"></script>
         
         <script src="{{asset('/assets/pages/jquery.animate.init.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -116,7 +116,7 @@ keepAliveUrl:"{{route('index')}}",
 logoutButton:"Logout Now",
 logoutUrl:"{{route('logouts')}}",
 redirUrl:"{{route('logouts')}}",
-warnAfter:80e3,
+warnAfter:30e4,
 redirAfter:60e4,
 countdownBar:!0
 });
