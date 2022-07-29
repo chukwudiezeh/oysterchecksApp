@@ -154,13 +154,13 @@
                           
                             @foreach ($logs as $trans)
                                 <tr>
-                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$loop->iteration}}</div></a></td>
-                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$trans->ref}}</div></a></td>
-                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$trans->status == 'found' ? $trans->first_name.' '.$trans->last_name : 'N/A'}}</div></a></td>
-                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}">
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->slug, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$loop->iteration}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->slug, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$trans->ref}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->slug, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$trans->status == 'found' ? $trans->first_name.' '.$trans->last_name : 'N/A'}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->slug, 'verificationId'=>$trans->id])}}">
                                         <div class="px-2 py-3">
                                             @if($trans->status == 'found')
-                                            @if($trans->validations != null && json_decode($trans->validations)->validationMessages != "")
+                                            @if($trans->validations != null && $trans->validations->validationMessages != "")
                                             <span class="badge badge-soft-warning">Found</span>
                                             @else
                                             <span class="badge badge-soft-success"> Found</span> 
@@ -172,10 +172,10 @@
                                             @endif  
                                         </div></a>
                                     </td>
-                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$trans->fee}}</div></a></td>
-                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{auth()->user()->name}}</div></a></td>
-                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{date('jS F Y, h:iA', strtotime($trans->requested_at))}}</div></a></td>
-                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->id, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3"> @if($trans->status == 'successful')
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->slug, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{$trans->fee}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->slug, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{auth()->user()->name}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->slug, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3">{{date('jS F Y, h:iA', strtotime($trans->requested_at))}}</div></a></td>
+                                    <td class="px-0 py-0"><a class="table-link" href="{{route('showIdentityReport', ['slug'=>$slug->slug, 'verificationId'=>$trans->id])}}"><div class="px-2 py-3"> @if($trans->status == 'successful')
                                     <a href="{{route('verify.details', encrypt($trans->id))}}">View Details</a>
                                      @endif
                                     </div></a></td>

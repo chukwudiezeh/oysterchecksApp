@@ -124,6 +124,7 @@ class IdentityController extends Controller
                 $data['pending'] = BvnVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['wallet'] = Wallet::where('user_id', $user->id)->first();           
                 $data['logs'] = BvnVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
+                // dd($data['logs']);
                 return view('users.individual.identity_indexes.bvn_index', $data);
             } elseif ($slug->slug == 'nip') {
                 // $this->processNip($request);
@@ -648,7 +649,7 @@ class IdentityController extends Controller
                         'user_id' => auth()->user()->id,
                         'ref' => $ref,
                         'service_reference' => $decodedResponse['data']['id'] != null ? $decodedResponse['data']['id'] : null,
-                        'validations' => $decodedResponse['data']['validations'] != null ? json_encode($decodedResponse['data']['validations']) : null,
+                        'validations' => $decodedResponse['data']['validations'] != null ? $decodedResponse['data']['validations'] : null,
                         'status' => $decodedResponse['data']['status'],
                         'reason' => $decodedResponse['data']['reason'] != null ? $decodedResponse['data']['reason'] : null,
                         'data_validation' => $decodedResponse['data']['dataValidation'],
@@ -709,9 +710,10 @@ class IdentityController extends Controller
         $data['slug'] = $slug;
         if ($slug) {
             if ($slug->slug == 'bvn') {
-                $bvn_verification = BvnVerification::find($verificationId);
+                $bvn_verification = BvnVerification::where(['id'=>$verificationId, 'user_id'=>$user->id])->first();
                 if($bvn_verification){
-                    return view('users.individual.identity_reports.bvn_report', $bvn_verification);
+                    // dd($bvn_verification);
+                    return view('users.individual.identity_reports.bvn_report', ['bvn_verification'=>$bvn_verification]);
                 }
             } elseif ($slug->slug == 'nip') {
                 // $this->processNip($request);

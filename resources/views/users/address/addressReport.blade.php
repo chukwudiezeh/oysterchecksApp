@@ -263,7 +263,7 @@
                                 </div>
                             </div>
                             @endif
-                            @if($address_verification->addressVerificationDetail->guarantor != null)
+                            @if($address_verification->addressVerificationDetail->business != null)
                             <div class="col-12">
                                 <div class="accordion" id="businessInformation">
                                     <div class="accordion-item border-0">

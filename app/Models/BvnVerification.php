@@ -41,7 +41,7 @@ class BvnVerification extends Model
     ];
 
     protected $casts = [
-        'validations' => 'array',
+        'validations' => 'object',
         
     ];
 
