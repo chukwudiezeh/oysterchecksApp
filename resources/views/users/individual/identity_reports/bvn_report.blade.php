@@ -48,7 +48,7 @@
                                 <img src="{{asset('/assets/images/logo.png')}}" style="width:100%" alt="Oysterchecks Logo" class="logo-light">
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-12">
                                 @if($bvn_verification->status == 'pending')
                                 <div class="alert custom-alert alert-purple icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
@@ -61,17 +61,17 @@
                                     </div>
                                 </div>
                                 @elseif($bvn_verification->status == 'found')
-                                    @if(isset($bvn_verification->validations) && $bvn_verification->validations->validationMessages != "")
-                                    <div class="alert custom-alert alert-warning icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
-                                        <div class="media">
-                                            <i class="mdi mdi-shield-off-outline alert-icon text-warning align-self-center font-30 me-3"></i>
-                                            <div class="media-body align-self-center">
-                                                <h5 class="mb-1 fw-bold mt-0 text-warning">BVN Found and Not Verifi</h5>
-                                                <span>Your Address verification request have been completed and marked not verified. Candidate does not live here or address does not exist or is not accessible.</span>
-                                            </div>
+                                @if(isset($bvn_verification->validations) && $bvn_verification->validations->validationMessages != "")
+                                <div class="alert custom-alert alert-warning icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
+                                    <div class="media">
+                                        <i class="mdi mdi-shield-off-outline alert-icon text-warning align-self-center font-30 me-3"></i>
+                                        <div class="media-body align-self-center">
+                                            <h5 class="mb-1 fw-bold mt-0 text-warning">BVN Found and Not Verifi</h5>
+                                            <span>Your Address verification request have been completed and marked not verified. Candidate does not live here or address does not exist or is not accessible.</span>
                                         </div>
                                     </div>
-                                    @else
+                                </div>
+                                @else
                                 <div class="alert custom-alert alert-success icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
                                     <div class="media">
                                         <i class="mdi mdi-shield-check-outline alert-icon text-success align-self-center font-30 me-3"></i>
@@ -131,14 +131,13 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row mt-5">
                             <div class="col-12">
                                 <div class="py-3 px-4 bg-light">
                                     <h2 class="font-16 m-0 lh-base">Verification Details</h2>
                                 </div>
                             </div>
-                        @if($bvn_verification->status == 'found')
+                            @if($bvn_verification->status == 'found')
                             <div class="col-12">
                                 <div class="row  border-bottom">
                                     <div class="col-6 col-lg-4 align-self-center py-4 mb-3 mb-lg-0 {{isset($bvn_verification->validations->selfie)? 'me-5': ''}}">
@@ -148,15 +147,6 @@
                                             </div>
                                         </div>
                                         <div class="py-2">Image from Source</div>
-                                    </div>
-
-                                    <div class="col-6 col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
-                                        <div class="dastone-profile-main">
-                                            <div class="dastone-profile-main-pic">
-                                                <img src="{{$bvn_verification->image}}" alt="" height="110" class="rounded-circle">
-                                            </div>
-                                        </div>
-                                        <div class="py-2">Image Provided</div>
                                     </div>
                                 </div>
                             </div>
@@ -168,10 +158,10 @@
                                             {{$bvn_verification->first_name}}
                                             @if(isset($bvn_verification->validations->data->firstName))
                                             @if($bvn_verification->validations->data->firstName->validated == true)
-                                            <span class="ms-2 badge bg-success">Verified</span>
+                                            <span class="ms-2 badge bg-success">Validated</span>
                                             @else
                                             <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$bvn_verification->validations->data->firstName->value}}</span>
-                                            <span class="ms-3 badge bg-danger">Not Verified</span>
+                                            <span class="ms-3 badge bg-danger">Not Validated</span>
                                             @endif
                                             @endif
                                         </div>
@@ -249,8 +239,16 @@
                                     <h2 class="font-16 m-0 lh-base">Image Validation</h2>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="row">
+                            <div class="row">
+                            <div class="col-4 col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
+                                        <div class="dastone-profile-main">
+                                            <div class="dastone-profile-main-pic">
+                                                <img src="{{$bvn_verification->image}}" alt="" height="110" class="rounded-circle">
+                                            </div>
+                                        </div>
+                                        <div class="py-2">Image Provided</div>
+                                    </div>
+                            <div class="col-8">
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Confidence Level:</div>
                                         <div class="font-14 col-8">{{$bvn_verification->validations->selfie->selfieVerification->confidenceLevel}}%</div>
@@ -287,11 +285,11 @@
                             @endif
                             @endif
 
-                        @elseif($bvn_verification->status == 'not_found')
+                            @elseif($bvn_verification->status == 'not_found')
 
-                        @else
+                            @else
 
-                        @endif
+                            @endif
                         </div>
                     </div>
                 </div>
