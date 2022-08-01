@@ -66,8 +66,8 @@
                                     <div class="media">
                                         <i class="mdi mdi-shield-off-outline alert-icon text-warning align-self-center font-30 me-3"></i>
                                         <div class="media-body align-self-center">
-                                            <h5 class="mb-1 fw-bold mt-0 text-warning">BVN Found and Not Verifi</h5>
-                                            <span>Your Address verification request have been completed and marked not verified. Candidate does not live here or address does not exist or is not accessible.</span>
+                                            <h5 class="mb-1 fw-bold mt-0 text-warning">BVN Found and Not Validated</h5>
+                                            <span>Your verification request has been completed and validated.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="py-3 px-4 bg-light">
-                                    <h2 class="font-16 m-0 lh-base">Transaction Details</h2>
+                                    <h2 class="font-16 m-0 lh-base">Verification Details</h2>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -131,22 +131,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-5">
-                            <div class="col-12">
-                                <div class="py-3 px-4 bg-light">
-                                    <h2 class="font-16 m-0 lh-base">Verification Details</h2>
-                                </div>
-                            </div>
+                        <div class="row mt-3">
+                           
                             @if($bvn_verification->status == 'found')
                             <div class="col-12">
                                 <div class="row  border-bottom">
-                                    <div class="col-6 col-lg-4 align-self-center py-4 mb-3 mb-lg-0 {{isset($bvn_verification->validations->selfie)? 'me-5': ''}}">
+                                    <div class="col-6 col-lg-4 align-self-center py-4 px-4 mb-3 mb-lg-0 {{isset($bvn_verification->validations->selfie)? 'me-5': ''}}">
                                         <div class="dastone-profile-main">
-                                            <div class="dastone-profile-main-pic">
-                                                <img src="{{$bvn_verification->image}}" alt="" height="110" class="rounded-circle">
+                                            <div class="dastone-profile-main-pic rounded-circle border border-5 border-warning" style="background-image: url({{$bvn_verification->image}})">
+                                                <div class="inner-img-div position-absolute"></div>
+                                                <!-- <img src="{{$bvn_verification->image}}" alt="" height="110" class="rounded-circle"> -->
                                             </div>
                                         </div>
-                                        <div class="py-2">Image from Source</div>
+                                        <div class="py-2 fw-bold">Image from Source</div>
                                     </div>
                                 </div>
                             </div>
@@ -178,10 +175,10 @@
                                             {{$bvn_verification->last_name}}
                                             @if(isset($bvn_verification->validations->data->lastName))
                                             @if($bvn_verification->validations->data->lastName->validated == true)
-                                            <span class="ms-2 badge bg-success">Verified</span>
+                                            <span class="ms-2 badge bg-success">Validated</span>
                                             @else
                                             <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$bvn_verification->validations->data->lastName->value}}</span>
-                                            <span class="ms-3 badge bg-danger">Not Verified</span>
+                                            <span class="ms-3 badge bg-danger">Not Validated</span>
                                             @endif
                                             @endif
                                         </div>
@@ -241,12 +238,12 @@
                             </div>
                             <div class="row">
                             <div class="col-4 col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
-                                        <div class="dastone-profile-main">
+                                        <div class="dastone-profile-main" width="110px" height="110px">
                                             <div class="dastone-profile-main-pic">
-                                                <img src="{{$bvn_verification->image}}" alt="" height="110" class="rounded-circle">
+                                                <img src="{{$bvn_verification->validations->selfie->selfieVerification->image}}" alt="" class="rounded-circle">
                                             </div>
                                         </div>
-                                        <div class="py-2">Image Provided</div>
+                                        <div class="py-2 fw-semibold">Image Provided for validation</div>
                                     </div>
                             <div class="col-8">
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
@@ -259,7 +256,7 @@
                                     </div>
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Match:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->validations->selfie->selfieVerification->match == true ? Yes : No}}</div>
+                                        <div class="font-14 col-8">{{$bvn_verification->validations->selfie->selfieVerification->match == true ? 'Yes' : 'No'}}</div>
                                     </div>
                                 </div>
                             </div>
