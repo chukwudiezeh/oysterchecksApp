@@ -139,7 +139,7 @@
                                     <div class="col-6 col-lg-4 align-self-center py-4 px-4 mb-3 mb-lg-0 {{isset($bvn_verification->validations->selfie)? 'me-5': ''}}">
                                         <div class="dastone-profile-main">
                                             <div class="dastone-profile-main-pic rounded-circle border border-5 border-warning" style="background-image: url({{$bvn_verification->image}})">
-                                                <div class="inner-img-div position-absolute"></div>
+                                                <div class="inner-img-div position-absolute" data-id="imageView1"></div>
                                                 <!-- <img src="{{$bvn_verification->image}}" alt="" height="110" class="rounded-circle"> -->
                                             </div>
                                         </div>
@@ -281,7 +281,28 @@
                             </div>
                             @endif
                             @endif
-
+                            <div class="modal fade" id="imageView1" tabindex="-1" aria-labelledby="imageView1" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                                    <div class="modal-content" style="background:none">
+                                        <div class="modal-header border-0" style="background:none">
+                                            <h6 class="modal-title m-0" id="imageView"></h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <!--end modal-header-->
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 text-center align-self-center">
+                                                    <img src="{{$bvn_verification->image}}" alt="Image from Source" class="img-fluid"/>
+                                                </div>
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        <!--end modal-body-->
+                                    </div>
+                                    <!--end modal-content-->
+                                </div>
+                                <!--end modal-dialog-->
+                            </div>
                             @elseif($bvn_verification->status == 'not_found')
 
                             @else
@@ -349,6 +370,15 @@
                 //     window.close();
                 // }, 10000);
             }
+
+
+            $('div[data-id=imageView1]').on('click', ()=>{
+                $('#imageView1').modal('show');
+            });
+
+            $('body').on('click', ()=>{
+                $('#imageView1').modal('hide');
+            });
         </script>
 
         @endsection
