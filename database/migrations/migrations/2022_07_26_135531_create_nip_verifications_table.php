@@ -15,11 +15,12 @@ class CreateNipVerificationsTable extends Migration
     {
         Schema::create('nip_verifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
+            $table->foreignId('verification_id')->constrained('identity_verifications');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('service_reference');
-            $table->json('address')->nullable();
+            $table->string('ref');
             $table->json('validations')->nullable();
-            $table->string('status');
+            $table->string('status')->default('pending');
             $table->string('reason')->nullable();
             $table->boolean('data_validation');
             $table->boolean('selfie_validation');
@@ -27,7 +28,7 @@ class CreateNipVerificationsTable extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('expired_date')->nullable();
-            $table->string('notify_when_id_expire')->nullable();
+            $table->boolean('notify_when_id_expire')->nullable();
             $table->string('image')->nullable();
             $table->string('signature')->nullable();
             $table->string('issued_at')->nullable();

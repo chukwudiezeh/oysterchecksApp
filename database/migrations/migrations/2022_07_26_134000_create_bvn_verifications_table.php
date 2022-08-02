@@ -21,7 +21,7 @@ class CreateBvnVerificationsTable extends Migration
             $table->string('service_reference')->nullable();
             $table->json('validations')->nullable();
             $table->string('status')->default('pending');
-            $table->string('fee');
+            $table->string('fee')->nullable();
             $table->string('reason')->nullable();
             $table->boolean('data_validation')->default(false);
             $table->boolean('selfie_validation')->default(false);

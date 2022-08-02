@@ -9,7 +9,7 @@ use App\Models\Transaction;
 use App\Models\FieldInput;
 use \Illuminate\Support\Arr;
 use App\Models\ApiResponse;
-use App\Models\BvnVerification;
+use App\Models\{BvnVerification,NipVerification};
 use Illuminate\Support\Facades\Storage;
 use App\Traits\generateHeaderReports;
 use App\Models\IdentityVerification;
@@ -33,77 +33,7 @@ class IdentityController extends Controller
     {
         //  return $this->user = auth()->user();
     }
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
     public function RedirectUser()
     {
         if (auth()->user()->user_type == 3)
@@ -127,6 +57,13 @@ class IdentityController extends Controller
                 // dd($data['logs']);
                 return view('users.individual.identity_indexes.bvn_index', $data);
             } elseif ($slug->slug == 'nip') {
+                $data['success'] = NipVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['failed'] =  NipVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['pending'] = NipVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['wallet'] = Wallet::where('user_id', $user->id)->first();           
+                $data['logs'] = NipVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
+                // dd($data['logs']);
+                return view('users.individual.identity_indexes.nip_index', $data);
                 // $this->processNip($request);
             } elseif ($slug->slug == 'nin') {
                 // $this->processNip($request);
@@ -686,19 +623,19 @@ class IdentityController extends Controller
         }
     }
 
-    protected function validator(array $data, $slug)
-    {
-        return Validator::make($data, [
-            'reference' => 'bail|required|alpha_num',
-            'first_name' => 'bail|nullable|string|alpha',
-            'last_name' => $slug == 'nip' ? 'bail|required|string|alpha' : 'bail|nullable|string|alpha',
-            'validate_data' => 'bail|nullable|accepted|required_with:first_name,dob',
-            'compare_image' => 'bail|nullable|accepted|required_with:image',
-            'dob' => 'bail|nullable|date',
-            'image' => 'bail|nullable|image|mimes:jpg,jpeg,png',
-            'advance_search' => 'bail|nullable|accepted'
-        ]);
-    }
+    // protected function validator(array $data, $slug)
+    // {
+    //     return Validator::make($data, [
+    //         'reference' => 'bail|required|alpha_num',
+    //         'first_name' => 'bail|nullable|string|alpha',
+    //         'last_name' => $slug == 'nip' ? 'bail|required|string|alpha' : 'bail|nullable|string|alpha',
+    //         'validate_data' => 'bail|nullable|accepted|required_with:first_name,dob',
+    //         'compare_image' => 'bail|nullable|accepted|required_with:image',
+    //         'dob' => 'bail|nullable|date',
+    //         'image' => 'bail|nullable|image|mimes:jpg,jpeg,png',
+    //         'advance_search' => 'bail|nullable|accepted'
+    //     ]);
+    // }
 
 
     public function verificationReport($slug, $verificationId)
