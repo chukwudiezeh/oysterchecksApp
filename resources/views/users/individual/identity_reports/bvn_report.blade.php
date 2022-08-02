@@ -132,15 +132,14 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                           
+
                             @if($bvn_verification->status == 'found')
                             <div class="col-12">
                                 <div class="row  border-bottom">
-                                    <div class="col-6 col-lg-4 align-self-center py-4 px-4 mb-3 mb-lg-0 {{isset($bvn_verification->validations->selfie)? 'me-5': ''}}">
+                                    <div class="col-6 col-lg-4 align-self-center py-4 px-4 mb-3 mb-lg-0">
                                         <div class="dastone-profile-main">
-                                            <div class="dastone-profile-main-pic rounded-circle border border-5 border-warning" style="background-image: url({{$bvn_verification->image}})">
+                                            <div class="dastone-profile-main-pic rounded-circle {{$bvn_verification->selfie_validation ==true ? 'border border-5': ''}} {{$bvn_verification->selfie_validation ==true && $bvn_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}" style="background-image: url({{$bvn_verification->image}})">
                                                 <div class="inner-img-div position-absolute" data-id="imageView1"></div>
-                                                <!-- <img src="{{$bvn_verification->image}}" alt="" height="110" class="rounded-circle"> -->
                                             </div>
                                         </div>
                                         <div class="py-2 fw-bold">Image from Source</div>
@@ -158,7 +157,7 @@
                                             <span class="ms-2 badge bg-success">Validated</span>
                                             @else
                                             <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$bvn_verification->validations->data->firstName->value}}</span>
-                                            <span class="ms-3 badge bg-danger">Not Validated</span>
+                                            <span class="ms-3 badge bg-danger">Not a match</span>
                                             @endif
                                             @endif
                                         </div>
@@ -178,7 +177,7 @@
                                             <span class="ms-2 badge bg-success">Validated</span>
                                             @else
                                             <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$bvn_verification->validations->data->lastName->value}}</span>
-                                            <span class="ms-3 badge bg-danger">Not Validated</span>
+                                            <span class="ms-3 badge bg-danger">Not a match</span>
                                             @endif
                                             @endif
                                         </div>
@@ -237,24 +236,24 @@
                                 </div>
                             </div>
                             <div class="row">
-                            <div class="col-4 col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
-                                        <div class="dastone-profile-main" width="110px" height="110px">
-                                            <div class="dastone-profile-main-pic">
-                                                <img src="{{$bvn_verification->validations->selfie->selfieVerification->image}}" alt="" class="rounded-circle">
-                                            </div>
+                                <div class="col-4 col-sm-4 col-lg-4 align-self-center py-4 mb-3 mb-lg-0 text-center">
+                                    <div class="dastone-profile-main justify-content-center">
+                                        <div class="dastone-profile-main-pic rounded-circle border border-5 {{$bvn_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}" style="background-image: url({{$bvn_verification->validations->selfie->selfieVerification->image}})">
+                                            <div class="inner-img-div position-absolute" data-id="imageView2"></div>
                                         </div>
-                                        <div class="py-2 fw-semibold">Image Provided for validation</div>
                                     </div>
-                            <div class="col-8">
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                    <div class="py-2 fw-bold">Image Provided for validation</div>
+                                </div>
+                                <div class="col-8 col-sm-8">
+                                    <div class="col-12 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Confidence Level:</div>
                                         <div class="font-14 col-8">{{$bvn_verification->validations->selfie->selfieVerification->confidenceLevel}}%</div>
                                     </div>
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                    <div class="col-12 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Threshold Level:</div>
                                         <div class="font-14 col-8">{{$bvn_verification->validations->selfie->selfieVerification->threshold}}%</div>
                                     </div>
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                    <div class="col-12 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Match:</div>
                                         <div class="font-14 col-8">{{$bvn_verification->validations->selfie->selfieVerification->match == true ? 'Yes' : 'No'}}</div>
                                     </div>
@@ -264,19 +263,14 @@
 
                             @if($bvn_verification->data_validation == true || $bvn_verification->selfie_validation == true)
                             @if($bvn_verification->validations->validationMessages != "")
-                            <div class="col-12 mt-5">
+                            <div class="col-12 mt-2">
                                 <div class="py-3 px-4 bg-light">
                                     <h2 class="font-16 m-0 lh-base">Validation Messages</h2>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="alert custom-alert alert-warning icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
-                                    <div class="media">
-                                        <i class="mdi mdi-shield-off-outline alert-icon text-warning align-self-center font-30 me-3"></i>
-                                        <div class="media-body align-self-center">
-                                            <h5 class="mb-1 fw-bold mt-0 text-warning">{{$bvn_verification->validations->validationMessages}}</h5>
-                                        </div>
-                                    </div>
+                            <div class="col-auto mt-3">
+                                <div class="alert alert-warning border-0 font-15" role="alert">
+                                    {{$bvn_verification->validations->validationMessages}}
                                 </div>
                             </div>
                             @endif
@@ -292,7 +286,7 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center align-self-center">
-                                                    <img src="{{$bvn_verification->image}}" alt="Image from Source" class="img-fluid"/>
+                                                    <img src="{{$bvn_verification->image}}" alt="Image from Source" class="img-fluid" />
                                                 </div>
                                             </div>
                                             <!--end row-->
@@ -303,8 +297,40 @@
                                 </div>
                                 <!--end modal-dialog-->
                             </div>
+                            @if($bvn_verification->selfie_validation == true)
+                            <div class="modal fade" id="imageView2" tabindex="-1" aria-labelledby="imageView2" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                                    <div class="modal-content" style="background:none">
+                                        <div class="modal-header border-0" style="background:none">
+                                            <h6 class="modal-title m-0" id="imageView"></h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <!--end modal-header-->
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 text-center align-self-center">
+                                                    <img src="{{$bvn_verification->validations->selfie->selfieVerification->image}}" alt="Image from Source" class="img-fluid" />
+                                                </div>
+                                            </div>
+                                            <!--end row-->
+                                        </div>
+                                        <!--end modal-body-->
+                                    </div>
+                                    <!--end modal-content-->
+                                </div>
+                                <!--end modal-dialog-->
+                            </div>
+                            @endif
                             @elseif($bvn_verification->status == 'not_found')
-
+                                <div class="row mt-5">
+                                    <div class="col-12 col-sm-9 col-md-6 ms-auto me-auto text-center align-items-center">
+                                        
+                                        <h5 class="card-title mb-5 text-muted">You Searched for "{{$bvn_verification->pin}}"</h5>
+                                        <h5 class="card-title mb-2">Oops! No Data found for the pin entered</h5>
+                                        <p class="card-text">Please Enter a correct BVN Pin and try searching again.</p>
+                                        <a href="{{route('showIdentityVerificationForm', $bvn_verification->type)}}" class="btn btn-primary btn-sm mt-4 mb-3">Make another request</a>
+                                    </div>
+                                </div>
                             @else
 
                             @endif
@@ -338,8 +364,8 @@
                     });
 
                     let margins = {
-                        top: 30,
-                        bottom: 30,
+                        top: 50,
+                        bottom: 50,
                         left: 50,
                         width: 500
                     }
@@ -355,7 +381,7 @@
                         x: margins.left,
                         y: margins.top,
                         width: margins.width,
-                        windowWidth: 600,
+                        windowWidth: 900,
                         elementHandlers: specialElementHandlers,
                         callback: function() {
                             doc.save("another.pdf", margins)
@@ -372,12 +398,19 @@
             }
 
 
-            $('div[data-id=imageView1]').on('click', ()=>{
+            $('div[data-id=imageView1]').on('click', () => {
                 $('#imageView1').modal('show');
             });
 
-            $('body').on('click', ()=>{
+            $('div[data-id=imageView2]').on('click', () => {
+                $('#imageView2').modal('show');
+            });
+
+            $('body').on('click', () => {
                 $('#imageView1').modal('hide');
+            });
+            $('body').on('click', () => {
+                $('#imageView2').modal('hide');
             });
         </script>
 
