@@ -66,8 +66,8 @@
                                     <div class="media">
                                         <i class="mdi mdi-shield-off-outline alert-icon text-warning align-self-center font-30 me-3"></i>
                                         <div class="media-body align-self-center">
-                                            <h5 class="mb-1 fw-bold mt-0 text-warning">BVN Found and Not Validated</h5>
-                                            <span>Your verification request has been completed and validated.</span>
+                                            <h5 class="mb-1 fw-bold mt-0 text-warning">BVN Found but Not Validated</h5>
+                                            <span>Your verification request has been completed and some data do not match.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="my-4 d-flex justify-content-between align-items-center">
-                                    <h4 class="fw-semibold text-dark font-16">Identity(BVN) Report - {{$bvn_verification->id}}</h4>
+                                    <h4 class="fw-semibold text-dark font-16">Identity(BVN) Report - {{$bvn_verification->ref}}</h4>
                                     <div>
                                         <a id="printBtn" class="btn btn-primary btn-square">Print</a>
                                         <a id="downloadBtn" class="btn btn-primary btn-square">Download Report</a>
@@ -138,8 +138,9 @@
                                 <div class="row  border-bottom">
                                     <div class="col-6 col-lg-4 align-self-center py-4 px-4 mb-3 mb-lg-0">
                                         <div class="dastone-profile-main">
-                                            <div class="dastone-profile-main-pic rounded-circle {{$bvn_verification->selfie_validation ==true ? 'border border-5': ''}} {{$bvn_verification->selfie_validation ==true && $bvn_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}" style="background-image: url({{$bvn_verification->image}})">
-                                                <div class="inner-img-div position-absolute" data-id="imageView1"></div>
+                                            <div class="dastone-profile-main-pic rounded-circle {{$bvn_verification->selfie_validation ==true ? 'border border-5': ''}} {{$bvn_verification->selfie_validation ==true && $bvn_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}">
+                                            <img src="{{$bvn_verification->image}}" style="display:block;position:absolute;height:100%;top:50%;left:50%;-ms-transform: translateY(-50%);-webkit-transform: translateY(-50%);transform: translateY(-50%) translateX(-50%);"/>    
+                                            <div class="inner-img-div position-absolute" data-id="imageView1"></div>
                                             </div>
                                         </div>
                                         <div class="py-2 fw-bold">Image from Source</div>
@@ -198,10 +199,10 @@
                                             {{date('jS F Y', strtotime($bvn_verification->dob))}}
                                             @if(isset($bvn_verification->validations->data->dateOfBirth))
                                             @if($bvn_verification->validations->data->dateOfBirth->validated == true)
-                                            <span class="ms-2 badge bg-success">Verified</span>
+                                            <span class="ms-2 badge bg-success">Validated</span>
                                             @else
                                             <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$bvn_verification->validations->data->dateOfBirth->value}}</span>
-                                            <span class="ms-3 badge bg-danger">Not Verified</span>
+                                            <span class="ms-3 badge bg-danger">Not a match</span>
                                             @endif
                                             @endif
                                         </div>
@@ -238,7 +239,8 @@
                             <div class="row">
                                 <div class="col-4 col-sm-4 col-lg-4 align-self-center py-4 mb-3 mb-lg-0 text-center">
                                     <div class="dastone-profile-main justify-content-center">
-                                        <div class="dastone-profile-main-pic rounded-circle border border-5 {{$bvn_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}" style="background-image: url({{$bvn_verification->validations->selfie->selfieVerification->image}})">
+                                        <div class="dastone-profile-main-pic rounded-circle border border-5 {{$bvn_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}">
+                                        <img src="{{$bvn_verification->validations->selfie->selfieVerification->image}}" style="display:block;position:absolute;height:100%;top:50%;left:50%;-ms-transform: translateY(-50%);-webkit-transform: translateY(-50%);transform: translateY(-50%) translateX(-50%);"/>    
                                             <div class="inner-img-div position-absolute" data-id="imageView2"></div>
                                         </div>
                                     </div>

@@ -50,7 +50,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-12">
-                                @if($bvn_verification->status == 'pending')
+                                @if($nip_verification->status == 'pending')
                                 <div class="alert custom-alert alert-purple icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
                                     <div class="media">
                                         <i class="mdi mdi-clock-outline alert-icon text-purple align-self-center font-30 me-3"></i>
@@ -60,14 +60,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                @elseif($bvn_verification->status == 'found')
-                                @if(isset($bvn_verification->validations) && $bvn_verification->validations->validationMessages != "")
+                                @elseif($nip_verification->status == 'found')
+                                @if(isset($nip_verification->validations) && $nip_verification->all_validation_passed==false)
                                 <div class="alert custom-alert alert-warning icon-custom-alert shadow-sm fade show d-flex justify-content-between" role="alert">
                                     <div class="media">
                                         <i class="mdi mdi-shield-off-outline alert-icon text-warning align-self-center font-30 me-3"></i>
                                         <div class="media-body align-self-center">
-                                            <h5 class="mb-1 fw-bold mt-0 text-warning">BVN Found and Not Validated</h5>
-                                            <span>Your verification request has been completed and validated.</span>
+                                            <h5 class="mb-1 fw-bold mt-0 text-warning">Passport Found but Not Validated</h5>
+                                            <span>Your verification request has been completed but some data do not match</span>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                     <div class="media">
                                         <i class="mdi mdi-shield-check-outline alert-icon text-success align-self-center font-30 me-3"></i>
                                         <div class="media-body align-self-center">
-                                            <h5 class="mb-1 fw-bold mt-0 text-success">BVN Found and Validated</h5>
+                                            <h5 class="mb-1 fw-bold mt-0 text-success">Passport Found and Validated</h5>
                                             <span>Your verification request has been completed and validated.</span>
                                         </div>
                                     </div>
@@ -87,8 +87,8 @@
                                     <div class="media">
                                         <i class="far fa-times-circle alert-icon text-danger align-self-center font-30 me-3"></i>
                                         <div class="media-body align-self-center">
-                                            <h5 class="mb-1 fw-bold mt-0 text-danger">BVN Not Found</h5>
-                                            <span>You provided an invalid BVN</span>
+                                            <h5 class="mb-1 fw-bold mt-0 text-danger">Passport Not Found</h5>
+                                            <span>You provided an invalid passport pin</span>
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="my-4 d-flex justify-content-between align-items-center">
-                                    <h4 class="fw-semibold text-dark font-16">Identity(BVN) Report - {{$bvn_verification->id}}</h4>
+                                    <h4 class="fw-semibold text-dark font-16">Identity (Passport) Report - {{$nip_verification->ref}}</h4>
                                     <div>
                                         <a id="printBtn" class="btn btn-primary btn-square">Print</a>
                                         <a id="downloadBtn" class="btn btn-primary btn-square">Download Report</a>
@@ -118,11 +118,11 @@
                                 <div class="row">
                                     <div class="col-12 col-md-4 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Verification ID:</div>
-                                        <div class="font-14 col-8 text-break">{{$bvn_verification->ref}}</div>
+                                        <div class="font-14 col-8 text-break">{{$nip_verification->ref}}</div>
                                     </div>
                                     <div class="col-12 col-md-4 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Initiated At:</div>
-                                        <div class="font-14 col-8">{{date('jS F Y, h:iA', strtotime($bvn_verification->requested_at))}}</div>
+                                        <div class="font-14 col-8">{{date('jS F Y, h:iA', strtotime($nip_verification->requested_at))}}</div>
                                     </div>
                                     <div class="col-12 col-md-4 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Initiated By:</div>
@@ -133,13 +133,14 @@
                         </div>
                         <div class="row mt-3">
 
-                            @if($bvn_verification->status == 'found')
+                            @if($nip_verification->status == 'found')
                             <div class="col-12">
                                 <div class="row  border-bottom">
                                     <div class="col-6 col-lg-4 align-self-center py-4 px-4 mb-3 mb-lg-0">
                                         <div class="dastone-profile-main">
-                                            <div class="dastone-profile-main-pic rounded-circle {{$bvn_verification->selfie_validation ==true ? 'border border-5': ''}} {{$bvn_verification->selfie_validation ==true && $bvn_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}" style="background-image: url({{$bvn_verification->image}})">
-                                                <div class="inner-img-div position-absolute" data-id="imageView1"></div>
+                                            <div class="dastone-profile-main-pic rounded-circle {{$nip_verification->selfie_validation ==true ? 'border border-5': ''}} {{$nip_verification->selfie_validation ==true && $nip_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}">
+                                            <img src="{{$nip_verification->image}}" style="display:block;position:absolute;height:100%;top:50%;left:50%;-ms-transform: translateY(-50%);-webkit-transform: translateY(-50%);transform: translateY(-50%) translateX(-50%);"/>    
+                                            <div class="inner-img-div position-absolute" data-id="imageView1"></div>
                                             </div>
                                         </div>
                                         <div class="py-2 fw-bold">Image from Source</div>
@@ -151,85 +152,93 @@
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">First Name:</div>
                                         <div class="font-14 col-8">
-                                            {{$bvn_verification->first_name}}
-                                            @if(isset($bvn_verification->validations->data->firstName))
-                                            @if($bvn_verification->validations->data->firstName->validated == true)
+                                            {{$nip_verification->first_name}}
+                                            @if(isset($nip_verification->validations->data->firstName))
+                                            @if($nip_verification->validations->data->firstName->validated == true)
                                             <span class="ms-2 badge bg-success">Validated</span>
                                             @else
-                                            <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$bvn_verification->validations->data->firstName->value}}</span>
+                                            <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$nip_verification->validations->data->firstName->value}}</span>
                                             <span class="ms-3 badge bg-danger">Not a match</span>
                                             @endif
                                             @endif
                                         </div>
                                     </div>
-                                    @if($bvn_verification->middle_name != null)
+                                    @if($nip_verification->middle_name != null)
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Middle Name:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->middle_name}}</div>
+                                        <div class="font-14 col-8">{{$nip_verification->middle_name}}</div>
                                     </div>
                                     @endif
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Last Name:</div>
                                         <div class="font-14 col-8">
-                                            {{$bvn_verification->last_name}}
-                                            @if(isset($bvn_verification->validations->data->lastName))
-                                            @if($bvn_verification->validations->data->lastName->validated == true)
+                                            {{$nip_verification->last_name}}
+                                            @if(isset($nip_verification->validations->data->lastName))
+                                            @if($nip_verification->validations->data->lastName->validated == true)
                                             <span class="ms-2 badge bg-success">Validated</span>
                                             @else
-                                            <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$bvn_verification->validations->data->lastName->value}}</span>
+                                            <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$nip_verification->validations->data->lastName->value}}</span>
+                                            <span class="ms-3 badge bg-danger">Not a match</span>
+                                            @endif
+                                            @endif
+                                        </div>
+                                    </div>
+                                    @if($nip_verification->phone != null)
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Phone Number:</div>
+                                        <div class="font-14 col-8">{{$nip_verification->phone}}</div>
+                                    </div>
+                                    @endif
+                                    @if($nip_verification->gender != null)
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Gender:</div>
+                                        <div class="font-14 col-8">{{$nip_verification->gender}}</div>
+                                    </div>
+                                    @endif
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Date of Birth:</div>
+                                        <div class="font-14 col-8">
+                                            {{date('jS F Y', strtotime($nip_verification->dob))}}
+                                            @if(isset($nip_verification->validations->data->dateOfBirth))
+                                            @if($nip_verification->validations->data->dateOfBirth->validated == true)
+                                            <span class="ms-2 badge bg-success">Validated</span>
+                                            @else
+                                            <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$nip_verification->validations->data->dateOfBirth->value}}</span>
                                             <span class="ms-3 badge bg-danger">Not a match</span>
                                             @endif
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Phone Number:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->phone}}</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Passport Number:</div>
+                                        <div class="font-14 col-8">{{$nip_verification->pin}}</div>
                                     </div>
-                                    @if($bvn_verification->gender != null)
+                                    @if($nip_verification->expired_date != null)
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Gender:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->gender}}</div>
-                                    </div>
-                                    @endif
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Date of Birth:</div>
-                                        <div class="font-14 col-8">
-                                            {{date('jS F Y', strtotime($bvn_verification->dob))}}
-                                            @if(isset($bvn_verification->validations->data->dateOfBirth))
-                                            @if($bvn_verification->validations->data->dateOfBirth->validated == true)
-                                            <span class="ms-2 badge bg-success">Verified</span>
-                                            @else
-                                            <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$bvn_verification->validations->data->dateOfBirth->value}}</span>
-                                            <span class="ms-3 badge bg-danger">Not Verified</span>
-                                            @endif
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">BVN:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->pin}}</div>
-                                    </div>
-                                    @if($bvn_verification->enrollment_institution != null)
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Enrollment Institution:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->enrollment_institution}}</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Expiry Date:</div>
+                                        <div class="font-14 col-8">{{$nip_verification->expired_date}}</div>
                                     </div>
                                     @endif
-                                    @if($bvn_verification->enrollment_branch != null)
+                                    @if($nip_verification->issued_date != null)
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Enrollment Branch:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->enrollment_branch}}</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Issued Date:</div>
+                                        <div class="font-14 col-8">{{$nip_verification->issued_date}}</div>
+                                    </div>
+                                    @endif
+                                    @if($nip_verification->issued_at != null)
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Issued At:</div>
+                                        <div class="font-14 col-8">{{$nip_verification->issued_at}}</div>
                                     </div>
                                     @endif
 
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Country:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->country}}</div>
+                                        <div class="font-14 col-8">{{$nip_verification->country}}</div>
                                     </div>
                                 </div>
                             </div>
-                            @if($bvn_verification->selfie_validation == true)
+                            @if($nip_verification->selfie_validation == true)
                             <div class="col-12 mt-5">
                                 <div class="py-3 px-4 bg-light">
                                     <h2 class="font-16 m-0 lh-base">Image Validation</h2>
@@ -238,7 +247,8 @@
                             <div class="row">
                                 <div class="col-4 col-sm-4 col-lg-4 align-self-center py-4 mb-3 mb-lg-0 text-center">
                                     <div class="dastone-profile-main justify-content-center">
-                                        <div class="dastone-profile-main-pic rounded-circle border border-5 {{$bvn_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}" style="background-image: url({{$bvn_verification->validations->selfie->selfieVerification->image}})">
+                                        <div class="dastone-profile-main-pic rounded-circle border border-5 {{$nip_verification->validations->selfie->selfieVerification->match==true? 'border-success' : 'border-warning'}}">
+                                        <img src="{{$nip_verification->validations->selfie->selfieVerification->image}}" style="display:block;position:absolute;height:100%;top:50%;left:50%;-ms-transform: translateY(-50%);-webkit-transform: translateY(-50%);transform: translateY(-50%) translateX(-50%);"/>    
                                             <div class="inner-img-div position-absolute" data-id="imageView2"></div>
                                         </div>
                                     </div>
@@ -247,22 +257,22 @@
                                 <div class="col-8 col-sm-8">
                                     <div class="col-12 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Confidence Level:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->validations->selfie->selfieVerification->confidenceLevel}}%</div>
+                                        <div class="font-14 col-8">{{$nip_verification->validations->selfie->selfieVerification->confidenceLevel}}%</div>
                                     </div>
                                     <div class="col-12 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Threshold Level:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->validations->selfie->selfieVerification->threshold}}%</div>
+                                        <div class="font-14 col-8">{{$nip_verification->validations->selfie->selfieVerification->threshold}}%</div>
                                     </div>
                                     <div class="col-12 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Match:</div>
-                                        <div class="font-14 col-8">{{$bvn_verification->validations->selfie->selfieVerification->match == true ? 'Yes' : 'No'}}</div>
+                                        <div class="font-14 col-8">{{$nip_verification->validations->selfie->selfieVerification->match == true ? 'Yes' : 'No'}}</div>
                                     </div>
                                 </div>
                             </div>
                             @endif
 
-                            @if($bvn_verification->data_validation == true || $bvn_verification->selfie_validation == true)
-                            @if($bvn_verification->validations->validationMessages != "")
+                            @if($nip_verification->data_validation == true || $nip_verification->selfie_validation == true)
+                            @if($nip_verification->all_validations_passed == false)
                             <div class="col-12 mt-2">
                                 <div class="py-3 px-4 bg-light">
                                     <h2 class="font-16 m-0 lh-base">Validation Messages</h2>
@@ -270,7 +280,7 @@
                             </div>
                             <div class="col-auto mt-3">
                                 <div class="alert alert-warning border-0 font-15" role="alert">
-                                    {{$bvn_verification->validations->validationMessages}}
+                                    {{$nip_verification->validations->validationMessages}}
                                 </div>
                             </div>
                             @endif
@@ -286,7 +296,7 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center align-self-center">
-                                                    <img src="{{$bvn_verification->image}}" alt="Image from Source" class="img-fluid" />
+                                                    <img src="{{$nip_verification->image}}" alt="Image from Source" class="img-fluid" />
                                                 </div>
                                             </div>
                                             <!--end row-->
@@ -297,7 +307,7 @@
                                 </div>
                                 <!--end modal-dialog-->
                             </div>
-                            @if($bvn_verification->selfie_validation == true)
+                            @if($nip_verification->selfie_validation == true)
                             <div class="modal fade" id="imageView2" tabindex="-1" aria-labelledby="imageView2" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                                     <div class="modal-content" style="background:none">
@@ -309,7 +319,7 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-lg-12 text-center align-self-center">
-                                                    <img src="{{$bvn_verification->validations->selfie->selfieVerification->image}}" alt="Image from Source" class="img-fluid" />
+                                                    <img src="{{$nip_verification->validations->selfie->selfieVerification->image}}" alt="Image Provided for Validation" class="img-fluid" />
                                                 </div>
                                             </div>
                                             <!--end row-->
@@ -321,14 +331,14 @@
                                 <!--end modal-dialog-->
                             </div>
                             @endif
-                            @elseif($bvn_verification->status == 'not_found')
+                            @elseif($nip_verification->status == 'not_found')
                                 <div class="row mt-5">
                                     <div class="col-12 col-sm-9 col-md-6 ms-auto me-auto text-center align-items-center">
                                         
-                                        <h5 class="card-title mb-5 text-muted">You Searched for "{{$bvn_verification->pin}}"</h5>
+                                        <h5 class="card-title mb-5 text-muted">You Searched for "{{$nip_verification->pin}}"</h5>
                                         <h5 class="card-title mb-2">Oops! No Data found for the pin entered</h5>
                                         <p class="card-text">Please Enter a correct BVN Pin and try searching again.</p>
-                                        <a href="{{route('showIdentityVerificationForm', $bvn_verification->type)}}" class="btn btn-primary btn-sm mt-4 mb-3">Make another request</a>
+                                        <a href="{{route('showIdentityVerificationForm', $nip_verification->type)}}" class="btn btn-primary btn-sm mt-4 mb-3">Make another request</a>
                                     </div>
                                 </div>
                             @else

@@ -39,6 +39,7 @@ class CreateBvnVerificationsTable extends Migration
             $table->string('type');
             $table->string('gender')->nullable();
             $table->string('country');
+            $table->boolean('all_validation_passed')->nullable();
             $table->string('requested_at')->nullable();
             $table->string('last_modified_at')->nullable();
             $table->timestamps();

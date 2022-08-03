@@ -39,7 +39,7 @@
                          <h4 class="card-title">{{$slug->name}} ({{$slug->slug}})Verification</h4>
                      </div>
                      <!--end card-header-->
-                     <form method="post" action="{{route('StoreVerify',$slug->slug)}}" id="form1">
+                     <form method="post" action="{{route('StoreVerify',$slug->slug)}}" id="form1" enctype="multipart/form-data">
                          @csrf
 
                          <div class="card-body bootstrap-select-1">

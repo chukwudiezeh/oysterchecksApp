@@ -38,6 +38,7 @@ class NipVerification extends Model
         'type',
         'gender',
         'country',
+        'all_validation_passed',
         'requested_at',
         'last_modified_at',
         'fee'

@@ -39,6 +39,7 @@ class CreateNipVerificationsTable extends Migration
             $table->string('pin');
             $table->string('type');
             $table->string('gender')->nullable();
+            $table->boolean('all_validation_passed')->nullable();
             $table->string('requested_at');
             $table->string('last_modified_at');
             $table->string('country');
