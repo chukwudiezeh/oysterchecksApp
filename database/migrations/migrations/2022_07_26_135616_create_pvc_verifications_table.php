@@ -15,10 +15,13 @@ class CreatePvcVerificationsTable extends Migration
     {
         Schema::create('pvc_verifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
+            $table->foreignId('verification_id')->constrained('verifications');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('ref');
             $table->string('service_reference');
             $table->json('validations')->nullable();
             $table->string('status');
+            $table->string('fee')->nullable();
             $table->string('reason')->nullable();
             $table->boolean('data_validation');
             $table->boolean('selfie_validation');
@@ -32,6 +35,7 @@ class CreatePvcVerificationsTable extends Migration
             $table->string('requested_at');
             $table->string('last_modified_at');
             $table->string('country');
+            $table->boolean('all_validation_passed')->nullable();
             $table->timestamps();
         });
     }
