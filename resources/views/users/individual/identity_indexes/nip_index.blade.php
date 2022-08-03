@@ -179,7 +179,6 @@
                                     <a href="{{route('verify.details', encrypt($trans->id))}}">View Details</a>
                                      @endif
                                     </div></a></td>
-                                   
                                 </tr>
                                  @endforeach
                                 </tbody>
