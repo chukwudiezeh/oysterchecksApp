@@ -43,9 +43,10 @@ class CreateNinVerificationsTable extends Migration
             $table->string('type');
             $table->boolean('all_validation_passed');
             $table->string('gender')->nullable();
+            $table->string('fee')->nullable();
             $table->string('requested_at');
             $table->string('last_modified_at');
-            $table->string('country');
+            $table->string('country');      
             $table->timestamps();
         });
     }

@@ -9,7 +9,7 @@ use App\Models\Transaction;
 use App\Models\FieldInput;
 use \Illuminate\Support\Arr;
 use App\Models\ApiResponse;
-use App\Models\{BvnVerification,NipVerification, PvcVerification, NinVerification};
+use App\Models\{BvnVerification,NipVerification, PvcVerification, NinVerification, NdlVerification};
 use Illuminate\Support\Facades\Storage;
 use App\Traits\generateHeaderReports;
 use App\Models\IdentityVerification;
@@ -73,7 +73,12 @@ class IdentityController extends Controller
                 $data['logs'] = PvcVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
                 return view('users.individual.identity_indexes.pvc_index', $data);
             } elseif ($slug->slug == 'ndl') {
-                // $this->processNip($request);
+                $data['success'] = NdlVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['failed'] =  NdlVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['pending'] = NdlVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['wallet'] = Wallet::where('user_id', $user->id)->first();
+                $data['logs'] = NdlVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
+                return view('users.individual.identity_indexes.pvc_index', $data);
             } elseif ($slug->slug == 'compare-images') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'bank-account') {
@@ -126,7 +131,7 @@ class IdentityController extends Controller
             } elseif ($slug->slug == 'pvc') {
                return $this->processPvc($request, $slug);
             } elseif ($slug->slug == 'ndl') {
-                // $this->processNip($request);
+                return $this->processNdl($request, $slug);
             } elseif ($slug->slug == 'compare-images') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'bank-account') {
@@ -981,6 +986,129 @@ class IdentityController extends Controller
         }
     }
 
+    protected function processNdl(Request $request, $slug)
+    {
+        $validator = Validator::make($request->all(), [
+            'pin' => 'bail|required|alpha_num|size:12',
+            'first_name' => 'bail|nullable|string|alpha',
+            'last_name' => 'bail|nullable|string|alpha',
+            'validate_data' => 'bail|nullable|required_with:first_name,dob',
+            'compare_image' => 'bail|nullable|required_with:image',
+            'dob' => 'bail|nullable|date',
+            'image' => 'bail|nullable|image|mimes:jpg,jpeg,png',
+            'subject_consent' => 'bail|required|accepted'
+        ]);
+
+        if ($validator->fails()) {
+            // dd($validator->errors());
+            Session::flash('alert', 'error');
+            Session::flash('message', 'Failed! There was some errors in your input');
+            return redirect()->back();
+        }
+
+        $ref = $this->GenerateRef();
+        $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
+        $requestData = [
+            'id' => $request->pin,
+            'isSubjectConsent' => $request->subject_consent ? true : false,
+        ];
+
+        if ($request->validate_data) {
+            $data = [];
+            $request->first_name != null ? $data['firstName'] = $request->first_name : null;
+            $request->last_name != null ? $data['lastName'] = $request->last_name : null;
+            $request->dob != null ? $data['dateOfBirth'] = $request->dob : null;
+            $requestData['validations']['data'] = $data;
+        }
+        if ($request->compare_image) {
+            $selfie = [];
+            if ($request->file('image')) {
+                $image_url = cloudinary()->upload($request->file('image')->getRealPath(), [
+                    'folder' => 'oysterchecks/identityVerifications/nin'
+                ])->getSecurePath();
+                if ($image_url) {
+                    $selfie['image'] = $image_url;
+                    $requestData['validations']['selfie'] = $selfie;
+                }
+            }
+        }
+
+        DB::beginTransaction();
+        try {
+            $curl = curl_init();
+            $encodedRequestData = json_encode($requestData, true);
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.sandbox.youverify.co/v2/api/identity/ng/drivers-license",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 1,
+                CURLOPT_TIMEOUT => 2180,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => $encodedRequestData,
+                CURLOPT_HTTPHEADER => [
+                    "Content-Type: application/json",
+                    "Token: N0R9AJ4L.PWYaM5cXggThkdCtkVSCsWz4fMsfeMIp6CKL"
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            if (curl_errno($curl)) {
+                dd('error:' . curl_errno($curl));
+            } else {
+                $decodedResponse = json_decode($response, true);
+                // dd($decodedResponse);
+                if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
+                    if ($decodedResponse['data']['image'] != null) {
+                        $response_image = cloudinary()->upload($decodedResponse['data']['image'], [
+                            'folder' => 'oysterchecks/identityVerifications/nin'
+                        ])->getSecurePath();
+                    }
+                    NdlVerification::create([
+                        'verification_id' => $slug->id,
+                        'user_id' => auth()->user()->id,
+                        'ref' => $ref,
+                        'service_reference' => $decodedResponse['data']['id'],
+                        'validations' => isset($decodedResponse['data']['validations']) ? $decodedResponse['data']['validations'] : null,
+                        'status' => $decodedResponse['data']['status'],
+                        'reason' => $decodedResponse['data']['reason'],
+                        'data_validation' => $decodedResponse['data']['dataValidation'],
+                        'selfie_validation' => $decodedResponse['data']['selfieValidation'],
+                        'first_name' => $decodedResponse['data']['firstName'],
+                        'middle_name' => !empty($decodedResponse['data']['middleName']) ? $decodedResponse['data']['middleName'] : null,
+                        'last_name' => $decodedResponse['data']['lastName'],
+                        'expired_date' => $decodedResponse['data']['expiredDate'],
+                        'issued_date' => $decodedResponse['data']['issuedDate'],
+                        'state_of_issuance' => $decodedResponse['data']['stateOfIssuance'],
+                        'notify_when_id_expire' => $decodedResponse['data']['notifyWhenIdExpire'],
+                        'image' => $decodedResponse['data']['image'] != null ? $response_image : null,
+                        'phone' => $decodedResponse['data']['mobile'],
+                        'email' => $decodedResponse['data']['email'],
+                        'dob' => $decodedResponse['data']['dateOfBirth'],
+                        'subject_consent' => true,
+                        'pin' => $request->pin,
+                        'type' => 'nin',
+                        'gender' => isset($decodedResponse['data']['gender']) ? $decodedResponse['data']['gender'] : null,
+                        'country' => 'Nigeria',
+                        'all_validation_passed' => $decodedResponse['data']['allValidationPassed'],
+                        'requested_at' => $decodedResponse['data']['requestedAt'],
+                        'last_modified_at' => $decodedResponse['data']['lastModifiedAt'],
+                    ]);
+
+                    DB::commit();
+                    Session::flash('alert', 'success');
+                    Session::flash('message', 'Verification Successful');
+                    return redirect()->route('identityIndex', $slug->slug);
+                }else{
+
+                }
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
     public function verificationReport($slug, $verificationId)
     {
         $this->RedirectUser();
@@ -1011,7 +1139,11 @@ class IdentityController extends Controller
                     return view('users.individual.identity_reports.pvc_report', ['pvc_verification'=>$pvc_verification]);
                 }
             } elseif ($slug->slug == 'ndl') {
-                // $this->processNip($request);
+                $ndl_verification = NdlVerification::where(['id'=>$verificationId, 'user_id'=>$user->id])->first();
+
+                if($ndl_verification){
+                    return view('users.individual.identity_reports.ndl_report', ['ndl_verification'=>$ndl_verification]);
+                }
             } elseif ($slug->slug == 'compare-images') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'bank-account') {

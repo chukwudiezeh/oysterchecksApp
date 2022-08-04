@@ -21,7 +21,6 @@ class CreatePvcVerificationsTable extends Migration
             $table->string('service_reference');
             $table->json('validations')->nullable();
             $table->string('status');
-            $table->string('fee')->nullable();
             $table->string('reason')->nullable();
             $table->boolean('data_validation');
             $table->boolean('selfie_validation');
@@ -32,10 +31,11 @@ class CreatePvcVerificationsTable extends Migration
             $table->boolean('subject_consent');
             $table->string('pin');
             $table->string('type');
+            $table->boolean('all_validation_passed')->nullable();
+            $table->string('fee')->nullable();
             $table->string('requested_at');
             $table->string('last_modified_at');
             $table->string('country');
-            $table->boolean('all_validation_passed')->nullable();
             $table->timestamps();
         });
     }

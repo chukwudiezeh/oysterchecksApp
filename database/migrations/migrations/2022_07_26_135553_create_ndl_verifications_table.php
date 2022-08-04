@@ -15,11 +15,12 @@ class CreateNdlVerificationsTable extends Migration
     {
         Schema::create('ndl_verifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
-            $table->string('service_reference');
-            $table->json('address')->nullable();
+            $table->foreignId('verification_id')->constrained('verifications');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('ref');
+            $table->string('service_reference')->nullable();
             $table->json('validations')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status');
             $table->string('reason')->nullable();
             $table->boolean('data_validation');
             $table->boolean('selfie_validation');
@@ -38,6 +39,8 @@ class CreateNdlVerificationsTable extends Migration
             $table->string('pin');
             $table->string('type');
             $table->string('gender')->nullable();
+            $table->boolean('all_validation_passed');
+            $table->string('fee')->nullable();
             $table->string('requested_at');
             $table->string('last_modified_at');
             $table->string('country');

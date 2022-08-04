@@ -21,7 +21,6 @@ class CreateBvnVerificationsTable extends Migration
             $table->string('service_reference')->nullable();
             $table->json('validations')->nullable();
             $table->string('status')->default('pending');
-            $table->string('fee')->nullable();
             $table->string('reason')->nullable();
             $table->boolean('data_validation')->default(false);
             $table->boolean('selfie_validation')->default(false);
@@ -40,6 +39,7 @@ class CreateBvnVerificationsTable extends Migration
             $table->string('gender')->nullable();
             $table->string('country');
             $table->boolean('all_validation_passed')->nullable();
+            $table->string('fee')->nullable();
             $table->string('requested_at')->nullable();
             $table->string('last_modified_at')->nullable();
             $table->timestamps();
