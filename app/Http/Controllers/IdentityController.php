@@ -9,7 +9,7 @@ use App\Models\Transaction;
 use App\Models\FieldInput;
 use \Illuminate\Support\Arr;
 use App\Models\ApiResponse;
-use App\Models\{BvnVerification,NipVerification, PvcVerification, NinVerification, NdlVerification};
+use App\Models\{BvnVerification,NipVerification, PvcVerification, NinVerification, NdlVerification, PhoneVerification};
 use Illuminate\Support\Facades\Storage;
 use App\Traits\generateHeaderReports;
 use App\Models\IdentityVerification;
@@ -84,7 +84,12 @@ class IdentityController extends Controller
             } elseif ($slug->slug == 'bank-account') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'phone-number') {
-                // $this->processNip($request);
+                $data['success'] = PhoneVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['failed'] =  PhoneVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['pending'] = PhoneVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['wallet'] = Wallet::where('user_id', $user->id)->first();
+                $data['logs'] = PhoneVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
+                return view('users.individual.identity_indexes.pvc_index', $data);
             }
         } else {
 
@@ -137,7 +142,7 @@ class IdentityController extends Controller
             } elseif ($slug->slug == 'bank-account') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'phone-number') {
-                // $this->processNip($request);
+               return $this->processPhoneNumber($request, $slug);
             }
         } else {
 
@@ -1109,6 +1114,112 @@ class IdentityController extends Controller
         }
     }
 
+    protected function processPhoneNumber(Request $request, $slug)
+    {
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'bail|required|numeric|digits:11',
+            'advance_search' => 'bail|nullable',
+            'subject_consent' => 'bail|required|accepted'
+        ]);
+
+        if ($validator->fails()) {
+            // dd($validator->errors());
+            Session::flash('alert', 'error');
+            Session::flash('message', 'Failed! There was some errors in your input');
+            return redirect()->back();
+        }
+
+        $ref = $this->GenerateRef();
+        $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
+        $requestData = [
+            'mobile' => $request->phone_number,
+            'isSubjectConsent' => $request->subject_consent ? true : false,
+        ];
+
+        if ($request->advance_search) {
+            $advance_search = true;
+            $requestData['advanceSearch'] = $advance_search;
+        }
+
+        DB::beginTransaction();
+        try {
+            $curl = curl_init();
+            $encodedRequestData = json_encode($requestData, true);
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.sandbox.youverify.co/v2/api/identity/ng/phone",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 1,
+                CURLOPT_TIMEOUT => 2180,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => $encodedRequestData,
+                CURLOPT_HTTPHEADER => [
+                    "Content-Type: application/json",
+                    "Token: N0R9AJ4L.PWYaM5cXggThkdCtkVSCsWz4fMsfeMIp6CKL"
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            if (curl_errno($curl)) {
+                dd('error:' . curl_errno($curl));
+            } else {
+                $decodedResponse = json_decode($response, true);
+                // dd($decodedResponse);
+                if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
+                    if (isset($decodedResponse['data']['image']) && $decodedResponse['data']['image'] != null) {
+                        $response_image = cloudinary()->upload($decodedResponse['data']['image'], [
+                            'folder' => 'oysterchecks/identityVerifications/phoneNumber'
+                        ])->getSecurePath();
+                    }
+                    PhoneVerification::create([
+                        'verification_id' => $slug->id,
+                        'user_id' => auth()->user()->id,
+                        'ref' => $ref,
+                        'service_reference' => $decodedResponse['data']['id'],
+                        'address' => isset($decodedResponse['data']['address']) ? $decodedResponse['data']['address'] : null,
+                        'validations' => isset($decodedResponse['data']['validations']) ? $decodedResponse['data']['validations'] : null,
+                        'status' => $decodedResponse['data']['status'],
+                        'reason' => $decodedResponse['data']['reason'],
+                        'data_validation' => $decodedResponse['data']['dataValidation'],
+                        'selfie_validation' => $decodedResponse['data']['selfieValidation'],
+                        'phone_details' => isset($decodedResponse['data']['phoneDetails']) ? $decodedResponse['data']['phoneDetails'] : null,
+                        'first_name' => isset($decodedResponse['data']['firstName']) ? $decodedResponse['data']['firstName'] : null,
+                        'middle_name' => isset($decodedResponse['data']['middleName']) && !empty($decodedResponse['data']['middleName']) ? $decodedResponse['data']['middleName'] : null,
+                        'last_name' => isset($decodedResponse['data']['lastName']) ? $decodedResponse['data']['lastName'] : null,
+                        'image' => isset($decodedResponse['data']['image']) && $decodedResponse['data']['image'] != null ? $response_image : null,
+                        'email' => isset($decodedResponse['data']['email']) ? $decodedResponse['data']['email'] : null,
+                        'nin' => isset($decodedResponse['data']['nin']) ? $decodedResponse['data']['nin'] : null,
+                        'birth_state' => isset($decodedResponse['data']['birthState']) ? $decodedResponse['data']['birthState'] : null,
+                        'religion' => isset($decodedResponse['data']['religion']) ? $decodedResponse['data']['religion'] : null,
+                        'birth_lga' => isset($decodedResponse['data']['birthLGA']) ? $decodedResponse['data']['birthLGA'] : null,
+                        'birth_country' => isset($decodedResponse['data']['birthCountry']) ? $decodedResponse['data']['birthCountry'] : null,
+                        'dob' => isset($decodedResponse['data']['dateOfBirth']) ? $decodedResponse['data']['dateOfBirth'] : null,
+                        'subject_consent' => true,
+                        'phone_number' => $request->phone_number,
+                        'type' => 'phone-number',
+                        'gender' => isset($decodedResponse['data']['gender']) ? $decodedResponse['data']['gender'] : null,
+                        'country' => 'Nigeria',
+                        'all_validation_passed' => $decodedResponse['data']['allValidationPassed'],
+                        'advance_search' => $request->advance_search ? true : false,
+                        'requested_at' => $decodedResponse['data']['requestedAt'],
+                        'last_modified_at' => $decodedResponse['data']['lastModifiedAt'],
+                    ]);
+
+                    DB::commit();
+                    Session::flash('alert', 'success');
+                    Session::flash('message', 'Verification Successful');
+                    return redirect()->route('identityIndex', $slug->slug);
+                }else{
+
+                }
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
     public function verificationReport($slug, $verificationId)
     {
         $this->RedirectUser();
@@ -1149,7 +1260,10 @@ class IdentityController extends Controller
             } elseif ($slug->slug == 'bank-account') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'phone-number') {
-                // $this->processNip($request);
+                $phone_verification = PhoneVerification::where(['id'=>$verificationId, 'user_id'=>$user->id])->first();
+                if($phone_verification){
+                    return view('users.individual.identity_reports.phone_report', ['phone_verification'=>$phone_verification]);
+                }
             }
         } else {
 

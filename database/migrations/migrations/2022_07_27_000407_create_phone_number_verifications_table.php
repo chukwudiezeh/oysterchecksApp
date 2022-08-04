@@ -15,9 +15,12 @@ class CreatePhoneNumberVerificationsTable extends Migration
     {
         Schema::create('phone_number_verifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
-            $table->string('service_reference');
+            $table->foreignId('verification_id')->constrained('verifications');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('ref');
+            $table->string('service_reference')->nullable();
             $table->json('address')->nullable();
+            $table->json('validations')->nullable();
             $table->string('status');
             $table->string('reason')->nullable();
             $table->boolean('data_validation');
@@ -30,13 +33,12 @@ class CreatePhoneNumberVerificationsTable extends Migration
             $table->string('email')->nullable();
             $table->string('nin')->nullable();
             $table->string('birth_state')->nullable();
-            $table->string('nok_state')->nullable();
             $table->string('religion')->nullable();
             $table->string('birth_lga')->nullable();
             $table->string('birth_country')->nullable();
             $table->string('dob')->nullable();
             $table->boolean('subject_consent');
-            $table->string('pin');
+            $table->string('phone_number');
             $table->string('type');
             $table->string('gender')->nullable();
             $table->boolean('all_validation_passed')->nullable();
@@ -44,6 +46,7 @@ class CreatePhoneNumberVerificationsTable extends Migration
             $table->string('requested_at');
             $table->string('last_modified_at');
             $table->string('country');
+            $table->string('fee')->nullable();
             $table->timestamps();
         });
     }
