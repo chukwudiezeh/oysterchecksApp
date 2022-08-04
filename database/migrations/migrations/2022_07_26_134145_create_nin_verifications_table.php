@@ -15,8 +15,10 @@ class CreateNinVerificationsTable extends Migration
     {
         Schema::create('nin_verifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
-            $table->string('service_reference');
+            $table->foreignId('verification_id')->constrained('verifications');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('ref');
+            $table->string('service_reference')->nullable();
             $table->json('address');
             $table->json('validations')->nullable();
             $table->string('status');
@@ -39,6 +41,7 @@ class CreateNinVerificationsTable extends Migration
             $table->boolean('subject_consent');
             $table->string('pin');
             $table->string('type');
+            $table->boolean('all_validation_passed');
             $table->string('gender')->nullable();
             $table->string('requested_at');
             $table->string('last_modified_at');
