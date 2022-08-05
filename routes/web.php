@@ -51,6 +51,7 @@ Route::post('/contact/form', [LandingPages::class, 'ContactForm'])->name('Contac
 Route::middleware('auth')->group(function() {
 Route::get('/dashboard', [HomeController::class, 'Home'])->name('index');
 Route::get('/home', [HomeController::class, 'Home'])->name('home');
+Route::get('/bank-account-verification/banks-list', [IdentityController::class, 'getBanks']);
 Route::get('/user/identities/{slug}', [IdentityController::class, 'identityIndex'])->name('identityIndex');
 Route::get('/user/identities/check/{slug}',[IdentityController::class, 'showIdentityVerificationForm'])->name('showIdentityVerificationForm');
 Route::post('/user/identities/verify/{slug}', [IdentityController::class, 'StoreVerify'])->name('StoreVerify');

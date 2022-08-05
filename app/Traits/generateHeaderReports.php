@@ -106,6 +106,7 @@ public function generateHeaderReports($slug){
         // $data['logs'] = AddressVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->latest()->get();
     return $data;   
     }
+
 }
 
 

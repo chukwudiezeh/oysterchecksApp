@@ -81,7 +81,7 @@
      </div>
      @endsection
      @section('script')
-     <script>
+     <!-- <script>
          $('#btnsubmit').on('click', function() {
              $('#btnsubmit').html('<span class="spinner-grow text-secondary spinner-grow-sm" role="status" aria-hidden="true"></span>Please Wait....');
              let reference = $('#reference').val();
@@ -114,6 +114,6 @@
                  },
              });
          });
-     </script>
+     </script> -->
 
      @endsection

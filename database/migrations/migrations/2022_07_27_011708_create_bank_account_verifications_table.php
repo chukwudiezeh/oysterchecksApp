@@ -15,14 +15,18 @@ class CreateBankAccountVerificationsTable extends Migration
     {
         Schema::create('bank_account_verifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
-            $table->string('service_reference');
+            $table->foreignId('verification_id')->constrained('verifications');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('ref');
+            $table->string('service_reference')->nullable();
             $table->string('status');
             $table->string('reason')->nullable();
             $table->boolean('data_validation');
             $table->boolean('selfie_validation');
+            $table->string('fee')->nullable();
             $table->boolean('subject_consent');
-            $table->string('pin');
+            $table->string('account_number');
+            $table->string('bank_code');
             $table->json('bank_details')->nullable();
             $table->string('type');
             $table->string('requested_at');

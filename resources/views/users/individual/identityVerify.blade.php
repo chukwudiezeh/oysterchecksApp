@@ -95,7 +95,7 @@
                                  @elseif($input->type == 'select')
                                  <div class="col-md-6 mb-3">
                                      <label class="mb-3" style="font-weight:bolder">{{$input->label}}</label> @if($input->is_required == 1) <span style="color:red; font-weight:bolder"> * </span> @endif
-                                     <select class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;">
+                                     <select class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;" id="{{$input->inputid}}" name="{{$input->name}}">
                                          <option>{{$input->placeholder}}</option>
                                      </select>
                                  </div>

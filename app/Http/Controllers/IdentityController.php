@@ -9,7 +9,7 @@ use App\Models\Transaction;
 use App\Models\FieldInput;
 use \Illuminate\Support\Arr;
 use App\Models\ApiResponse;
-use App\Models\{BvnVerification,NipVerification, PvcVerification, NinVerification, NdlVerification, PhoneVerification};
+use App\Models\{BankVerification, BvnVerification,NipVerification, PvcVerification, NinVerification, NdlVerification, PhoneVerification};
 use Illuminate\Support\Facades\Storage;
 use App\Traits\generateHeaderReports;
 use App\Models\IdentityVerification;
@@ -82,7 +82,13 @@ class IdentityController extends Controller
             } elseif ($slug->slug == 'compare-images') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'bank-account') {
-                // $this->processNip($request);
+                $data['success'] = BankVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['failed'] =  BankVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['pending'] = BankVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['wallet'] = Wallet::where('user_id', $user->id)->first();
+                $data['logs'] = BankVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
+                return view('users.individual.identity_indexes.bank_index', $data);
+
             } elseif ($slug->slug == 'phone-number') {
                 $data['success'] = PhoneVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['failed'] =  PhoneVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
@@ -116,6 +122,7 @@ class IdentityController extends Controller
         // $data['failed'] = IdentityVerification::where(['status' => 'failed', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
         // $data['pending'] = IdentityVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
         $data['fields'] = FieldInput::where(['slug' => $slug->slug])->get();
+       
         // $data['wallet'] = Wallet::where('user_id', $user->id)->first();
 
         return view('users.individual.identityVerify', $data);
@@ -140,7 +147,7 @@ class IdentityController extends Controller
             } elseif ($slug->slug == 'compare-images') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'bank-account') {
-                // $this->processNip($request);
+                $this->processBankAccount($request, $slug);
             } elseif ($slug->slug == 'phone-number') {
                return $this->processPhoneNumber($request, $slug);
             }
@@ -214,7 +221,7 @@ class IdentityController extends Controller
         // }
     }
 
-    public function chargeUser($amount, $ext_ref, $type)
+    public function chargeUser($amount, $ref, $type)
     {
         $user = User::where('id', auth()->user()->id)->first();
         $wallet = Wallet::where('user_id', $user->id)->first();
@@ -229,10 +236,10 @@ class IdentityController extends Controller
         Transaction::create([
             'ref' => $refs,
             'user_id' => $user->id,
-            'external_ref' => $ext_ref,
+            'external_ref' => $ref,
             'purpose' => 'Payment for ' . $type,
             'service_type' => $type,
-            'type'  => 'DEBIT',
+            'type'  => 'Credit',
             'amount' => $amount,
             'prev_balance' => $wallet->avail_balance,
             'avail_balance' => $newWallet
@@ -1220,6 +1227,90 @@ class IdentityController extends Controller
         }
     }
 
+    protected function processBankAccount(Request $request, $slug)
+    {
+        $validator = Validator::make($request->all(), [
+            'account_number' => 'bail|required|numeric|digits:11',
+            'bank_code' => 'bail|required|numeric|digits:3',
+            'subject_consent' => 'bail|required|accepted'
+        ]);
+
+        if ($validator->fails()) {
+            // dd($validator->errors());
+            Session::flash('alert', 'error');
+            Session::flash('message', 'Failed! There was some errors in your input');
+            return redirect()->back();
+        }
+
+        $ref = $this->GenerateRef();
+        $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
+        $requestData = [
+            'accountNumber' => $request->account_number,
+            'bankCode'=> $request->bank,
+            'isSubjectConsent' => $request->subject_consent ? true : false,
+        ];
+
+        DB::beginTransaction();
+        try {
+            $curl = curl_init();
+            $encodedRequestData = json_encode($requestData, true);
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.sandbox.youverify.co/v2/api/identity/ng/bank-account-number/resolve",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 1,
+                CURLOPT_TIMEOUT => 2180,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => $encodedRequestData,
+                CURLOPT_HTTPHEADER => [
+                    "Content-Type: application/json",
+                    "Token: N0R9AJ4L.PWYaM5cXggThkdCtkVSCsWz4fMsfeMIp6CKL"
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            if (curl_errno($curl)) {
+                dd('error:' . curl_errno($curl));
+            } else {
+                $decodedResponse = json_decode($response, true);
+                // dd($decodedResponse);
+                if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
+                   
+                    BankVerification::create([
+                        'verification_id' => $slug->id,
+                        'user_id' => auth()->user()->id,
+                        'ref' => $ref,
+                        'service_reference' => $decodedResponse['data']['id'],
+                        'status' => $decodedResponse['data']['status'],
+                        'reason' => $decodedResponse['data']['reason'],
+                        'data_validation' => $decodedResponse['data']['dataValidation'],
+                        'selfie_validation' => $decodedResponse['data']['selfieValidation'],
+                        'subject_consent' => true,
+                        'account_number' => $request->account_number,
+                        'bank_code' => $request->bank,
+                        'bank_details' => isset($decodedResponse['data']['validations']) ? $decodedResponse['data']['validations'] : null,
+                        'type' => 'bank-account',
+                        'country' => 'Nigeria',
+                        'all_validation_passed' => $decodedResponse['data']['allValidationPassed'],
+                        'requested_at' => $decodedResponse['data']['requestedAt'],
+                        'last_modified_at' => $decodedResponse['data']['lastModifiedAt'],
+                    ]);
+
+                    DB::commit();
+                    Session::flash('alert', 'success');
+                    Session::flash('message', 'Verification Successful');
+                    return redirect()->route('identityIndex', $slug->slug);
+                }else{
+
+                }
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
     public function verificationReport($slug, $verificationId)
     {
         $this->RedirectUser();
@@ -1267,6 +1358,43 @@ class IdentityController extends Controller
             }
         } else {
 
+        }
+    }
+
+
+    public function getBanks(){
+        try {
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.sandbox.youverify.co/v2/api/identity/ng/bank-account-number/bank-list",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 1,
+                CURLOPT_TIMEOUT => 2180,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => [
+                    "Content-Type: application/json",
+                    "Token: N0R9AJ4L.PWYaM5cXggThkdCtkVSCsWz4fMsfeMIp6CKL"
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            if (curl_errno($curl)) {
+                dd('error:' . curl_errno($curl));
+            } else {
+                $decodedResponse = json_decode($response, true);
+                // dd($decodedResponse);
+                if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
+                   
+                   
+                }else{
+
+                }
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
     }
 }
