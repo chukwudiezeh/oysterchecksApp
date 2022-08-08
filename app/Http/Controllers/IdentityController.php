@@ -123,6 +123,7 @@ class IdentityController extends Controller
         // $data['pending'] = IdentityVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
         $data['fields'] = FieldInput::where(['slug' => $slug->slug])->get();
        
+       
         // $data['wallet'] = Wallet::where('user_id', $user->id)->first();
 
         return view('users.individual.identityVerify', $data);
@@ -1383,14 +1384,15 @@ class IdentityController extends Controller
             if (curl_errno($curl)) {
                 dd('error:' . curl_errno($curl));
             } else {
-                $decodedResponse = json_decode($response, true);
+                return response()->json(['data' => $response], 200);
+                // $decodedResponse = json_decode($response, true);
                 // dd($decodedResponse);
-                if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
+                // if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
+                //    dd($decodedResponse['data']);
                    
-                   
-                }else{
+                // }else{
 
-                }
+                // }
             }
         } catch (\Exception $e) {
             DB::rollBack();

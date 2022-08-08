@@ -1,8 +1,38 @@
 $(() => {
     window.onload = (e) => {
-        let extra = `<p class="mb-1 text-dark"> Upload a passport here</p>`;
+        if ($('span[class="file-icon"]').length){
+            let extra = `<p class="mb-1 text-dark"> Upload a passport here</p>`;
+            $('span[class="file-icon"]').prepend(extra);
+        }
 
-        $('span[class="file-icon"]').prepend(extra);
+        if($('#bank').length){
+            fetch(window.location.origin+'/identity/bank-account/banks', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                // console.log(data.data);
+                const bigData = JSON.parse(data.data);
+                // console.log(bigData.statusCode);
+                if (bigData.success == true && bigData.statusCode == 200){
+                    // console.log(bigData);
+                    let allbanks = bigData.data;
+                    let bankObj = [];
+                        allbanks.forEach((item, key) =>{
+                        bankObj.push({id:item.code, text:item.name});
+                    // console.log(bankObj);
+
+                    });
+                    $('#bank').select2({
+                        data:bankObj
+                    })
+                //     console.log(bankObj);
+                }
+            })
+        }
     };
 
     $('#validateData').on('click', () => {
@@ -42,6 +72,11 @@ $(() => {
             $('#subjectConsent').val('false');
         }
     });
+
+    //check if the id exists
+    //send a fetch request
+    //convert response
+    //
 
 
 });
