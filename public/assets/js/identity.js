@@ -14,22 +14,16 @@ $(() => {
             })
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data.data);
                 const bigData = JSON.parse(data.data);
-                // console.log(bigData.statusCode);
                 if (bigData.success == true && bigData.statusCode == 200){
-                    // console.log(bigData);
                     let allbanks = bigData.data;
                     let bankObj = [];
-                        allbanks.forEach((item, key) =>{
+                    allbanks.forEach((item, key) =>{
                         bankObj.push({id:item.code, text:item.name});
-                    // console.log(bankObj);
-
                     });
                     $('#bank').select2({
                         data:bankObj
-                    })
-                //     console.log(bankObj);
+                    });
                 }
             })
         }
