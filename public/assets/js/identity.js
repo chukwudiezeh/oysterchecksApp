@@ -15,6 +15,7 @@ $(() => {
             .then((response) => response.json())
             .then((data) => {
                 const bigData = JSON.parse(data.data);
+                console.log(bigData);
                 if (bigData.success == true && bigData.statusCode == 200){
                     let allbanks = bigData.data;
                     let bankObj = [];
@@ -24,10 +25,17 @@ $(() => {
                     $('#bank').select2({
                         data:bankObj
                     });
+                }else{
+                    toastr.error('Could not retrieve bank list. Refresh this page!')
                 }
             })
         }
     };
+
+    $('option').on('click', ()=>{
+        $('#bank').val($(this).attr('value'));
+        $('#bank').trigger('change');
+    })
 
     $('#validateData').on('click', () => {
         if ($('#validateData').is(':checked')) {

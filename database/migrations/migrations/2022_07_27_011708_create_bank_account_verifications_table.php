@@ -29,6 +29,7 @@ class CreateBankAccountVerificationsTable extends Migration
             $table->string('bank_code');
             $table->json('bank_details')->nullable();
             $table->string('type');
+            $table->boolean('all_validation_passed')->nullable();
             $table->string('requested_at');
             $table->string('last_modified_at');
             $table->string('country');

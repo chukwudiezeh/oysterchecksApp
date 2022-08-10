@@ -9,7 +9,7 @@ use App\Models\Transaction;
 use App\Models\FieldInput;
 use \Illuminate\Support\Arr;
 use App\Models\ApiResponse;
-use App\Models\{BankVerification, BvnVerification,NipVerification, PvcVerification, NinVerification, NdlVerification, PhoneVerification};
+use App\Models\{BankVerification, BvnVerification,NipVerification, PvcVerification, NinVerification, NdlVerification, PhoneVerification, ImageVerification};
 use Illuminate\Support\Facades\Storage;
 use App\Traits\generateHeaderReports;
 use App\Models\IdentityVerification;
@@ -80,7 +80,12 @@ class IdentityController extends Controller
                 $data['logs'] = NdlVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
                 return view('users.individual.identity_indexes.pvc_index', $data);
             } elseif ($slug->slug == 'compare-images') {
-                // $this->processNip($request);
+                $data['success'] = ImageVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['failed'] =  ImageVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['pending'] = ImageVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['wallet'] = Wallet::where('user_id', $user->id)->first();
+                $data['logs'] = ImageVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
+                return view('users.individual.identity_indexes.pvc_index', $data);
             } elseif ($slug->slug == 'bank-account') {
                 $data['success'] = BankVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['failed'] =  BankVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
@@ -148,7 +153,7 @@ class IdentityController extends Controller
             } elseif ($slug->slug == 'compare-images') {
                 // $this->processNip($request);
             } elseif ($slug->slug == 'bank-account') {
-                $this->processBankAccount($request, $slug);
+                return $this->processBankAccount($request, $slug);
             } elseif ($slug->slug == 'phone-number') {
                return $this->processPhoneNumber($request, $slug);
             }
@@ -1231,13 +1236,13 @@ class IdentityController extends Controller
     protected function processBankAccount(Request $request, $slug)
     {
         $validator = Validator::make($request->all(), [
-            'account_number' => 'bail|required|numeric|digits:11',
-            'bank_code' => 'bail|required|numeric|digits:3',
+            'account_number' => 'bail|required|numeric|digits:10',
+            'bank' => 'bail|required|alpha_num',
             'subject_consent' => 'bail|required|accepted'
         ]);
-
+// dd($request->all());
         if ($validator->fails()) {
-            // dd($validator->errors());
+            dd($validator->errors());
             Session::flash('alert', 'error');
             Session::flash('message', 'Failed! There was some errors in your input');
             return redirect()->back();
@@ -1277,7 +1282,6 @@ class IdentityController extends Controller
                 $decodedResponse = json_decode($response, true);
                 // dd($decodedResponse);
                 if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
-                   
                     BankVerification::create([
                         'verification_id' => $slug->id,
                         'user_id' => auth()->user()->id,
@@ -1290,7 +1294,7 @@ class IdentityController extends Controller
                         'subject_consent' => true,
                         'account_number' => $request->account_number,
                         'bank_code' => $request->bank,
-                        'bank_details' => isset($decodedResponse['data']['validations']) ? $decodedResponse['data']['validations'] : null,
+                        'bank_details' => isset($decodedResponse['data']['bankDetails']) ? $decodedResponse['data']['bankDetails'] : null,
                         'type' => 'bank-account',
                         'country' => 'Nigeria',
                         'all_validation_passed' => $decodedResponse['data']['allValidationPassed'],
@@ -1385,14 +1389,6 @@ class IdentityController extends Controller
                 dd('error:' . curl_errno($curl));
             } else {
                 return response()->json(['data' => $response], 200);
-                // $decodedResponse = json_decode($response, true);
-                // dd($decodedResponse);
-                // if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
-                //    dd($decodedResponse['data']);
-                   
-                // }else{
-
-                // }
             }
         } catch (\Exception $e) {
             DB::rollBack();

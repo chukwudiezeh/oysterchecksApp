@@ -46,7 +46,7 @@ class InputFieldSeeder extends Seeder
             
             ['slug' => 'tin', 'name'=>'pin', 'placeholder'=>'Enter Reference', 'type'=>'text', 'is_required'=>'1', 'label'=>'TIN Number', 'inputid'=>'pin'], 
             ['slug' => 'cac', 'name'=>'company_name', 'placeholder'=>'Enter Company Full Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Registered Company Name', 'inputid'=>'company_name'], 
-            // ['slug' => 'Bank_account', 'name'=>'account_number', 'placeholder'=>'Enter Account Number', 'type'=>'text', 'is_required'=>'1', 'label'=>'Account Number', 'inputid'=>'account_number'], 
+             
             ['slug' => 'candidate', 'name'=>'first_name', 'placeholder'=>'Enter Candidate\'s First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 
             ['slug' => 'candidate', 'name'=>'middle_name', 'placeholder'=>'Enter Candidate\'s Middle Name', 'type'=>'text', 'is_required'=>'0', 'label'=>'Middle Name', 'inputid'=>'middle_name'],
             ['slug' => 'candidate', 'name'=>'last_name', 'placeholder'=>'Enter Candidate\'s Last Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Last Name', 'inputid'=>'last_name'], 
@@ -84,7 +84,7 @@ class InputFieldSeeder extends Seeder
             ['slug' => 'business-address', 'name'=>'name', 'placeholder'=>'Enter Contact Person\'s Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Name', 'inputid'=>'name'], 
             ['slug' => 'business-address', 'name'=>'email', 'placeholder'=>'Enter Contact\'s Email', 'type'=>'text', 'is_required'=>'1', 'label'=>'Email', 'inputid'=>'email'],
             ['slug' => 'business-address', 'name'=>'phone', 'placeholder'=>'Enter Contact\'s Phone', 'type'=>'text', 'is_required'=>'1', 'label'=>'Phone', 'inputid'=>'phone'],  
-            ['slug' => 'business-address', 'name'=>'registration_number', 'placeholder'=>'Registration Number', 'type'=>'text', 'is_required'=>'1', 'label'=>'Registration Number', 'inputid'=>'registration_number'],-
+            ['slug' => 'business-address', 'name'=>'registration_number', 'placeholder'=>'Registration Number', 'type'=>'text', 'is_required'=>'1', 'label'=>'Registration Number', 'inputid'=>'registration_number'],
             ['slug' => 'business-address', 'name'=>'flat_number', 'placeholder'=>'E.g. 1st floor', 'type'=>'text', 'is_required'=>'0', 'label'=>'Flat Number', 'inputid'=>'flat_number'],
             ['slug' => 'business-address', 'name'=>'building_name', 'placeholder'=>'Enter Building Name', 'type'=>'text', 'is_required'=>'0', 'label'=>'Building Name', 'inputid'=>'building_name'], 
             ['slug' => 'business-address', 'name'=>'building_number', 'placeholder'=>'E.g. 6 or Number 6 or No. 6', 'type'=>'text', 'is_required'=>'1', 'label'=>'Building Number', 'inputid'=>'building_number'], 
