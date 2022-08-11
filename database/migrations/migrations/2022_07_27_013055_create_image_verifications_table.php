@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompareImageVerificationsTable extends Migration
+class CreateImageVerificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,23 @@ class CreateCompareImageVerificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('compare_image_verifications', function (Blueprint $table) {
+        Schema::create('image_verifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identity_verifications_id')->constrained('identity_verifications');
-            $table->string('service_reference');
+            $table->foreignId('verification_id')->constrained('verifications');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('ref');
+            $table->string('service_reference')->nullable();
             $table->string('status');
             $table->string('reason')->nullable();
             $table->boolean('selfie_validation');
             $table->json('image_comparison')->nullable();
             $table->boolean('subject_consent');
+            $table->boolean('all_validation_passed')->nullable();
+            $table->string('fee')->nullable();
             $table->string('type');
             $table->string('requested_at');
             $table->string('last_modified_at');
+            $table->string('country');
             $table->timestamps();
         });
     }

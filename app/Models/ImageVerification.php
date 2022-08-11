@@ -20,8 +20,6 @@ class ImageVerification extends Model
         'status',
         'reason',
         'selfie_validation',
-        'account_number',
-        'bank_code',
         'image_comparison',
         'subject_consent',
         'all_validation_passed',

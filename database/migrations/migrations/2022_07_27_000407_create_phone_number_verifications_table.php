@@ -42,11 +42,11 @@ class CreatePhoneNumberVerificationsTable extends Migration
             $table->string('type');
             $table->string('gender')->nullable();
             $table->boolean('all_validation_passed')->nullable();
+            $table->string('fee')->nullable();
             $table->boolean('advance_search')->nullable();
             $table->string('requested_at');
             $table->string('last_modified_at');
             $table->string('country');
-            $table->string('fee')->nullable();
             $table->timestamps();
         });
     }
