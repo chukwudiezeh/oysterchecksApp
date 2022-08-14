@@ -44,8 +44,9 @@ class InputFieldSeeder extends Seeder
             ['slug' => 'ndl', 'name'=>'validate_data', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Validate Data', 'inputid'=>'validateData'], 
             ['slug' => 'ndl', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'], 
             
-            ['slug' => 'tin', 'name'=>'pin', 'placeholder'=>'Enter Reference', 'type'=>'text', 'is_required'=>'1', 'label'=>'TIN Number', 'inputid'=>'pin'], 
-            ['slug' => 'cac', 'name'=>'company_name', 'placeholder'=>'Enter Company Full Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'Registered Company Name', 'inputid'=>'company_name'], 
+            ['slug' => 'cac', 'name'=>'search_term', 'placeholder'=>'Select a Search Term', 'type'=>'select', 'is_required'=>true, 'label'=>'Search Term', 'inputid'=>'searchTerm'],
+
+            ['slug' => 'tin', 'name'=>'pin', 'placeholder'=>'', 'type'=>'text', 'is_required'=>true, 'label'=>'Tax Identification Number', 'inputid'=>'pin'], 
              
             ['slug' => 'candidate', 'name'=>'first_name', 'placeholder'=>'Enter Candidate\'s First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 
             ['slug' => 'candidate', 'name'=>'middle_name', 'placeholder'=>'Enter Candidate\'s Middle Name', 'type'=>'text', 'is_required'=>'0', 'label'=>'Middle Name', 'inputid'=>'middle_name'],

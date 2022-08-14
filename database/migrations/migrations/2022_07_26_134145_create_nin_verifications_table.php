@@ -46,7 +46,7 @@ class CreateNinVerificationsTable extends Migration
             $table->string('fee')->nullable();
             $table->string('requested_at');
             $table->string('last_modified_at');
-            $table->string('country');      
+            $table->string('country');   
             $table->timestamps();
         });
     }
