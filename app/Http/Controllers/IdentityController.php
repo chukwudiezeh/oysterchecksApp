@@ -42,8 +42,8 @@ class IdentityController extends Controller
         $user = auth()->user();
         // $slug = strtoupper($slug);
         $slug = Verification::where('slug', $slug)->first();
-        $data['slug'] = $slug;
         if ($slug) {
+            $data['slug'] = $slug;
             if ($slug->slug == 'bvn') {
                 $data['success'] = BvnVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['failed'] = BvnVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();

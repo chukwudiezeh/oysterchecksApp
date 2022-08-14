@@ -9,6 +9,8 @@ class CacVerification extends Model
 {
     use HasFactory;
 
+    protected $table = 'cac_verifications';
+
     protected $fillable = [
 
         'verification_id',

@@ -30,16 +30,29 @@ class BusinessController extends Controller
         $this->RedirectUser();
         $user = User::where('id', auth()->user()->id)->first();
        $slug = Verification::where(['slug' => $name])->first();
-       $data['slug'] = Verification::where(['slug' => $name])->first();
-       $data['success'] = BusinessVerification::where(['status'=>'successful', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
-       $data['failed'] = BusinessVerification::where(['status'=>'failed', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
-       $data['pending'] = BusinessVerification::where(['status'=>'pending', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->get();
-       $data['fields'] = FieldInput::where(['slug'=>$slug->slug])->get();
-       $data['wallet']= Wallet::where('user_id', $user->id)->first();
-       $data['logs'] = BusinessVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->latest()->get();
-        return view('users.business.index', $data);
+       if ($slug){
+           $data['slug'] = $slug;
+           $data['success'] = BusinessVerification::where(['status'=>'successful', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->count();
+           $data['failed'] = BusinessVerification::where(['status'=>'failed', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->count();
+           $data['pending'] = BusinessVerification::where(['status'=>'pending', 'verification_id'=>$slug->id, 'user_id'=> $user->id])->count();
+           $data['fields'] = FieldInput::where(['slug'=>$slug->slug])->get();
+           $data['wallet']= Wallet::where('user_id', $user->id)->first();
+           $data['logs'] = BusinessVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->latest()->get();
+           return view('users.business.index', $data);
+       }
+      
     }
-
+    public function businessCheck($name){
+        $this->RedirectUser();
+        $user = User::where('id', auth()->user()->id)->first();
+       $slug = Verification::where(['slug' => $name])->first();
+       $data['slug'] = Verification::where(['slug' => $name])->first();
+      
+       $data['fields'] = FieldInput::where(['slug'=>$slug->slug])->get();
+    //    $data['wallet']= Wallet::where('user_id', $user->id)->first();
+    //    $data['logs'] = BusinessVerification::where(['user_id' => $user->id, 'verification_id'=>$slug->id])->latest()->get();
+        return view('users.business.verify_business', $data);
+    }
     public function businessStore(Request $request, $slug){
         $validate = Validator::make($request->all(),[
             'company_name' => 'required'

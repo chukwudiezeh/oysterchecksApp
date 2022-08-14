@@ -45,7 +45,8 @@ class InputFieldSeeder extends Seeder
             ['slug' => 'ndl', 'name'=>'compare_image', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Compare Image', 'inputid'=>'compareImage'], 
             
             ['slug' => 'cac', 'name'=>'search_term', 'placeholder'=>'Select a Search Term', 'type'=>'select', 'is_required'=>true, 'label'=>'Search Term', 'inputid'=>'searchTerm'],
-
+            ['slug' => 'cac', 'name'=>'search_value', 'placeholder'=>'Enter a Search Value', 'type'=>'text', 'is_required'=>true, 'label'=>'Search Value', 'inputid'=>'searchValue'],
+            
             ['slug' => 'tin', 'name'=>'pin', 'placeholder'=>'', 'type'=>'text', 'is_required'=>true, 'label'=>'Tax Identification Number', 'inputid'=>'pin'], 
              
             ['slug' => 'candidate', 'name'=>'first_name', 'placeholder'=>'Enter Candidate\'s First Name', 'type'=>'text', 'is_required'=>'1', 'label'=>'First Name', 'inputid'=>'first_name'], 

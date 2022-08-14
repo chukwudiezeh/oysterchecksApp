@@ -29,7 +29,6 @@ class CreateTinVerificationsTable extends Migration
             $table->string('jtb_tin')->nullable();
             $table->string('tax_office')->nullable();
             $table->string('email')->nullable();
-            $table->string('company_status')->nullable();
             $table->string('phone')->nullable();
             $table->string('requested_at')->nullable();
             $table->string('last_modified_at')->nullable();
