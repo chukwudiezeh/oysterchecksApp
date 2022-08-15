@@ -24,7 +24,7 @@ class CreateCacVerificationsTable extends Migration
             $table->string('type');
             $table->string('fee')->nullable();
             $table->string('search_term')->nullable();
-            $table->string('search_term_value')->nullable();
+            $table->string('search_value')->nullable();
             $table->string('name')->nullable();
             $table->string('registration_number')->nullable();
             $table->string('tin')->nullable();

@@ -12,7 +12,6 @@ class CacVerification extends Model
     protected $table = 'cac_verifications';
 
     protected $fillable = [
-
         'verification_id',
         'user_id',
         'ref',
@@ -21,7 +20,7 @@ class CacVerification extends Model
         'type',
         'fee',
         'search_term',
-        'search_term_value',
+        'search_value',
         'name',
         'registration_number',
         'tin',
@@ -42,7 +41,6 @@ class CacVerification extends Model
         'branch_address',
         'head_office_address',
         'objectives',
-        'branch_address',
         'status',
         'requested_at',
         'last_modified_at',
