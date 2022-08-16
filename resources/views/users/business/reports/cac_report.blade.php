@@ -120,7 +120,15 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-
+                            <div class="col-12">
+                                <div class="py-3 px-4 bg-light">
+                                    <h2 class="font-16 m-0 lh-base">Search Term</h2>
+                                    <div class="col-12 d-flex justify-content-start mt-2">
+                                        <div class="m-0 font-14 me-3 text-muted col-auto me-3">{{$cac_verification->search_term}}:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->search_value}}</div>
+                                    </div>
+                                </div>
+                            </div>
                             @if($cac_verification->status == 'found')
                             <div class="col-12">
                                 <div class="row">

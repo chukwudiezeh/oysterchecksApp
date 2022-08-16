@@ -446,12 +446,12 @@ class BusinessController extends Controller
         if($slug == 'cac'){
             $cac_verification = CacVerification::where(['id'=>$verification_id, 'user_id'=>$user->id])->first();
             if($cac_verification){
-                return view('users.busines.reports.cac_report', ['cac_verification'=>$cac_verification]);
+                return view('users.business.reports.cac_report', ['cac_verification'=>$cac_verification]);
             }
         }elseif($slug == 'tin'){
             $tin_verification = TinVerification::where(['id'=>$verification_id, 'user_id'=>$user->id])->first();
             if($tin_verification){
-                return view('users.busines.reports.tin_report', ['tin_verification'=>$tin_verification]);
+                return view('users.business.reports.tin_report', ['tin_verification'=>$tin_verification]);
             }
         }else{
 
