@@ -142,7 +142,7 @@ class BusinessController extends Controller
             Session::flash('message', 'Incorrect or no data provided!');
             return redirect()->back();
         }
-// dd($data);
+            // dd($data);
         $ref = $this->GenerateRef();
         $slug = Verification::where('slug', $slug)->first();
         $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
@@ -237,7 +237,7 @@ class BusinessController extends Controller
                         DB::commit();
                         Session::flash('alert', 'success');
                         Session::flash('message', 'Verification Successful');
-                        return redirect()->route('identityIndex', $slug->slug);
+                        return redirect()->route('businessIndex', $slug->slug);
                     }else{
     
                     }
@@ -251,7 +251,6 @@ class BusinessController extends Controller
 
     protected function processTin(array $data, $slug)
     {
-        $pin_breakdown = explode('-', $data['pin']);
 
         $validate = Validator::make($data, [
             'pin' => 'bail|required|alpha_dash|size:13|regex:/^[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}$/',
@@ -259,7 +258,7 @@ class BusinessController extends Controller
         ]);
 
         if ($validate->fails()) {
-            // dd($validate->errors());
+            dd($validate->errors());
             // Session::flash('alert', 'error');
             // Session::flash('message', 'Incorrect or no data provided!');
             // return redirect()->back();
@@ -281,7 +280,7 @@ class BusinessController extends Controller
             }
 
             $requestData = [
-                'isSubjectConsent' => $data['subject_consent'] ? true : false,
+                'isConsent' => $data['subject_consent'] ? true : false,
                 'tin' => $data['pin'],
             ];
             
@@ -330,7 +329,6 @@ class BusinessController extends Controller
                             'jtb_tin' => $decodedResponse['data']['jtbTin'] != null ? $decodedResponse['data']['jtbTin'] : null,
                             'tax_office' => $decodedResponse['data']['taxOffice'] != null ? $decodedResponse['data']['taxOffice'] : null,
                             'email' => $decodedResponse['data']['email'] != null ? $decodedResponse['data']['email'] : null,
-                            'company_status' => $decodedResponse['data']['companyStatus'] != null ? $decodedResponse['data']['companyStatus'] : null,
                             'phone' => $decodedResponse['data']['phone'] != null ? $decodedResponse['data']['phone'] : null,
                             'country' => 'Nigeria',
                             'requested_at' => $decodedResponse['data']['requestedAt'] != null ? $decodedResponse['data']['requestedAt'] : null,
@@ -340,7 +338,7 @@ class BusinessController extends Controller
                         DB::commit();
                         Session::flash('alert', 'success');
                         Session::flash('message', 'Verification Successful');
-                        return redirect()->route('identityIndex', $slug->slug);
+                        return redirect()->route('businessIndex', $slug->slug);
                     }else{
     
                     }
@@ -374,107 +372,6 @@ class BusinessController extends Controller
             'avail_balance' => $newWallet
         ]);
         return $update;
-    }
-
-    public function BusinessVerify($request, $reference)
-    {
-        $this->RedirectUser();
-        $business = BusinessVerification::where('user_id', auth()->user()->id)->latest()->first();
-        $curl = curl_init();
-        $data = [
-            "company_name" => $request->company_name,
-        ];
-        $datas = json_encode($data, true);
-        //return $datas;
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://api.youverify.co/v1/backgrounds/cac",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 2180,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => $datas,
-            CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json",
-                "Token: 49c11a7ef799f5695c943ba4d3d1ddcc"
-            ],
-        ]);
-        $response = curl_exec($curl);
-        $res = json_decode($response, true);
-        return $res;
-        if ($res['status_code'] == 200) {
-            if (isset($res['data']['details']['background_model']['data']['data']['name'])) {
-                $company_name =  $res['data']['details']['background_model']['data']['data']['name'];
-            } else {
-                $company_name = null;
-            }
-            if (isset($res['data']['details']['background_model']['data']['data']['registrationNumber'])) {
-                $registrationNumber =  $res['data']['details']['background_model']['data']['data']['registrationNumber'];
-            } else {
-                $registrationNumber = null;
-            }
-            if (isset($res['data']['details']['background_model']['data']['data']['registrationDate'])) {
-                $registrationDate =  $res['data']['details']['background_model']['data']['data']['registrationDate'];
-            } else {
-                $registrationDate = null;
-            }
-            if (isset($res['data']['details']['background_model']['data']['data']['address'])) {
-                $address =  $res['data']['details']['background_model']['data']['data']['address'];
-            } else {
-                $address = null;
-            }
-            if (isset($res['data']['details']['background_model']['data']['data']['state'])) {
-                $state =  $res['data']['details']['background_model']['data']['data']['state'];
-            } else {
-                $state = null;
-            }
-            if (isset($res['data']['details']['background_model']['data']['data']['lga'])) {
-                $lga =  $res['data']['details']['background_model']['data']['data']['lga'];
-            } else {
-                $lga = null;
-            }
-            if (isset($res['data']['details']['background_model']['data']['data']['city'])) {
-                $city =  $res['data']['details']['background_model']['data']['data']['city'];
-            } else {
-                $city = null;
-            }
-            if (isset($res['data']['details']['background_model']['data']['data']['phoneNumber'])) {
-                $phoneNumber =  $res['data']['details']['background_model']['data']['data']['phoneNumber'];
-            } else {
-                $phoneNumber = null;
-            }
-            if (isset($res['data']['details']['background_model']['data']['data']['websiteEmail'])) {
-                $websiteEmail =  $res['data']['details']['background_model']['data']['data']['websiteEmail'];
-            } else {
-                $websiteEmail = null;
-            }
-            if (isset($res['data']['details']['background_model']['status'])) {
-                $stats =  $res['data']['details']['background_model']['status'];
-            } else {
-                $stats = null;
-            }
-            BusinessVerificationDetail::create([
-                'business_verification_id' => $business->id,
-                'ref' => $reference,
-                'service_ref' => $company_name,
-                'user_id' => $business->user_id,
-                'fee' => $business->fee,
-                'reg_no' => $registrationNumber,
-                'reg_date' => $registrationDate,
-                'phone' => $phoneNumber,
-                'website' => $websiteEmail,
-                'address' => $address,
-                'state' => $state,
-                'lga' => $lga,
-                'city' => $city,
-                'status' => $stats
-            ]);
-            // var_dump($res);
-            return $res;
-        } else {
-            return 'failed';
-        }
     }
 
     public function RefundUser($amount, $ext_ref, $type)
@@ -542,16 +439,22 @@ class BusinessController extends Controller
         return view('users.business.index', $data);
     }
 
-    public function BusinessDetails($id)
+    public function BusinessReport($slug, $verification_id)
     {
-        $slug = BusinessVerification::where('id', decrypt($id))->first();
-        $user = User::where('id', auth()->user()->id)->first();
-        $data['slug'] = BusinessVerification::where('id', decrypt($id))->first();
-        $data['success'] = BusinessVerification::where(['status' => 'successful', 'verification_id' => $slug->verification_id, 'user_id' => $user->id])->get();
-        $data['failed'] = BusinessVerification::where(['status' => 'failed', 'verification_id' => $slug->verification_id, 'user_id' => $user->id])->get();
-        $data['pending'] = BusinessVerification::where(['status' => 'pending', 'verification_id' => $slug->verification_id, 'user_id' => $user->id])->get();
-        $data['logs'] = BusinessVerification::where(['user_id' => $user->id, 'verification_id' => $slug->verification_id])->latest()->get();
-        $data['verified'] = BusinessVerificationDetail::where(['service_ref' => $slug->service_ref])->latest()->first();
-        return view('users.business.details', $data);
+        $this->RedirectUser();
+        $user = auth()->user();
+        if($slug == 'cac'){
+            $cac_verification = CacVerification::where(['id'=>$verification_id, 'user_id'=>$user->id])->first();
+            if($cac_verification){
+                return view('users.busines.reports.cac_report', ['cac_verification'=>$cac_verification]);
+            }
+        }elseif($slug == 'tin'){
+            $tin_verification = TinVerification::where(['id'=>$verification_id, 'user_id'=>$user->id])->first();
+            if($tin_verification){
+                return view('users.busines.reports.tin_report', ['tin_verification'=>$tin_verification]);
+            }
+        }else{
+
+        }
     }
 }
