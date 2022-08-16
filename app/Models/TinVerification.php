@@ -12,7 +12,6 @@ class TinVerification extends Model
     protected $table = 'tin_verifications';
     
     protected $fillable = [
-
         'verification_id',
         'user_id',
         'ref',
@@ -21,6 +20,8 @@ class TinVerification extends Model
         'status',
         'type',
         'fee',
+        'search_term',
+        'search_value',
         'name',
         'registration_number',
         'tin',

@@ -158,7 +158,7 @@ class BusinessController extends Controller
                 return back();
             }
             $requestData = [
-                'isSubjectConsent' => $data['subject_consent'] ? true : false,
+                'isConsent' => $data['subject_consent'] ? true : false,
                 'value' => $data['search_value'],
             ];
             if ($data['search_term'] == 'taxId'){
@@ -258,12 +258,11 @@ class BusinessController extends Controller
         ]);
 
         if ($validate->fails()) {
-            dd($validate->errors());
+            // dd($validate->errors());
             // Session::flash('alert', 'error');
             // Session::flash('message', 'Incorrect or no data provided!');
             // return redirect()->back();
         }
-        dd($data);
         
         $ref = $this->GenerateRef();
         $slug = Verification::where('slug', $slug)->first();
@@ -274,30 +273,23 @@ class BusinessController extends Controller
             } else {
                 $amount = $slug->fee;
             }
-
             if ($userWallet->avail_balance < $amount) {
                 Session::flash('alert', 'error');
                 Session::flash('message', 'Your walllet is too low for this transaction');
                 return back();
             }
+
             $requestData = [
                 'isSubjectConsent' => $data['subject_consent'] ? true : false,
-                'value' => $data['search_value'],
+                'tin' => $data['pin'],
             ];
-            if ($data['search_term'] == 'taxId'){
-                $requestData['type'] = 'tin';
-            }elseif($data['search_term'] == 'cacReg'){
-                $requestData['type'] = 'registrationNumber';
-            }elseif($data['search_term'] == 'regPhone'){
-                $requestData['type'] = 'phone';
-            }
-        
+            
             DB::beginTransaction();
             try {
                 $curl = curl_init();
                 $encodedRequestData = json_encode($requestData, true);
                 curl_setopt_array($curl, [
-                    CURLOPT_URL => "https://api.sandbox.youverify.co/v2/api/verifications/ng/company",
+                    CURLOPT_URL => "https://api.sandbox.youverify.co/v2/api/verifications/ng/tin",
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => "",
                     CURLOPT_MAXREDIRS => 1,
@@ -319,7 +311,7 @@ class BusinessController extends Controller
                     // dd($decodedResponse);
                     if ($decodedResponse['success'] == true && $decodedResponse['statusCode'] == 200) {
                        
-                        CacVerification::create([
+                        TinVerification::create([
                             'verification_id' => $slug->id,
                             'user_id' => auth()->user()->id,
                             'ref' => $ref,
@@ -327,10 +319,10 @@ class BusinessController extends Controller
                             'subject_consent' => true,
                             'status' => $decodedResponse['data']['status'],
                             'reason' => isset($decodedResponse['data']['reason']) ? $decodedResponse['data']['reason'] : null,
-                            'type' => 'cac',
+                            'type' => 'tin',
                             'fee' => $amount,
-                            'search_term' => $data['search_term'],
-                            'search_value' => $data['search_value'],
+                            'search_term' => 'Tax Identification Number',
+                            'search_value' => $data['pin'],
                             'name' => $decodedResponse['data']['name'] != null ? $decodedResponse['data']['name'] : null,
                             'registration_number' => $decodedResponse['data']['registrationNumber'] != null ? $decodedResponse['data']['registrationNumber'] : null,
                             'tin' => $decodedResponse['data']['tin'] != null ? $decodedResponse['data']['tin'] : null,
@@ -339,18 +331,6 @@ class BusinessController extends Controller
                             'email' => $decodedResponse['data']['email'] != null ? $decodedResponse['data']['email'] : null,
                             'company_status' => $decodedResponse['data']['companyStatus'] != null ? $decodedResponse['data']['companyStatus'] : null,
                             'phone' => $decodedResponse['data']['phone'] != null ? $decodedResponse['data']['phone'] : null,
-                            'type_of_entity' => $decodedResponse['data']['typeOfEntity'] != null ? $decodedResponse['data']['typeOfEntity'] : null,
-                            'activity' => $decodedResponse['data']['activity'] != null ? $decodedResponse['data']['activity'] : null,
-                            'registration_date' => $decodedResponse['data']['registrationDate'] != null ? $decodedResponse['data']['registrationDate'] : null,
-                            'address' => $decodedResponse['data']['address'] != null ? $decodedResponse['data']['address'] : null,
-                            'state' => $decodedResponse['data']['state'] != null ? $decodedResponse['data']['state'] : null,
-                            'lga' => $decodedResponse['data']['lga'] != null ? $decodedResponse['data']['lga'] : null,
-                            'city' => $decodedResponse['data']['city'] != null ? $decodedResponse['data']['city'] : null,
-                            'website_email' => $decodedResponse['data']['websiteEmail'] != null ? $decodedResponse['data']['websiteEmail'] : null,
-                            'key_personnel' => isset($decodedResponse['data']['keyPersonnel']) ? $decodedResponse['data']['keyPersonnel'] : null,
-                            'branch_address' => $decodedResponse['data']['branchAddress'] != null ? $decodedResponse['data']['branchAddress'] : null,
-                            'head_office_address' => $decodedResponse['data']['headOfficeAddress'] != null ? $decodedResponse['data']['headOfficeAddress'] : null,
-                            'objectives' => $decodedResponse['data']['objectives'] != null ? $decodedResponse['data']['objectives'] : null,
                             'country' => 'Nigeria',
                             'requested_at' => $decodedResponse['data']['requestedAt'] != null ? $decodedResponse['data']['requestedAt'] : null,
                             'last_modified_at' => $decodedResponse['data']['lastModifiedAt'] != null ? $decodedResponse['data']['lastModifiedAt'] : null,
