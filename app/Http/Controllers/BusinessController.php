@@ -132,16 +132,17 @@ class BusinessController extends Controller
     {
         $validate = Validator::make($data, [
             'search_term' => 'bail|required|string|alpha',
-            'search_value' => 'bail|required|alpha_num',
+            'search_value' => 'bail|required|alpha_dash',
             'subject_consent' => 'bail|required|accepted'
         ]);
 
         if ($validate->fails()) {
+            // dd($validate->errors());
             Session::flash('alert', 'error');
             Session::flash('message', 'Incorrect or no data provided!');
             return redirect()->back();
         }
-
+// dd($data);
         $ref = $this->GenerateRef();
         $slug = Verification::where('slug', $slug)->first();
         $userWallet = Wallet::where('user_id', auth()->user()->id)->first();
@@ -168,7 +169,7 @@ class BusinessController extends Controller
             }elseif($data['search_term'] == 'regPhone'){
                 $requestData['type'] = 'phone';
             }
-        
+        // dd($requestData);
             DB::beginTransaction();
             try {
                 $curl = curl_init();
