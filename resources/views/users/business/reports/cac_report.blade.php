@@ -65,8 +65,8 @@
                                     <div class="media">
                                         <i class="mdi mdi-shield-check-outline alert-icon text-success align-self-center font-30 me-3"></i>
                                         <div class="media-body align-self-center">
-                                            <h5 class="mb-1 fw-bold mt-0 text-success">PVC Found and Validated</h5>
-                                            <span>Your verification request has been completed and validated.</span>
+                                            <h5 class="mb-1 fw-bold mt-0 text-success">Business Found</h5>
+                                            <span>Your verification request has been completed.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -75,8 +75,8 @@
                                     <div class="media">
                                         <i class="far fa-times-circle alert-icon text-danger align-self-center font-30 me-3"></i>
                                         <div class="media-body align-self-center">
-                                            <h5 class="mb-1 fw-bold mt-0 text-danger">PVC Not Found</h5>
-                                            <span>You provided an invalid PVC number</span>
+                                            <h5 class="mb-1 fw-bold mt-0 text-danger">Business Not Found</h5>
+                                            <span>You provided an invalid search term</span>
                                         </div>
                                     </div>
                                 </div>

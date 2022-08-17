@@ -34,8 +34,8 @@ class BusinessController extends Controller
         if ($slug) {
             if ($slug->slug == 'cac') {
                 $data['slug'] = $slug;
-                $data['success'] = CacVerification::where(['status' => 'successful', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
-                $data['failed'] = CacVerification::where(['status' => 'failed', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['success'] = CacVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['failed'] = CacVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['pending'] = CacVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['fields'] = FieldInput::where(['slug' => $slug->slug])->get();
                 $data['wallet'] = Wallet::where('user_id', $user->id)->first();
@@ -43,8 +43,8 @@ class BusinessController extends Controller
                 return view('users.business.index', $data);
             } elseif ($slug->slug == 'tin') {
                 $data['slug'] = $slug;
-                $data['success'] = TinVerification::where(['status' => 'successful', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
-                $data['failed'] = TinVerification::where(['status' => 'failed', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['success'] = TinVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
+                $data['failed'] = TinVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['pending'] = TinVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['fields'] = FieldInput::where(['slug' => $slug->slug])->get();
                 $data['wallet'] = Wallet::where('user_id', $user->id)->first();
