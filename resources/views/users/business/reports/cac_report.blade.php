@@ -124,7 +124,16 @@
                                 <div class="py-3 px-4 bg-light">
                                     <h2 class="font-16 m-0 lh-base">Search Term</h2>
                                     <div class="col-12 d-flex justify-content-start mt-2">
-                                        <div class="m-0 font-14 me-3 text-muted col-auto me-3">{{$cac_verification->search_term}}:</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-auto me-3">
+                                            @if($cac_verification->search_term == 'taxId')
+                                                Tax Identification Number:
+                                            @elseif($cac_verification->search_term == 'cacReg')
+                                                CAC Registration Number:
+                                            @elseif($cac_verification->search_term == 'phoneReg')
+                                                Registered Phone Number:
+                                            @else
+                                            @endif
+                                        </div>
                                         <div class="font-14 col-8">{{$cac_verification->search_value}}</div>
                                     </div>
                                 </div>
@@ -133,87 +142,132 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">First Name:</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Company Name:</div>
                                         <div class="font-14 col-8">
-                                            {{$cac_verification->first_name}}
-                                            @if(isset($cac_verification->validations->data->firstName))
-                                            @if($cac_verification->validations->data->firstName->validated == true)
-                                            <span class="ms-2 badge bg-success">Validated</span>
-                                            @else
-                                            <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$cac_verification->validations->data->firstName->value}}</span>
-                                            <span class="ms-3 badge bg-danger">Not a match</span>
-                                            @endif
-                                            @endif
+                                            {{$cac_verification->name}}
                                         </div>
                                     </div>
-                                    @if($cac_verification->middle_name != null)
+                        
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Middle Name:</div>
-                                        <div class="font-14 col-8">{{$cac_verification->middle_name}}</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Company Registration Number:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->registration_number}}</div>
                                     </div>
-                                    @endif
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Last Name:</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">FIRS TIN:</div>
                                         <div class="font-14 col-8">
-                                            {{$cac_verification->last_name}}
-                                            @if(isset($cac_verification->validations->data->lastName))
-                                            @if($cac_verification->validations->data->lastName->validated == true)
-                                            <span class="ms-2 badge bg-success">Validated</span>
-                                            @else
-                                            <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$cac_verification->validations->data->lastName->value}}</span>
-                                            <span class="ms-3 badge bg-danger">Not a match</span>
-                                            @endif
-                                            @endif
+                                            {{$cac_verification->tin}}
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Date of Birth:</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">JBT TIN:</div>
                                         <div class="font-14 col-8">
-                                            {{date('jS F Y', strtotime($cac_verification->dob))}}
-                                            @if(isset($cac_verification->validations->data->dateOfBirth))
-                                            @if($cac_verification->validations->data->dateOfBirth->validated == true)
-                                            <span class="ms-2 badge bg-success">Validated</span>
-                                            @else
-                                            <span class="ms-2 font-12 text-info" style="text-decoration: line-through;">{{$cac_verification->validations->data->dateOfBirth->value}}</span>
-                                            <span class="ms-3 badge bg-danger">Not a match</span>
-                                            @endif
-                                            @endif
+                                            {{$cac_verification->jtb_tin}}
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">PVC Number:</div>
-                                        <div class="font-14 col-8">{{$cac_verification->pin}}</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Tax Office:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->tax_office}}</div>
                                     </div>
                                    
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Email Address:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->email}}</div>
+                                    </div>
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Phone Number:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->phone}}</div>
+                                    </div>
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Website:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->website_email}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                                                       
+                            <div class="col-12 mt-2">
+                                <div class="py-3 px-4 bg-light">
+                                    <h2 class="font-16 m-0 lh-base">Company Basic Information</h2>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Status:</div>
+                                        <div class="font-14 col-8">
+                                            {{$cac_verification->company_status}}
+                                        </div>
+                                    </div>
+                        
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Type of Entity:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->type_of_entity}}</div>
+                                    </div>
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Activity:</div>
+                                        <div class="font-14 col-8">
+                                            {{$cac_verification->activity}}
+                                        </div>
+                                    </div>
+                                    @if($cac_verification->lga != null)
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">LGA:</div>
+                                        <div class="font-14 col-8">
+                                            {{$cac_verification->lga}}
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @if($cac_verification->city != null)
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">City:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->city}}</div>
+                                    </div>
+                                   @endif
+                                   @if($cac_verification->state != null)
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">State:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->state}}</div>
+                                    </div>
+                                   @endif
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Country:</div>
                                         <div class="font-14 col-8">{{$cac_verification->country}}</div>
                                     </div>
+                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Full Address:</div>
+                                        <div class="font-14 col-8">{{$cac_verification->address}}</div>
+                                    </div>
+                                    
                                 </div>
                             </div>
-                            
-
-                            @if($cac_verification->data_validation == true || $cac_verification->selfie_validation == true)
-                            @if($cac_verification->all_validation_passed == false)
                             <div class="col-12 mt-2">
                                 <div class="py-3 px-4 bg-light">
-                                    <h2 class="font-16 m-0 lh-base">Validation Messages</h2>
+                                    <h2 class="font-16 m-0 lh-base">Key Management Personnel</h2>
                                 </div>
                             </div>
-                            <div class="col-auto mt-3">
-                                <div class="alert alert-warning border-0 font-15" role="alert">
-                                    {{$cac_verification->validations->validationMessages}}
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-3">NAME:</div>
+                                        <div class="font-14 text-muted col-9">
+                                            DESIGNATION
+                                        </div>
+                                    </div>
+                                    @foreach($cac_verification->key_personnel as $person)
+                                    <div class="col-12 d-flex py-4 px-4 border-bottom">
+                                        <div class="m-0 font-14 me-3 text-muted col-3">{{$person['name']}}</div>
+                                        <div class="font-14 col-9">{{$person['designation']}}</div>
+                                    </div>
+                                    @endforeach
+                                                                        
                                 </div>
                             </div>
-                            @endif
-                            @endif
                             @elseif($cac_verification->status == 'not_found')
                                 <div class="row mt-5">
                                     <div class="col-12 col-sm-9 col-md-6 ms-auto me-auto text-center align-items-center">
                                         
-                                        <h5 class="card-title mb-5 text-muted">You Searched for "{{$cac_verification->pin}}"</h5>
-                                        <h5 class="card-title mb-2">Oops! No Data found for the pin entered</h5>
-                                        <p class="card-text">Please Enter a correct PVC Number and try searching again.</p>
+                                        <h5 class="card-title mb-5 text-muted">You Searched for "{{$cac_verification->search_value}}"</h5>
+                                        <h5 class="card-title mb-2">Oops! No Data found for the search term entered</h5>
+                                        <p class="card-text">Please Enter a correct Tax Identification Number, CAC Registration Number or Registered Phone Number and try searching again.</p>
                                         <a href="{{route('showIdentityVerificationForm', $cac_verification->type)}}" class="btn btn-primary btn-sm mt-4 mb-3">Make another request</a>
                                     </div>
                                 </div>
