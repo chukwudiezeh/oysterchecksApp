@@ -88,26 +88,29 @@
                                      @endif
                                      @if($input->inputid == 'compareImage')
                                      <div class="col-md-6 mb-3">
-                                         <input type="file" id="input-file-now" name="image" class="dropify" data-allowed-file-extensions="png jpg jpeg" />
+                                         <input type="file" id="input-file-now" name="image" class="dropify" data-allowed-file-extensions="png jpg jpeg"/>
                                      </div>
                                      @endif
                                  </div>
                                  @elseif($input->type == 'select')
                                  <div class="col-md-6 mb-3">
                                      <label class="mb-3" style="font-weight:bolder">{{$input->label}}</label> @if($input->is_required == 1) <span style="color:red; font-weight:bolder"> * </span> @endif
-                                     <select class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;" id="{{$input->inputid}}" name="{{$input->name}}">
+                                     <select class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;" id="{{$input->inputid}}" name="{{$input->name}}" @if($input->is_required == 1) required @endif >
                                          <option>{{$input->placeholder}}</option>
                                      </select>
                                  </div>
                                  @elseif($input->type == 'file')
                                  <div class="col-md-6 mb-3">
                                     <label class="mb-3" style="font-weight:bolder">{{$input->label}}</label> @if($input->is_required == 1) <span style="color:red; font-weight:bolder"> * </span> @endif
-                                    <input type="file" id="input-file-now" name="{{$input->name}}" class="dropify" data-allowed-file-extensions="png jpg jpeg" />
+                                    <input type="file" id="input-file-now" name="{{$input->name}}" class="dropify" data-allowed-file-extensions="png jpg jpeg" @if($input->is_required == true) required @endif />
                                  </div>
+                                 @elseif($input->type == 'hidden')
+                                 <input type="{{$input->type}}" id="{{$input->inputid}}" name="{{$input->name}}" value="ajhdsfj" @if($input->is_required == true) required @endif />
+
                                  @else
                                  <div class="col-md-6 mb-3">
                                      <label class="mb-3" style="font-weight:bolder">{{$input->label}}</label> @if($input->is_required == 1) <span style="color:red; font-weight:bolder"> * </span> @endif
-                                     <input type="{{$input->type}}" id="{{$input->inputid}}" name="{{$input->name}}" class="form-control mb-3 custom-select" placeholder="{{$input->placeholder}}" @if($input->is_required == 1) required @endif>
+                                     <input type="{{$input->type}}" id="{{$input->inputid}}" name="{{$input->name}}" class="form-control mb-3 custom-select" placeholder="{{$input->placeholder}}" @if($input->is_required == true) required @endif />
                                  </div><!-- end col -->
                                  @endif
                                  @endforeach

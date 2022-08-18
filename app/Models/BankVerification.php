@@ -23,6 +23,7 @@ class BankVerification extends Model
         'selfie_validation',
         'account_number',
         'bank_code',
+        'bank_name',
         'bank_details',
         'subject_consent',
         'all_validation_passed',

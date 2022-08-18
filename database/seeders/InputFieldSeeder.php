@@ -31,6 +31,7 @@ class InputFieldSeeder extends Seeder
             
             ['slug' => 'bank-account', 'name'=>'account_number', 'placeholder'=>'Enter Account Number', 'type'=>'text', 'is_required'=>true, 'label'=>'Account Number', 'inputid'=>'accountNumber'],
             ['slug' => 'bank-account', 'name'=>'bank', 'placeholder'=>'Select Bank', 'type'=>'select', 'is_required'=>true, 'label'=>'Bank', 'inputid'=>'bank'],
+            ['slug' => 'bank-account', 'name'=>'bank_name', 'type'=>'hidden', 'is_required'=>true, 'inputid'=>'bank_name'],
 
             ['slug' => 'phone-number', 'name'=>'phone_number', 'placeholder'=>'Enter Phone Number', 'type'=>'text', 'is_required'=>true, 'label'=>'Phone Number', 'inputid'=>'phoneNumber'],
             ['slug' => 'phone-number', 'name'=>'advance_search', 'type'=>'checkbox', 'is_required'=>false, 'label'=>'Advance Search', 'inputid'=>'advanceSearch'],

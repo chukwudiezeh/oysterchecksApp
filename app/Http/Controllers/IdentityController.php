@@ -1238,11 +1238,12 @@ class IdentityController extends Controller
         $validator = Validator::make($request->all(), [
             'account_number' => 'bail|required|numeric|digits:10',
             'bank' => 'bail|required|alpha_num',
+            'bank_name'=>'bail|required|string',
             'subject_consent' => 'bail|required|accepted'
         ]);
         // dd($request->all());
         if ($validator->fails()) {
-            dd($validator->errors());
+            // dd($validator->errors());
             Session::flash('alert', 'error');
             Session::flash('message', 'Failed! There was some errors in your input');
             return redirect()->back();
@@ -1294,6 +1295,7 @@ class IdentityController extends Controller
                         'subject_consent' => true,
                         'account_number' => $request->account_number,
                         'bank_code' => $request->bank,
+                        'bank_name' => $request->bank_name,
                         'bank_details' => isset($decodedResponse['data']['bankDetails']) ? $decodedResponse['data']['bankDetails'] : null,
                         'type' => 'bank-account',
                         'country' => 'Nigeria',
@@ -1446,9 +1448,17 @@ class IdentityController extends Controller
                     return view('users.individual.identity_reports.ndl_report', ['ndl_verification'=>$ndl_verification]);
                 }
             } elseif ($slug->slug == 'compare-images') {
-                // $this->processNip($request);
+                $image_verification = ImageVerification::where(['id'=>$verificationId, 'user_id'=>$user->id])->first();
+
+                if($image_verification){
+                    return view('users.individual.identity_reports.image_report', ['image_verification'=>$image_verification]);
+                }
             } elseif ($slug->slug == 'bank-account') {
-                // $this->processNip($request);
+                $bank_verification = ImageVerification::where(['id'=>$verificationId, 'user_id'=>$user->id])->first();
+
+                if($bank_verification){
+                    return view('users.individual.identity_reports.bank_report', ['bank_verification'=>$bank_verification]);
+                }
             } elseif ($slug->slug == 'phone-number') {
                 $phone_verification = PhoneVerification::where(['id'=>$verificationId, 'user_id'=>$user->id])->first();
                 if($phone_verification){
@@ -1485,7 +1495,7 @@ class IdentityController extends Controller
                 return response()->json(['data' => $response], 200);
             }
         } catch (\Exception $e) {
-            DB::rollBack();
+
             throw $e;
         }
     }
