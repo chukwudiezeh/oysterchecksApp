@@ -100,16 +100,16 @@ class AddressController extends Controller
               CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
               CURLOPT_CUSTOMREQUEST => "POST",
               CURLOPT_POSTFIELDS => $datas,
+              CURLOPT_SSL_VERIFYPEER => false,
               CURLOPT_HTTPHEADER => [
                 "Content-Type: application/json",
-                // "Token: zntFmihZ.g9gQAcMzK5st9Mb71uGxqi0H6hI19t3lsNjn"
-                // "Token: EAgjeZKG.Hazn4C1dhxI7ehgLJjYhLvJij182Ccc0UCTS"
                 "Token: N0R9AJ4L.PWYaM5cXggThkdCtkVSCsWz4fMsfeMIp6CKL"
               ],
             ]);
             $response = curl_exec($curl);
             if(curl_errno($curl)){
-              dd('error:'. curl_errno($curl));
+              // dd('error:'. curl_errno($curl));
+              throw new \Exception(curl_error($curl), curl_errno($curl));
             }else{
             $res = json_decode($response, true);
             if($res['success'] == true && $res['statusCode'] == 201){
@@ -167,7 +167,7 @@ class AddressController extends Controller
 
        //$logo =  Client::first();
       //  $logo_image = base64_encode(asset('/images/logo.png'));
-       if($request->slug == 'individual_address'){
+       if($request->slug == 'individual-address'){
         $valid = Validator::make($request->all(), [
           'flat_number' => 'nullable|string',
           'building_name' => 'nullable|string',
@@ -205,7 +205,7 @@ class AddressController extends Controller
                 "subjectConsent"=> $request->subject_consent ? true : false,
                
             ];
-       }elseif($request->slug == 'reference_address'){
+       }elseif($request->slug == 'reference-address'){
           $valid = Validator::make($request->all(), [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -296,21 +296,50 @@ class AddressController extends Controller
        try{
          $datas = json_encode($data, true);
          // dd($datas);
-         $res = executeCurl($datas,$host,"POST");
+        //  $res = executeCurl($datas,$host,"POST");
 
-        if($res['success'] == true && $res['statusCode'] == 201){
-          event(new AddressVerificationCreated($res, $get_address_verification_id));
-        
-          DB::commit();
-          Session::flash('alert', 'success');
-          Session::flash('message', 'Address submitted for verification');
-          return redirect()->route('addressIndex', $request->slug);
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+         CURLOPT_URL => $host,
+         CURLOPT_RETURNTRANSFER => true,
+         CURLOPT_ENCODING => "",
+         CURLOPT_MAXREDIRS => 10,
+         CURLOPT_TIMEOUT => 2180,
+         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+         CURLOPT_CUSTOMREQUEST => "POST",
+         CURLOPT_POSTFIELDS => $datas,
+         CURLOPT_FAILONERROR => 1,
+         CURLOPT_HTTPHEADER => [
+           "Content-Type: application/json",
+           
+        "Token: N0R9AJ4L.PWYaM5cXggThkdCtkVSCsWz4fMsfeMIp6CKL"
+         ],
+       ]);
+       
+       $responser = curl_exec($curl);
+       if(curl_errno($curl)){
+         dd('error:'. curl_errno($curl));
         }else{
-          // dd($res);
-          Session::flash('alert', 'danger');
-          Session::flash('message', $res['message']);
-          return redirect()->route('addressIndex', $request->slug);
-        }
+          $res = json_decode($responser, true);
+          dd($res);
+       curl_close($curl);
+       
+       if($res['success'] == true && $res['statusCode'] == 201){
+         event(new AddressVerificationCreated($res, $get_address_verification_id));
+       
+         DB::commit();
+         Session::flash('alert', 'success');
+         Session::flash('message', 'Address submitted for verification');
+         return redirect()->route('addressIndex', $request->slug);
+       }else{
+         // dd($res);
+         Session::flash('alert', 'danger');
+         Session::flash('message', $res['message']);
+         return redirect()->route('addressIndex', $request->slug);
+       }
+      //  return $res;
+       }
+
 
        }catch(\Exception $e){
           DB::rollBack();

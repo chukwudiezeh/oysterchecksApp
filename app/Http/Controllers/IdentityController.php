@@ -85,7 +85,7 @@ class IdentityController extends Controller
                 $data['pending'] = ImageVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['wallet'] = Wallet::where('user_id', $user->id)->first();
                 $data['logs'] = ImageVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
-                return view('users.individual.identity_indexes.pvc_index', $data);
+                return view('users.individual.identity_indexes.image_index', $data);
             } elseif ($slug->slug == 'bank-account') {
                 $data['success'] = BankVerification::where(['status' => 'found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
                 $data['failed'] =  BankVerification::where(['status' => 'not_found', 'verification_id' => $slug->id, 'user_id' => $user->id])->count();
@@ -105,15 +105,6 @@ class IdentityController extends Controller
         } else {
 
         }
-
-        $data['success'] = IdentityVerification::where(['status' => 'successful', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
-        $data['failed'] = IdentityVerification::where(['status' => 'failed', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
-        $data['pending'] = IdentityVerification::where(['status' => 'pending', 'verification_id' => $slug->id, 'user_id' => $user->id])->get();
-        $data['fields'] = FieldInput::where(['slug' => $slug->slug])->get();
-        $data['wallet'] = Wallet::where('user_id', $user->id)->first();
-        // $data['verified'] = IdentityVerificationDetail::where(['user_id'=>$user->id])->latest()->first();           
-        $data['logs'] = IdentityVerification::where(['user_id' => $user->id, 'verification_id' => $slug->id])->latest()->get();
-        return view('users.individual.identityIndex', $data);
     }
 
     public function showIdentityVerificationForm($slug)
