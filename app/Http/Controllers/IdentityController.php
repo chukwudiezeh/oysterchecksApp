@@ -1454,7 +1454,7 @@ class IdentityController extends Controller
                     return view('users.individual.identity_reports.image_report', ['image_verification'=>$image_verification]);
                 }
             } elseif ($slug->slug == 'bank-account') {
-                $bank_verification = ImageVerification::where(['id'=>$verificationId, 'user_id'=>$user->id])->first();
+                $bank_verification = BankVerification::where(['id'=>$verificationId, 'user_id'=>$user->id])->first();
 
                 if($bank_verification){
                     return view('users.individual.identity_reports.bank_report', ['bank_verification'=>$bank_verification]);

@@ -40,7 +40,7 @@ $(() => {
     //     $('#bank').trigger('change');
 
     //     console.log('sdfjkbjbgdifgf');
-    //     // $('#bank_name').val($(this).attr('value'));
+     // $('#bank_name').val($(this).attr('value'));
     // })
 
     $('#bank').on('change', ()=>{

@@ -125,16 +125,15 @@
                                     <h2 class="font-16 m-0 lh-base">Search Term</h2>
                                     <div class="col-12 d-flex justify-content-start mt-2">
                                         <div class="m-0 font-14 me-3 text-muted col-auto me-3">
-                                            @if($bank_verification->search_term == 'taxId')
-                                                Tax Identification Number:
-                                            @elseif($bank_verification->search_term == 'cacReg')
-                                                CAC Registration Number:
-                                            @elseif($bank_verification->search_term == 'phoneReg')
-                                                Registered Phone Number:
-                                            @else
-                                            @endif
+                                           Account Number:
                                         </div>
-                                        <div class="font-14 col-8">{{$bank_verification->search_value}}</div>
+                                        <div class="font-14 col-8">{{$bank_verification->account_number}}</div>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-start mt-2">
+                                        <div class="m-0 font-14 me-3 text-muted col-auto me-3">
+                                           Bank Name:
+                                        </div>
+                                        <div class="font-14 col-8">{{$bank_verification->bank_name}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -142,132 +141,41 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Company Name:</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Account Name:</div>
                                         <div class="font-14 col-8">
-                                            {{$bank_verification->name}}
+                                            {{$bank_verification->bank_details->accountName}}
                                         </div>
                                     </div>
                         
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Company Registration Number:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->registration_number}}</div>
-                                    </div>
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">FIRS TIN:</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Account Number:</div>
                                         <div class="font-14 col-8">
-                                            {{$bank_verification->tin}}
+                                            {{$bank_verification->bank_details->accountNumber}}
+                                            <span class="ms-2 badge bg-success">Validated</span>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">JBT TIN:</div>
+                                        <div class="m-0 font-14 me-3 text-muted col-4">Bank Name:</div>
                                         <div class="font-14 col-8">
-                                            {{$bank_verification->jtb_tin}}
+                                            {{$bank_verification->bank_details->bankName}}
+                                            <span class="ms-2 badge bg-success">Validated</span>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Tax Office:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->tax_office}}</div>
-                                    </div>
-                                   
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Email Address:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->email}}</div>
-                                    </div>
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Phone Number:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->phone}}</div>
-                                    </div>
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Website:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->website_email}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                                                       
-                            <div class="col-12 mt-2">
-                                <div class="py-3 px-4 bg-light">
-                                    <h2 class="font-16 m-0 lh-base">Company Basic Information</h2>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Status:</div>
-                                        <div class="font-14 col-8">
-                                            {{$bank_verification->company_status}}
-                                        </div>
-                                    </div>
-                        
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Type of Entity:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->type_of_entity}}</div>
-                                    </div>
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Activity:</div>
-                                        <div class="font-14 col-8">
-                                            {{$bank_verification->activity}}
-                                        </div>
-                                    </div>
-                                    @if($bank_verification->lga != null)
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">LGA:</div>
-                                        <div class="font-14 col-8">
-                                            {{$bank_verification->lga}}
-                                        </div>
-                                    </div>
-                                    @endif
-                                    @if($bank_verification->city != null)
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">City:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->city}}</div>
-                                    </div>
-                                   @endif
-                                   @if($bank_verification->state != null)
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">State:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->state}}</div>
-                                    </div>
-                                   @endif
                                     <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
                                         <div class="m-0 font-14 me-3 text-muted col-4">Country:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->country}}</div>
-                                    </div>
-                                    <div class="col-12 col-md-6 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-4">Full Address:</div>
-                                        <div class="font-14 col-8">{{$bank_verification->address}}</div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-12 mt-2">
-                                <div class="py-3 px-4 bg-light">
-                                    <h2 class="font-16 m-0 lh-base">Key Management Personnel</h2>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-12 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-3">NAME:</div>
-                                        <div class="font-14 text-muted col-9">
-                                            DESIGNATION
+                                        <div class="font-14 col-8">
+                                            {{$bank_verification->country}}
                                         </div>
                                     </div>
-                                    @foreach($bank_verification->key_personnel as $person)
-                                    <div class="col-12 d-flex py-4 px-4 border-bottom">
-                                        <div class="m-0 font-14 me-3 text-muted col-3">{{$person['name']}}</div>
-                                        <div class="font-14 col-9">{{$person['designation']}}</div>
-                                    </div>
-                                    @endforeach
-                                                                        
                                 </div>
                             </div>
                             @elseif($bank_verification->status == 'not_found')
                                 <div class="row mt-5">
                                     <div class="col-12 col-sm-9 col-md-6 ms-auto me-auto text-center align-items-center">
                                         
-                                        <h5 class="card-title mb-5 text-muted">You Searched for "{{$bank_verification->search_value}}"</h5>
+                                        <h5 class="card-title mb-5 text-muted">You Searched for "{{$bank_verification->account_number}}"</h5>
                                         <h5 class="card-title mb-2">Oops! No Data found for the search term entered</h5>
-                                        <p class="card-text">Please Enter a correct Tax Identification Number, CAC Registration Number or Registered Phone Number and try searching again.</p>
+                                        <p class="card-text">Please Enter a correct Bank Account Number or Bank Name and try searching again.</p>
                                         <a href="{{route('showIdentityVerificationForm', $bank_verification->type)}}" class="btn btn-primary btn-sm mt-4 mb-3">Make another request</a>
                                     </div>
                                 </div>
