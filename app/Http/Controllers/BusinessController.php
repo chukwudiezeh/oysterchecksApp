@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{CacVerification, TinVerification};
-use Illuminate\Support\FAcades\{DB, Session, Validator};
+use Illuminate\Support\Facades\{DB, Session, Validator};
 use App\Models\Verification;
 use App\Models\Transaction;
 use App\Traits\GenerateRef;
@@ -12,7 +12,7 @@ use App\Traits\generateHeaderReports;
 use App\Models\User;
 use App\Models\FieldInput;
 use App\Models\Wallet;
-use App\Models\BusinessVerificationDetail;
+// use App\Models\BusinessVerificationDetail;
 
 
 class BusinessController extends Controller
@@ -246,7 +246,6 @@ class BusinessController extends Controller
                 DB::rollBack();
                 throw $e;
             }
-
     }
 
     protected function processTin(array $data, $slug)

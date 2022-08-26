@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="zxx" class="js">
+<html lang="en" class="js">
 
 <head>
     <meta charset="utf-8" />
-         <title>{{ config('app.name', 'Oysterchecks') }}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta content="Oysterchecks Comprehensive and Exceptional background checks, KYC & AML compliance Solutions</" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="{{asset('/assets/images/favicon.png')}}">
+    
     <!-- Page Title  -->
     <title>Login | Oysterchecks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="Oysterchecks Comprehensive and Exceptional background checks, KYC & AML compliance Solutions</" name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{asset('/assets/images/favicon.png')}}">
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{asset('/assets/assets/css/dashlite.css?ver=2.2.0')}}">
     <link id="skin-default" rel="stylesheet" href="{{asset('/assets/assets/css/theme.css?ver=2.2.0')}}">
@@ -35,33 +35,33 @@
                                     <a href="html/index.html" class="logo-link">
                                         <img class="logo-light logo-img logo-img-lg" width="150px" src="{{asset('/assets/images/logo.png')}}" srcset="{{asset('/assets/images/logo.png')}} 2x" alt="logo">
                                         <img class="logo-dark logo-img logo-img-lg" width="150px" src="{{asset('/assets/images/logo.png')}}" srcset="{{asset('/assets/images/logo.png')}} 2x" alt="logo-dark">
-                                    </a>  
+                                    </a>
                                 </div>
                                 <div class="nk-block-head">
                                     <div class="nk-block-head-content">
                                         <h5 class="nk-block-title">Sign-In</h5>
                                         <div class="nk-block-des">
-                                            <p>Access Oysterchecks  using your email and password.</p>
+                                            <p>Access Oysterchecks using your email and password.</p>
                                         </div>
                                     </div>
                                 </div><!-- .nk-block-head -->
-                               <!-- Session Status -->
-  
+                                <!-- Session Status -->
 
-        <!-- Validation Errors -->
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+
+                                <!-- Validation Errors -->
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
                                     <div class="form-group">
                                         <div class="form-label-group">
-                                            <label class="form-label" for="default-01">Email or Username</label>
+                                            <label class="form-label" for="default-01">Email</label>
                                         </div>
-                                        <input type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" id="default-01" placeholder="Enter your email address or username">
+                                        <input type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" id="email" placeholder="Enter your email address">
 
-                                         @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <small><strong>{{ $message }}</strong>  </small>
-                                    </span>
-                                         @enderror
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <small><strong>{{ $message }}</strong> </small>
+                                        </span>
+                                        @enderror
 
                                     </div><!-- .foem-group -->
                                     <div class="form-group">
@@ -74,19 +74,19 @@
                                                 <em class="passcode-icon icon-show icon ni ni-eye"></em>
                                                 <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                                             </a>
-                                            <input   type="password"  name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="password" placeholder="Enter your passcode">
-                                             @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong class="">{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                            <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="password" placeholder="Enter your password">
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong class="">{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div><!-- .foem-group -->
                                     <div class="form-group">
-                                        <button class="btn btn-lg btn-primary btn-block">Sign in</button>
+                                        <button type="submit" class="btn btn-lg btn-primary btn-block" id="signin_button" disabled>SIGN IN <i class="icon ni ni-arrow-right-circle ml-3"></i></button>
                                     </div>
                                 </form><!-- form -->
-                                <div class="form-note-s2 pt-4"> Need an Account? <a href="{{route('contact-us')}}">Contact Support</a>
+                                <div class="form-note-s2 pt-4"> Don't have an account yet? <a href="{{route('register')}}">Sign up</a>
                                 </div>
                             </div><!-- .nk-block -->
                             <div class="nk-block nk-auth-footer">
@@ -111,7 +111,7 @@
                                                             <span class="language-name">English</span>
                                                         </a>
                                                     </li>
-                                                   
+
                                                 </ul>
                                             </div>
                                         </li>
@@ -133,9 +133,9 @@
                                             <div class="nk-feature-content py-1 p-sm-3">
                                                 <h4>Comprehensive Background Checks</h4>
                                                 <p>Tired Of Poor And Shallow Background Checks?
-                                              Relax and get to enjoy comprehensive background checks from us. Oysterchecks is dedicated in 
-                                              conducting extensive background checks which are
-                                               essential in the recruitment process. </p>
+                                                    Relax and get to enjoy comprehensive background checks from us. Oysterchecks is dedicated in
+                                                    conducting extensive background checks which are
+                                                    essential in the recruitment process. </p>
                                             </div>
                                         </div>
                                     </div><!-- .slider-item -->
@@ -168,5 +168,6 @@
     <!-- JavaScript -->
     <script src="{{asset('/assets/assets/js/bundle.js?ver=2.2.0')}}"></script>
     <script src="{{asset('/assets/assets/js/scripts.js?ver=2.2.0')}}"></script>
+    <script src="{{asset('assets/assets/js/signinscripts.js')}}"></script>
 
 </html>
