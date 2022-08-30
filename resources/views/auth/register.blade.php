@@ -59,7 +59,7 @@
 
 
                                 <!-- Validation Errors -->
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" action="{{ route('register') }}">
                                     @csrf
                                     <div class="row gy-3">
                                         <div class="col-md-6">
@@ -124,6 +124,20 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <div class="form-label-group justify-content-start">
+                                                    <label class="form-label" for="company_name">Company Email</label>
+                                                    <span class="text-danger ml-1">*</span>
+                                                </div>
+                                                <input type="email" name="company_email" class="form-control form-control-lg @error('company_email') is-invalid @enderror" id="company_email" placeholder="Enter Company Email" required>
+                                                @error('company_email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <small><strong>{{ $errors->first('company_email') }}</strong> </small>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="form-label-group justify-content-start">
                                                     <label class="form-label" for="company_phone">Phone</label>
                                                     <span class="text-danger ml-1">*</span>
                                                 </div>
@@ -144,6 +158,7 @@
                                             <div class="form-group">
                                                 <div class="form-label-group justify-content-start">
                                                     <label class="form-label" for="company_address">Company Address</label>
+                                                    <span class="text-danger ml-1">*</span>
                                                 </div>
                                                 <div class="form-control-wrap">
                                                     <textarea class="form-control  no-resize form-control-lg @error('company_address') is-invalid @enderror" name="company_address" id="company_address"></textarea>

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use App\Models\{Client, User, Wallet};
+use App\Traits\GenerateRef;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
 
 class RegisterController extends Controller
 {
@@ -22,7 +24,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers, GenerateRef;
 
     /**
      * Where to redirect users after registration.
@@ -41,6 +43,27 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $plain_password = $this->GeneratePass($request->fname);
+        $user = $this->create($request->all(), $plain_password);
+        if($user){
+            $user->password = $plain_password;
+            event(new Registered($user));
+            $userWallet = $this->createWallet($user->id);
+            $userClient = $this->createClient($request->only(['company_name','company_phone','company_email','company_address']),$user->id);
+        }
+
+        if ($userWallet && $userClient) {
+            return redirect()->route('register-success');
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -50,9 +73,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'fname' => ['required', 'string','alpha-dash', 'max:255'],
+            'lname' => ['required', 'string','alpha-dash', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'company_name' => ['required', 'string', 'max:255'],
+            'company_phone' => ['required', 'string', 'max:14'],
+            'company_email' => ['required', 'string', 'email', 'max:255', 'unique:clients'],
+            'company_address' => ['required', 'string'],
+            'privacy_terms' => ['required', 'accepted'],
         ]);
     }
 
@@ -62,12 +90,33 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(array $data, $plain_password)
     {
         return User::create([
-            'name' => $data['name'],
+            'firstname' => $data['fname'],
+            'lastname' => $data['lname'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($plain_password),
+            'user_type' => 2
         ]);
+    }
+
+    protected function createWallet($user_id){
+        return Wallet::create(['user_id' => $user_id]);
+    }
+
+    protected function createClient(array $data, $user_id){
+        return Client::create([
+            'company_name' => $data['company_name'],
+            'company_email' => $data['company_email'],
+            'company_address' => $data['company_address'],
+            'company_phone' => $data['company_phone'],
+            'user_id' => $user_id,
+            'image'=>'default.png'
+        ]);
+    }
+
+    public function showRegisterSuccessPage(){
+        return view('auth.register-success');
     }
 }

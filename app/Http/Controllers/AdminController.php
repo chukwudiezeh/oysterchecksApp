@@ -152,7 +152,7 @@ class AdminController extends Controller
         
         $valid = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|unique:users', 
+            'email' => 'required|unique:users',
             'company_name' => 'required',
             'company_phone' => 'required',
             'company_address'=> 'required',
@@ -221,7 +221,7 @@ class AdminController extends Controller
 
     public function AdministratorCreate(){
 
-            return view('admin.admin.create')->with('roles', Role::get());
+        return view('admin.admin.create')->with('roles', Role::get());
     }
 
     public function AdministratorStore(Request $request){
