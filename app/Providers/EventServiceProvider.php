@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 use App\Events\AddressVerificationCreated;
 use App\Listeners\InsertAddressVerificationPayload;
+use App\Events\UserRegistered;
+use App\Listeners\SendVerificationEmail;
 use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
@@ -20,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+
+        UserRegistered::class => [
+            SendVerificationEmail::class,
         ],
 
         AddressVerificationCreated::class => [

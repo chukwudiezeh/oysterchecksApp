@@ -3,14 +3,17 @@
     <tr>
         <td style="background-color: #ededed; padding: 30px;">
             <table align="center" cellspacing="0" cellpadding="0" style="width: 100%;">
-                <tr bgcolor="#3d66fe"><td align="center" style="padding: 25px 10px 25px 10px; background-color: #3d66fe; font-weight: 600; font-size: 1.5em; color: #ffffff; text-align: center; text-transform: uppercase;">WELCOME TO OYSTERCHECKS</td>
+                <tr bgcolor="#3d66fe">
+                    <td align="center" style="padding: 25px 10px 25px 10px; background-color: #3d66fe; font-weight: 600; font-size: 1.5em; color: #ffffff; text-align: center; text-transform: uppercase;">
+                        WELCOME TO OYSTERCHECKS
+                    </td>
                 </tr>
                 <tr bgcolor="#ffffff"><td height="5px" style="line-height: 5px;"></td></tr>
                 <!-- content -->
                 <tr bgcolor="#ffffff">
                     <td style="padding:20px 30px 20px 30px;">
                         <table align="center" style="width: 100%; max-width: 800px;">
-                            <tr><td style="font-weight: 500; font-size: 20px; color: #383838;">Dear {{$data["name"]}}</td></tr>
+                            <tr><td style="font-weight: 500; font-size: 20px; color: #383838;">Dear {{$data["firstname"]}}</td></tr>
                             <tr><td height="7px" style="line-height: 7px;"></td></tr>
                             <tr><td style=" font-weight: 400; font-size: 15px;">Congratulations and welcome.</td></tr>
                             <tr><td style=" font-weight: 400; font-size: 15px;">Thank you for registering for Oysterchecks Background Vetting service.</td>

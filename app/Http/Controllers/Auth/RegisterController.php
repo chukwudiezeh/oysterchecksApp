@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Auth\Events\Registered;
+use App\Events\UserRegistered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -49,14 +49,14 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        // dd($request->all());
+        
         $this->validator($request->all())->validate();
 
         $plain_password = $this->GeneratePass($request->fname);
         $user = $this->create($request->all(), $plain_password);
         if($user){
             $user->password = $plain_password;
-            event(new Registered($user));
+            event(new UserRegistered($user));
             $userWallet = $this->createWallet($user->id);
             $userClient = $this->createClient($request->only(['company_name','company_phone','company_email','company_address']),$user->id);
         }
