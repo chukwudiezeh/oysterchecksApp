@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         $data = [
 
-            ['name' => 'Morgans', 'email'=>'mikkynoble@gmail.com', 'password'=>Hash::make('oysterchecks_admin'),'user_type'=>3, 'role_id'=>1],
+            ['firstname' => 'Morgans','lastname'=>'Admin', 'email'=>'mikkynoble@gmail.com', 'password'=>Hash::make('oysterchecks_admin'),'user_type'=>3, 'role_id'=>1],
             
         ];
         foreach($data as $datum){

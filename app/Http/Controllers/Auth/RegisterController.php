@@ -10,6 +10,10 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
 
 class RegisterController extends Controller
 {
@@ -45,6 +49,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        // dd($request->all());
         $this->validator($request->all())->validate();
 
         $plain_password = $this->GeneratePass($request->fname);

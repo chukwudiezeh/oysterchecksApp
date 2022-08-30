@@ -59,7 +59,7 @@
 
 
                                 <!-- Validation Errors -->
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" action="{{ route('register') }}" id="signup_form">
                                     @csrf
                                     <div class="row gy-3">
                                         <div class="col-md-6">
@@ -68,7 +68,7 @@
                                                     <label class="form-label" for="fname">First Name</label>
                                                     <span class="text-danger ml-1">*</span>
                                                 </div>
-                                                <input type="text" name="fname" class="form-control form-control-lg @error('fname') is-invalid @enderror" id="fname" placeholder="Enter First Name" required>
+                                                <input type="text" name="fname" value="{{old('fname')}}" class="form-control form-control-lg @error('fname') is-invalid @enderror" id="fname" placeholder="Enter First Name" required>
 
                                                 @error('fname')
                                                 <span class="invalid-feedback" role="alert">
@@ -83,7 +83,7 @@
                                                     <label class="form-label" for="lname">Last Name</label>
                                                     <span class="text-danger ml-1">*</span>
                                                 </div>
-                                                <input type="text" name="lname" class="form-control form-control-lg @error('lname') is-invalid @enderror" id="lname" placeholder="Enter Last Name" required>
+                                                <input type="text" name="lname" value="{{old('lname')}}" class="form-control form-control-lg @error('lname') is-invalid @enderror" id="lname" placeholder="Enter Last Name" required>
 
                                                 @error('lname')
                                                 <span class="invalid-feedback" role="alert">
@@ -98,7 +98,7 @@
                                                     <label class="form-label" for="email">Work Email</label>
                                                     <span class="text-danger ml-1">*</span>
                                                 </div>
-                                                <input type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" id="email" placeholder="Enter your email address" required>
+                                                <input type="email" name="email" value="{{old('email')}}" class="form-control form-control-lg @error('email') is-invalid @enderror" id="email" placeholder="Enter your email address" required>
 
                                                 @error('email')
                                                 <span class="invalid-feedback" role="alert">
@@ -113,7 +113,7 @@
                                                     <label class="form-label" for="company_name">Company Name</label>
                                                     <span class="text-danger ml-1">*</span>
                                                 </div>
-                                                <input type="email" name="company_name" class="form-control form-control-lg @error('company_name') is-invalid @enderror" id="company_name" placeholder="Enter Company Name" required>
+                                                <input type="text" name="company_name" value="{{old('company_name')}}" class="form-control form-control-lg @error('company_name') is-invalid @enderror" id="company_name" placeholder="Enter Company Name" required>
                                                 @error('company_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <small><strong>{{ $errors->first('company_name') }}</strong> </small>
@@ -127,7 +127,7 @@
                                                     <label class="form-label" for="company_name">Company Email</label>
                                                     <span class="text-danger ml-1">*</span>
                                                 </div>
-                                                <input type="email" name="company_email" class="form-control form-control-lg @error('company_email') is-invalid @enderror" id="company_email" placeholder="Enter Company Email" required>
+                                                <input type="email" name="company_email" value="{{old('company_email')}}" class="form-control form-control-lg @error('company_email') is-invalid @enderror" id="company_email" placeholder="Enter Company Email" required>
                                                 @error('company_email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <small><strong>{{ $errors->first('company_email') }}</strong> </small>
@@ -145,7 +145,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroup-sizing-lg">+234</span>
                                                     </div>
-                                                    <input type="number" name="company_phone" class="form-control form-control-lg @error('company_phone') is-invalid @enderror" id="company_phone" placeholder="Enter Company phone" required>
+                                                    <input type="number" name="company_phone" value="{{old('company_phone')}}" class="form-control form-control-lg @error('company_phone') is-invalid @enderror" id="company_phone" placeholder="Enter Company phone" required>
                                                 </div>
                                                 @error('company_phone')
                                                 <span class="invalid-feedback" role="alert">
@@ -161,11 +161,11 @@
                                                     <span class="text-danger ml-1">*</span>
                                                 </div>
                                                 <div class="form-control-wrap">
-                                                    <textarea class="form-control  no-resize form-control-lg @error('company_address') is-invalid @enderror" name="company_address" id="company_address"></textarea>
+                                                    <textarea class="form-control no-resize form-control-lg @error('company_address') is-invalid @enderror" name="company_address" id="company_address"> {{old('company_address')}}</textarea>
                                                 </div>
                                                 @error('company_address')
                                                 <span class="invalid-feedback" role="alert">
-                                                    <small><strong>{{ $errors->first('company_address') }}</strong> </small>
+                                                    <small><strong>{{ $errors->first('company_address')}}</strong> </small>
                                                 </span>
                                                 @enderror
                                             </div>
@@ -182,7 +182,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-lg btn-primary btn-block" id="signup_button" disabled>SIGN UP <i class="icon ni ni-arrow-right-circle ml-3"></i></button>
+                                                <button type="submit" class="btn btn-lg btn-primary btn-block" id="signup_button" disabled>SIGN UP <i class="icon ni ni-arrow-right-circle ml-3" id="signup_button_icon"></i></button>
                                             </div>
                                         </div>
                                     </div>

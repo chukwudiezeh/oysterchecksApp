@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
+  <head>
         <meta charset="utf-8" />
          <title>{{ config('app.name', 'Oysterchecks') }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,104 +26,98 @@
 
         <link href="{{asset('/plugins/datatables/buttons.bootstrap5.min.css')}}" rel="stylesheet">
         <link href="{{asset('/plugins/datatables/dataTables.bootstrap5.min.css')}}" rel="stylesheet">
-    </head>
+  </head>
   <body class="dark-sidenav navy-sidenav">
-@include('partials.sidebar')
- <div class="page-wrapper">
-@include('partials.navbar')
-@yield('content')
-              <footer class="footer text-center text-sm-start">
-                    &copy; <script>
-                        document.write(new Date().getFullYear())
-                    </script> All Rights Reserved, Oysterchecks.com <span class="text-muted d-none d-sm-inline-block float-end"> 
-                        with <i class="mdi mdi-heart text-danger"></i> by Morgans Consortium</span>
-                </footer><!--end footer-->
- </div>
- </div>
-  <script src="{{asset('/assets/js/jquery.min.js')}}"></script>
-  <script src="{{asset('/assets/js/effects.min.js')}}"></script>
+    @include('partials.sidebar')
+    <div class="page-wrapper">
+      @include('partials.navbar')
+        @yield('content')
+          <footer class="footer text-center text-sm-start">
+            &copy; <script>document.write(new Date().getFullYear())</script> 
+            All Rights Reserved, Oysterchecks.com 
+            <span class="text-muted d-none d-sm-inline-block float-end"> with <i class="mdi mdi-heart text-danger"></i> by Morgans Consortium</span>
+          </footer><!--end footer-->
+        </div>
+    </div>
+    <script src="{{asset('/assets/js/jquery.min.js')}}"></script>
+    <script src="{{asset('/assets/js/effects.min.js')}}"></script>
 
-        <script src="{{asset('/assets/js/bootstrap.bundle.min.js')}}"></script>
-        <script src="{{asset('/assets/js/metismenu.min.js')}}"></script>
-        <script src="{{asset('/assets/js/waves.js')}}"></script>
-        <script src="{{asset('/assets/pages/jquery.datatable.init.js')}}"></script>
-        <script src="{{asset('/assets/pages/jquery.form-upload.init.js')}}"></script>
-         <script src="{{asset('/plugins/dropify/js/dropify.min.js')}}"></script>
-        <script src="{{asset('/assets/js/feather.min.js')}}"></script>
-        <script src="{{asset('/assets/js/simplebar.min.js')}}"></script>
-        <script src="{{asset('/assets/js/moment.js')}}"></script>
-        <script src="{{asset('/plugins/daterangepicker/daterangepicker.js')}}"></script>
-        <script src="{{asset('/plugins/dropify/js/dropify.min.js')}}"></script>
-        <script src="{{asset('/plugins/select2/select2.min.js')}}"></script>
-
+    <script src="{{asset('/assets/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('/assets/js/metismenu.min.js')}}"></script>
+    <script src="{{asset('/assets/js/waves.js')}}"></script>
+    <script src="{{asset('/assets/pages/jquery.datatable.init.js')}}"></script>
+    <script src="{{asset('/assets/pages/jquery.form-upload.init.js')}}"></script>
+    <script src="{{asset('/plugins/dropify/js/dropify.min.js')}}"></script>
+    <script src="{{asset('/assets/js/feather.min.js')}}"></script>
+    <script src="{{asset('/assets/js/simplebar.min.js')}}"></script>
+    <script src="{{asset('/assets/js/moment.js')}}"></script>
+    <script src="{{asset('/plugins/daterangepicker/daterangepicker.js')}}"></script>
+    <script src="{{asset('/plugins/dropify/js/dropify.min.js')}}"></script>
+    <script src="{{asset('/plugins/select2/select2.min.js')}}"></script>
         <!-- Required datatable js -->
-        
-        <script src="{{asset('/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('/plugins/datatables/dataTables.bootstrap5.min.js')}}"></script>
-        <!-- Buttons examples -->
-        <script src="{{asset('/plugins/datatables/dataTables.buttons.min.js')}}"></script>
-        <script src="{{asset('/plugins/datatables/buttons.bootstrap5.min.js')}}"></script>
-        <script src="{{asset('/plugins/datatables/jszip.min.js')}}"></script>
-        <script src="{{asset('/plugins/datatables/pdfmake.min.js')}}"></script>
-        <script src="{{asset('/plugins/datatables/vfs_fonts.js')}}"></script>
-        <script src="{{asset('/plugins/datatables/buttons.html5.min.js')}}"></script>
-        <script src="{{asset('/plugins/datatables/buttons.print.min.js')}}"></script>
-        <script src="{{asset('/plugins/datatables/buttons.colVis.min.js')}}"></script>
-        <!-- Responsive examples -->
-        <script src="{{asset('/plugins/datatables/dataTables.responsive.min.js')}}"></script>
-        <script src="{{asset('/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
-        <script src="{{asset('/plugins/sweet-alert2/sweetalert2.min.js')}}"></script>
-        <script src="{{asset('/assets/pages/jquery.sweet-alert.init.js')}}"></script>
-          <script src="{{asset('/plugins/chartjs/chart.min.js')}}"></script>
-        <script src="{{asset('/assets/pages/jquery.chartjs.init.js')}}"></script>
-         <script src="{{asset('plugins/apex-charts/apexcharts.min.js')}}"></script>
-        <script src="{{asset('/plugins/apex-charts/irregular-data-series.js')}}"></script>
-        <script src="{{asset('/plugins/apex-charts/ohlc.js')}}"></script>
-        <script src="{{asset('/assets/pages/jquery.forms-advanced.js')}}"></script>
-        <script src="{{asset('/assets/pages/jquery.apexcharts.init.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/dataTables.bootstrap5.min.js')}}"></script>
+       <!-- Buttons examples -->
+    <script src="{{asset('/plugins/datatables/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/buttons.bootstrap5.min.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/jszip.min.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/pdfmake.min.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/vfs_fonts.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/buttons.print.min.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/buttons.colVis.min.js')}}"></script>
+      <!-- Responsive examples -->
+    <script src="{{asset('/plugins/datatables/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('/plugins/sweet-alert2/sweetalert2.min.js')}}"></script>
+    <script src="{{asset('/assets/pages/jquery.sweet-alert.init.js')}}"></script>
+    <script src="{{asset('/plugins/chartjs/chart.min.js')}}"></script>
+    <script src="{{asset('/assets/pages/jquery.chartjs.init.js')}}"></script>
+    <script src="{{asset('plugins/apex-charts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('/plugins/apex-charts/irregular-data-series.js')}}"></script>
+    <script src="{{asset('/plugins/apex-charts/ohlc.js')}}"></script>
+    <script src="{{asset('/assets/pages/jquery.forms-advanced.js')}}"></script>
+    <script src="{{asset('/assets/pages/jquery.apexcharts.init.js')}}"></script>
         <!-- Session timeout js -->
-        <script src="{{asset('/plugins/bootstrap-session-timeout/bootstrap-session-timeout.min.js')}}"></script>
+    <script src="{{asset('/plugins/bootstrap-session-timeout/bootstrap-session-timeout.min.js')}}"></script>
         
-        <script src="{{asset('/assets/pages/jquery.animate.init.js')}}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <!-- App js -->
-        <script src="{{asset('/assets/js/app.js')}}"></script> 
+    <script src="{{asset('/assets/pages/jquery.animate.init.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <!-- App js -->
+    <script src="{{asset('/assets/js/app.js')}}"></script> 
 
-   <script>     
-
-
-let message = {!! json_encode(Session::get('message')) !!};
-let msg = {!! json_encode(Session::get('alert')) !!};
-let name =  {!! json_encode(auth()->user()->name) !!};
-//let logUlr = $('#frm-logout').submit();
-//alert(msg);
-toastr.options = {
-        timeOut: 6000,
-        progressBar: true,
-        showMethod: "slideDown",
-        hideMethod: "slideUp",
-        showDuration: 500,
-        hideDuration: 500
+    <script>     
+    let message = {!! json_encode(Session::get('message')) !!};
+    let msg = {!! json_encode(Session::get('alert')) !!};
+    let name =  {!! json_encode(auth()->user()->name) !!};
+    //let logUlr = $('#frm-logout').submit();
+    //alert(msg);
+    toastr.options = {
+      timeOut: 6000,
+      progressBar: true,
+      showMethod: "slideDown",
+      hideMethod: "slideUp",
+      showDuration: 500,
+      hideDuration: 500
     };
-if(message != null && msg == 'success'){
-toastr.success(message);
-}else if(message != null && msg == 'error'){
-    toastr.error(message);
-}
-$.sessionTimeout({
-message: "Hi " + name + " Your session will expire soon.",
-keepAliveUrl:"{{route('index')}}",
-logoutButton:"Logout Now",
-logoutUrl:"{{route('logouts')}}",
-redirUrl:"{{route('logouts')}}",
-warnAfter:30e4,
-redirAfter:60e4,
-countdownBar:!0
-});
+    if(message != null && msg == 'success'){
+      toastr.success(message);
+    }else if(message != null && msg == 'error'){
+      toastr.error(message);
+    }
 
-
-   </script>
-        @yield('script')
+    $.sessionTimeout({
+      message: "Hi " + name + " Your session will expire soon.",
+      keepAliveUrl:"{{route('index')}}",
+      logoutButton:"Logout Now",
+      logoutUrl:"{{route('logouts')}}",
+      redirUrl:"{{route('logouts')}}",
+      warnAfter:30e4,
+      redirAfter:60e4,
+      countdownBar:!0
+    });
+    </script>
+    @yield('script')
 
         <!--Start of Tawk.to Script-->
 <script type="text/javascript">

@@ -6,6 +6,11 @@ const checkFields = () => {
     }
 }
 
+const changeButtonState = () =>{
+    getSignUpButton.innerHTML = '<div class="spinner-border spinner-border-sm" role="status">  <span class="visually-hidden"></span></div>';
+    getSignUpButton.disabled = true;
+}
+
 let getFirstName = document.getElementById('fname');
 getFirstName.addEventListener('keyup', checkFields);
 let getLastName = document.getElementById('lname');
@@ -21,3 +26,7 @@ getCompanyAddress.addEventListener('keyup', checkFields);
 let getPrivacyTerms = document.getElementById('checkbox');
 getPrivacyTerms.addEventListener('click', checkFields);
 let getSignUpButton = document.getElementById('signup_button');
+let signUpForm = document.getElementById('signup_form');
+signUpForm.addEventListener('submit', changeButtonState);
+
+

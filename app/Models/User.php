@@ -17,7 +17,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
         'email',
         'password',
         'role_id',
@@ -51,10 +52,10 @@ class User extends Authenticatable
         return $this->hasOne(Client::class);
     }
 
-    public function UserType(){
+    // public function UserType(){
 
-        if(User::where('user_type' == 2)){
-            $type = 'CLIENT';
-        }
-    }
+    //     if(User::where('user_type' == 2)){
+    //         $type = 'CLIENT';
+    //     }
+    // }
 }
