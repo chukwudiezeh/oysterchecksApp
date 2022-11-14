@@ -55,7 +55,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
-    'FLUTTERWAVE_KEY' => env('FLUTTERWAVE_SKEY', ''),
+    // 'FLUTTERWAVE_KEY' => env('FLUTTERWAVE_SKEY', ''),
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -67,7 +67,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'UTC',
+    'timezone' => 'Africa/Lagos',
 
     /*
     |--------------------------------------------------------------------------

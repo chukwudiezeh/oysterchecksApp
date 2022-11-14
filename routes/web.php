@@ -47,8 +47,10 @@ Route::get('/technology', [LandingPages::class, 'Technology'])->name('technology
 Route::get('/industry', [LandingPages::class, 'Industry'])->name('industry');
 Route::get('/resources', [LandingPages::class, 'Resources'])->name('resource');
 Route::post('/contact/form', [LandingPages::class, 'ContactForm'])->name('ContactForm');
+// Route::get('email', [LandingPages::class, 'email'])->name('email');
 #===================== USERS ROUTE ===============================
 Route::middleware('auth')->group(function() {
+Route::get('/getting-started', [HomeController::class, 'gettingStarted'])->name('instructions');
 Route::get('/dashboard', [HomeController::class, 'Home'])->name('index');
 Route::get('/home', [HomeController::class, 'Home'])->name('home');
 Route::get('/identity/bank-account/banks', [IdentityController::class, 'getBanks']);

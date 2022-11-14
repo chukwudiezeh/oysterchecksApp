@@ -483,7 +483,6 @@ class IdentityController extends Controller
 
     public function IdentitySort(Request $request, $slug)
     {
-
         $user = User::where('id', auth()->user()->id)->first();
         $slug = Verification::where('slug', $slug)->first();
         if ($request->sort == 'success') {

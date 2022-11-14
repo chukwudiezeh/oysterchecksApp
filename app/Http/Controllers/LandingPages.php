@@ -49,6 +49,10 @@ class LandingPages extends Controller
         return view('kyc');
     }
 
+    public function email(){
+        return view('emails.ClientRegistration');
+    }
+
     public function ContactForm(Request $request){
         $data = [
             'name' => $request->name,

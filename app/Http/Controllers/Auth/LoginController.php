@@ -8,6 +8,7 @@ use App\Models\ActivityLog;
 use Symfony\Component\HttpFoundation\Request;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -42,13 +43,26 @@ class LoginController extends Controller
     }
 
 
-    function authenticated(Request $request, $user)
+    protected function authenticated(Request $request, $user)
     {
         ActivityLog::create([
             'user_id' => $user->id,
-            'activity' => 'New LogIn Request',
+            'activity' => 'New Login Request',
             'ip_address' => $request->Ip(),
             'user_agent' => $request->userAgent(),
         ]);
+
+        $get_user_db = User::find($user->id);
+        if($get_user_db->email_verified == null || $get_user_db->email_verified == false){
+            $get_user_db->update([
+                'email_verified_at' => now('Africa/Lagos'),
+                'email_verified' => true,
+            ]);
+            $get_user_db->save();
+            return redirect()->route('instructions');
+        }
+
+        return redirect()->intended($this->redirectTo);
+        
     }
 }

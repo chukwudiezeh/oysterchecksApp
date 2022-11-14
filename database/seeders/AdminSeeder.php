@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $admin = ['user_id'=>1,'name'=>'Morgans Admin','company_name'=>'Morgans Consortium','company_email'=>'mikkynoble@gmail.com','company_phone'=>'08023457567','role_id'=>1];
+        $admin = ['user_id'=>1,'name'=>'Morgans Admin','company_name'=>'Morgans Consortium','company_email'=>'admin@oysterchecks.com','company_phone'=>'08023457567','role_id'=>1];
 
         Admin::create($admin);
     }

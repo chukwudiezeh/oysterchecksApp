@@ -6,7 +6,8 @@
     <tr>
         <td style="background-color: #ededed; padding: 30px;">
             <table align="center" cellspacing="0" cellpadding="0" style="width: 100%;">
-                <tr bgcolor="#3d66fe"><td align="center" style="padding: 25px 10px 25px 10px; background-color: #3d66fe; font-weight: 600; font-size: 1.5em; color: #ffffff; text-align: center; text-transform: uppercase;">WELCOME TO OYSTERCHECKS</td>
+                <tr bgcolor="#3d66fe">
+                    <td align="center" style="padding: 25px 10px 25px 10px; background-color: #3d66fe; font-weight: 600; font-size: 1.5em; color: #ffffff; text-align: center; text-transform: uppercase;">WELCOME TO OYSTERCHECKS</td>
                 </tr>
                 <tr bgcolor="#ffffff"><td height="5px" style="line-height: 5px;"></td></tr>
                 <!-- content -->
