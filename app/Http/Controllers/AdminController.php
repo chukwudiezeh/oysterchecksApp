@@ -151,8 +151,8 @@ class AdminController extends Controller
     public function ClientStore(Request $request){
         
         $valid = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|unique:users',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
             'company_name' => 'required',
             'company_phone' => 'required',
             'company_address'=> 'required',
@@ -167,8 +167,10 @@ class AdminController extends Controller
 
         //create a client account 
         $pass = $this->generatePass($request->name);
+        $name = explode(' ', $request->name);
         $data = [
-            'name' => $request->name,
+            'firstname' => $name[0],
+            'lastname' => $name[1],
             'email' => $request->email,
             'password' => Hash::make($pass),
             'user_type' => 2
@@ -187,15 +189,10 @@ class AdminController extends Controller
             'total_balance' => 0,
         ]);
            if(request()->file('image')){
-            $image = request()->file('image');
-            $name =  $image->getClientOriginalName();
-            $FileName = \pathinfo($name, PATHINFO_FILENAME);
-            $ext =  $image->getClientOriginalExtension();
-            $time = time().$FileName;
-            $dd = md5($time);
-            $fileName = $dd.'.'.$ext;
-            $image->move('assets/images', $fileName);
-           $image = $fileName;
+            $image_url = cloudinary()->upload($request->file('image')->getRealPath(), [
+                'folder' => 'oysterchecks/clientProfile'
+            ])->getSecurePath();
+
            }else{
             $image = 'default.png';
            }

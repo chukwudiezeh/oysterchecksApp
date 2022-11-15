@@ -64,7 +64,7 @@
                         <ul class="list-group custom-list-group mb-n3">
                             <li class="list-group-item align-items-center d-flex justify-content-between pt-0">
                                 <div class="media">
-                                    <div class="me-3 align-self-center rounded" style="">
+                                    <div class="me-3 align-self-center rounded">
                                         <i class="mdi mdi-numeric-1-circle-outline font35"></i>
                                     </div>
                                     <div class="media-body align-self-center">
@@ -74,12 +74,12 @@
                                     <!--end media body-->
                                 </div>
                                 <div class="align-self-center">
-                                    <a href="" class="btn btn-sm btn-soft-primary">Let's Go <i class="las la-external-link-alt font-15"></i></a>
+                                    <a href="{{route('user.profile')}}" class="btn btn-sm btn-soft-primary">Let's Go <i class="las la-external-link-alt font-15"></i></a>
                                 </div>
                             </li>
                             <li class="list-group-item align-items-center d-flex justify-content-between">
                                 <div class="media">
-                                    <div class="me-3 align-self-center rounded" style="">
+                                    <div class="me-3 align-self-center rounded">
                                         <i class="mdi mdi-numeric-2-circle-outline font35"></i>
                                     </div>
                                     <div class="media-body align-self-center">
@@ -89,12 +89,12 @@
                                     <!--end media body-->
                                 </div>
                                 <div class="align-self-center">
-                                    <a href="" class="btn btn-sm btn-soft-primary">Let's Go<i class="las la-external-link-alt font-15"></i></a>
+                                    <a href="{{route('user.transactions')}}" class="btn btn-sm btn-soft-primary">Let's Go<i class="las la-external-link-alt font-15"></i></a>
                                 </div>
                             </li>
                             <li class="list-group-item align-items-center d-flex justify-content-between">
                                 <div class="media">
-                                    <div class="me-3 align-self-center rounded" style="">
+                                    <div class="me-3 align-self-center rounded">
                                         <i class="mdi mdi-numeric-3-circle-outline font35"></i>
                                     </div>
                                     <div class="media-body align-self-center">
@@ -104,12 +104,12 @@
                                     <!--end media body-->
                                 </div>
                                 <div class="align-self-center">
-                                    <a href="" class="btn btn-sm btn-soft-primary">Let's Go <i class="las la-external-link-alt font-15"></i></a>
+                                    <a href="#" class="btn btn-sm btn-soft-primary" data-id="dashboardTour">Let's Go <i class="las la-external-link-alt font-15"></i></a>
                                 </div>
                             </li>
                             <li class="list-group-item align-items-center d-flex justify-content-between">
                                 <div class="media">
-                                    <div class="me-3 align-self-center rounded" style="">
+                                    <div class="me-3 align-self-center rounded">
                                         <i class="mdi mdi-numeric-4-circle-outline font35"></i>
                                     </div>
                                     <div class="media-body align-self-center">
@@ -119,12 +119,12 @@
                                     <!--end media body-->
                                 </div>
                                 <div class="align-self-center">
-                                    <a href="" class="btn btn-sm btn-soft-primary">Let's Go <i class="las la-external-link-alt font-15"></i></a>
+                                    <a href="{{route('knowledgeBase')}}" class="btn btn-sm btn-soft-primary">Let's Go <i class="las la-external-link-alt font-15"></i></a>
                                 </div>
                             </li>
                             <li class="list-group-item align-items-center d-flex justify-content-between">
                                 <div class="media">
-                                    <div class="me-3 align-self-center rounded" style="">
+                                    <div class="me-3 align-self-center rounded">
                                         <i class="mdi mdi-numeric-5-circle-outline font35"></i>
                                     </div>
                                     <div class="media-body align-self-center">
@@ -134,7 +134,7 @@
                                     <!--end media body-->
                                 </div>
                                 <div class="align-self-center">
-                                    <a href="" class="btn btn-sm btn-soft-primary">Let's Go <i class="las la-external-link-alt font-15"></i></a>
+                                    <a href="{{route('faqs')}}" class="btn btn-sm btn-soft-primary">Let's Go <i class="las la-external-link-alt font-15"></i></a>
                                 </div>
                             </li>
                         </ul>
@@ -168,5 +168,14 @@
     @endsection
 
     @section('script')
+    <script type="text/javascript">
+        // let dashboardTourButton = document.querySelector('[data-id=dashboardTour]');
+        // dashboardTourButton.addEventListener('click', (e)=>{
+        //     e.preventDefault();
+        //     document.body.appendChild('<div style="position: absolute;width:100%;height:100%;backgroundColor:rgba(0,0,0,0.5);z-index:100000000000"></div>')
 
+        // });
+
+
+    </script>
     @endsection

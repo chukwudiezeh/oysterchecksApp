@@ -15,6 +15,10 @@
                 <ul class="metismenu left-sidenav-menu">
                     <li class="menu-label mt-0">Main</li>
                     <li>
+                        <a href="{{route('instructions')}}"> <i data-feather="coffee" class="align-self-center menu-icon"></i><span>Getting Started</span></a>
+                        
+                    </li>
+                    <li>
                         <a href="{{route('index')}}"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span></a>
                         
                     </li>

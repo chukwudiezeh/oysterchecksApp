@@ -21,6 +21,7 @@ class CreateClientsTable extends Migration
             $table->text('company_address')->nullable();
             $table->string('company_phone')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('is_activated')->default(false);
             $table->timestamps();
         });
     }
