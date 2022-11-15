@@ -247,7 +247,7 @@ class HomeController extends Controller
 
     public function Profile(){
         $this->RedirectUser();
-        return view('users.accounts.settings')
+        return view('users.accounts.profile_settings')
         ->with('user', User::where('id', auth()->user()->id)->first());
     }
 
