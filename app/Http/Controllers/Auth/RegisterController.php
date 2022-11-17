@@ -58,7 +58,7 @@ class RegisterController extends Controller
             $user->password = $plain_password;
             event(new UserRegistered($user));
             $userWallet = $this->createWallet($user->id);
-            $userClient = $this->createClient($request->only(['company_name','company_phone','company_email','company_address']),$user->id);
+            $userClient = $this->createClient($request->only(['company_name']),$user->id);
         }
 
         if ($userWallet && $userClient) {
@@ -81,10 +81,10 @@ class RegisterController extends Controller
             'fname' => ['required', 'string','alpha-dash', 'max:255'],
             'lname' => ['required', 'string','alpha-dash', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'string', 'max:11'],
             'company_name' => ['required', 'string', 'max:255'],
-            'company_phone' => ['required', 'string', 'max:14'],
-            'company_email' => ['required', 'string', 'email', 'max:255', 'unique:clients'],
-            'company_address' => ['required', 'string'],
+            // 'company_email' => ['required', 'string', 'email', 'max:255', 'unique:clients'],
+            // 'company_address' => ['required', 'string'],
             'privacy_terms' => ['required', 'accepted'],
         ]);
     }
@@ -101,6 +101,7 @@ class RegisterController extends Controller
             'firstname' => $data['fname'],
             'lastname' => $data['lname'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => Hash::make($plain_password),
             'user_type' => 2
         ]);
@@ -113,11 +114,7 @@ class RegisterController extends Controller
     protected function createClient(array $data, $user_id){
         return Client::create([
             'company_name' => $data['company_name'],
-            'company_email' => $data['company_email'],
-            'company_address' => $data['company_address'],
-            'company_phone' => $data['company_phone'],
             'user_id' => $user_id,
-            'image'=>'default.png'
         ]);
     }
 

@@ -166,7 +166,7 @@
                                                 Personal Information
                                             </button>
                                         </h5>
-                                        <div id="collapseOne" class="accordion-collapse" aria-labelledby="headingOne" data-bs-parent="#personalInformation" style="">
+                                        <div id="collapseOne" class="accordion-collapse" aria-labelledby="headingOne" data-bs-parent="#personalInformation">
                                             <div class="accordion-body">
                                                 <div class="row">
                                                     <div class="col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
@@ -225,7 +225,7 @@
                                                 Guarantor's information
                                             </button>
                                         </h5>
-                                        <div id="collapseOneTwo" class="accordion-collapse" aria-labelledby="headingOneTwo" data-bs-parent="#guarantorInformation" style="">
+                                        <div id="collapseOneTwo" class="accordion-collapse" aria-labelledby="headingOneTwo" data-bs-parent="#guarantorInformation">
                                             <div class="accordion-body">
                                                 <div class="row">
                                                     <div class="col-lg-4 align-self-center py-4 mb-3 mb-lg-0">
@@ -272,7 +272,7 @@
                                                 Business information
                                             </button>
                                         </h5>
-                                        <div id="collapseOneThree" class="accordion-collapse" aria-labelledby="headingOneThree" data-bs-parent="#businessInformation" style="">
+                                        <div id="collapseOneThree" class="accordion-collapse" aria-labelledby="headingOneThree" data-bs-parent="#businessInformation">
                                             <div class="accordion-body">
                                                 <div class="row border-bottom mb-5">
                                                     <div class="col-12 col-md-6 d-flex py-4 border-top">
@@ -306,7 +306,7 @@
                                                 Address
                                             </button>
                                         </h5>
-                                        <div id="collapseTwo" class="accordion-collapse" aria-labelledby="headingTwo" data-bs-parent="#addressDetails" style="">
+                                        <div id="collapseTwo" class="accordion-collapse" aria-labelledby="headingTwo" data-bs-parent="#addressDetails">
                                             <div class="accordion-body pt-0">
                                                 <div class="row mb-5">
                                                     @if($address_verification->addressVerificationDetail->address['flatNumber'] != null)
@@ -385,7 +385,7 @@
                                                 Images
                                             </button>
                                         </h5>
-                                        <div id="collapseThree" class="accordion-collapse" aria-labelledby="headingThree" data-bs-parent="#images" style="">
+                                        <div id="collapseThree" class="accordion-collapse" aria-labelledby="headingThree" data-bs-parent="#images">
                                             <div class="accordion-body">
                                                 <div class="row mb-5">
                                                     @empty($address_verification->addressVerificationDetail->images)
@@ -442,7 +442,7 @@
                                                 Notes
                                             </button>
                                         </h5>
-                                        <div id="collapseFour" class="accordion-collapse" aria-labelledby="headingFour" data-bs-parent="#notes" style="">
+                                        <div id="collapseFour" class="accordion-collapse" aria-labelledby="headingFour" data-bs-parent="#notes">
                                             <div class="accordion-body">
                                                 <div class="row mb-5">
                                                     @empty($address_verification->addressVerificationDetail->notes)
@@ -479,7 +479,7 @@
                                                 Building Description
                                             </button>
                                         </h5>
-                                        <div id="collapseFive" class="accordion-collapse" aria-labelledby="headingFive" data-bs-parent="#notes" style="">
+                                        <div id="collapseFive" class="accordion-collapse" aria-labelledby="headingFive" data-bs-parent="#notes">
                                             <div class="accordion-body pt-0">
                                                 <div class="row mb-5">
 
@@ -525,7 +525,7 @@
                                                 Other Information
                                             </button>
                                         </h5>
-                                        <div id="collapseSix" class="accordion-collapse" aria-labelledby="headingSix" data-bs-parent="#otherInformation" style="">
+                                        <div id="collapseSix" class="accordion-collapse" aria-labelledby="headingSix" data-bs-parent="#otherInformation">
                                             <div class="accordion-body pt-0">
                                                 <div class="row mb-5">
                                                     @if($address_verification->addressVerificationDetail->additional_info != null)
@@ -562,7 +562,7 @@
                                                 Agent Details
                                             </button>
                                         </h5>
-                                        <div id="collapseSix" class="accordion-collapse" aria-labelledby="headingSix" data-bs-parent="#agentDetails" style="">
+                                        <div id="collapseSix" class="accordion-collapse" aria-labelledby="headingSix" data-bs-parent="#agentDetails">
                                             <div class="accordion-body pt-0">
                                                 <div class="row">
                                                     <div class="col-lg-4 align-self-center py-4 mb-3 mb-lg-0">

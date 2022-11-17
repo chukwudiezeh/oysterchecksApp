@@ -40,46 +40,40 @@
                                         <div class="row">
                                             <div class="col-lg-4 align-self-center mb-3 mb-lg-0">
                                                 <div class="dastone-profile-main">
-                                                    <div class="dastone-profile-main-pic">
-                                                        <img src="assets/images/users/user-4.jpg" alt="" height="110" class="rounded-circle">
+                                                    <div class="dastone-profile-pic">
+                                                    @if(auth()->user()->image == null)
+                                <div style="display: flex;width:128px;height:128px;background-color:rgba(59, 130, 246, 0.5);vertical-align:middle;align-items:center;justify-content:center;overflow:hidden" class="rounded-circle">
+                                    <div class="fw-semibold text-white" style="color:#ffffff;">{{strtoupper(substr(auth()->user()->firstname,0,1))}}</div>
+                                </div>
+                                @else
+                                <img src="{{asset('assets/images/placeholder.png')}}" alt="" height="110" class="rounded-circle">
+                                <!-- <img src="{{auth()->user()->image}}" alt="logo-large" class="rounded-circle thumb-xs">  -->
+                                @endif
                                                         <span class="dastone-profile_main-pic-change">
                                                             <i class="fas fa-camera"></i>
                                                         </span>
                                                     </div>
                                                     <div class="dastone-profile_user-detail">
-                                                        <h5 class="dastone-user-name">Rosa Dodson</h5>                                                        
-                                                        <p class="mb-0 dastone-user-name-post">UI/UX Designer, India</p>                                                        
+                                                        <h5 class="dastone-user-name">{{ucwords($user->firstname).' '. ucwords($user->lastname)}}</h5>                                                        
+                                                        <p class="mb-0 dastone-user-name-post">{{ucwords($user->client->company_name)}}</p>                                                      
                                                     </div>
                                                 </div>                                                
                                             </div><!--end col-->
                                             
                                             <div class="col-lg-4 ms-auto align-self-center">
                                                 <ul class="list-unstyled personal-detail mb-0">
-                                                    <li class=""><i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> phone </b> : +91 23456 78910</li>
-                                                    <li class="mt-2"><i class="ti ti-email text-secondary font-16 align-middle me-2"></i> <b> Email </b> : mannat.theme@gmail.com</li>
-                                                    <li class="mt-2"><i class="ti ti-world text-secondary font-16 align-middle me-2"></i> <b> Website </b> : 
-                                                        <a href="https://mannatthemes.com" class="font-14 text-primary">https://mannatthemes.com</a> 
-                                                    </li>                                                   
+                                                    <li class=""><i class="ti ti-mobile me-2 text-secondary font-16 align-middle"></i> <b> phone </b> : {{$user->phone}}</li>
+                                                    <li class="mt-2"><i class="ti ti-email text-secondary font-16 align-middle me-2"></i> <b> Email </b> : {{$user->email}}</li>
+                                                    <li class="mt-2"><i class="ti ti-briefcase text-secondary font-16 align-middle me-2"></i> <b> Business </b> : {{ucwords($user->client->company_name)}}</li>
                                                 </ul>
                                                
                                             </div><!--end col-->
                                             <div class="col-lg-4 align-self-center">
-                                                <div class="row">
-                                                    <div class="col-auto text-end border-end">
-                                                        <button type="button" class="btn btn-soft-primary btn-icon-circle btn-icon-circle-sm mb-2">
-                                                            <i class="fab fa-facebook-f"></i>
-                                                        </button>
-                                                        <p class="mb-0 fw-semibold">Facebook</p>
-                                                        <h4 class="m-0 fw-bold">25k <span class="text-muted font-12 fw-normal">Followers</span></h4>
-                                                    </div><!--end col-->
-                                                    <div class="col-auto">
-                                                        <button type="button" class="btn btn-soft-info btn-icon-circle btn-icon-circle-sm mb-2">
-                                                            <i class="fab fa-twitter"></i>
-                                                        </button>
-                                                        <p class="mb-0 fw-semibold">Twitter</p>
-                                                        <h4 class="m-0 fw-bold">58k <span class="text-muted font-12 fw-normal">Followers</span></h4>
-                                                    </div><!--end col-->
-                                                </div><!--end row-->                                               
+                                                <ul class="list-unstyled personal-detail mb-0">
+                                                    <li class=""><i class="ti ti-medall me-2 text-secondary font-16 align-middle"></i> <b> Role </b> : {{$user->user_type == 2? 'Super Admin' : ''}}</li>
+                                                    <li class="mt-2"><i class="ti ti-pencil-alt text-secondary font-16 align-middle me-2"></i> <b> Date Registered </b> : {{date('jS F Y, h:iA', strtotime($user->created_at))}}</li>
+                                                    <!-- <li class="mt-2"><i class="ti ti-briefcase text-secondary font-16 align-middle me-2"></i> <b>  </b> : {{ucwords($user->client->company_name)}}</li> -->
+                                                </ul><!--end list -->                                               
                                             </div><!--end col-->
                                         </div><!--end row-->
                                     </div><!--end f_profile-->                                                                                
@@ -90,23 +84,26 @@
                     <div class="pb-4">
                         <ul class="nav-border nav nav-pills mb-0" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" id="Profile_Project_tab" data-bs-toggle="pill" href="#Profile_Project">Project</a>
+                                <a class="nav-link active" id="profile_tab" data-bs-toggle="pill" href="#profile">Profile Information</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" id="Profile_Post_tab" data-bs-toggle="pill" href="#Profile_Post">Post</a>
+                                <a class="nav-link" id="business_tab" data-bs-toggle="pill" href="#business">Business Information</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="portfolio_detail_tab" data-bs-toggle="pill" href="#Profile_Portfolio">Portfolio</a>
+                                <a class="nav-link" id="business_activation_tab" data-bs-toggle="pill" href="#business_activation">Business Activation</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="settings_detail_tab" data-bs-toggle="pill" href="#Profile_Settings">Settings</a>
+                                <a class="nav-link" id="team_tab" data-bs-toggle="pill" href="#team">Team Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="account_settings_tab" data-bs-toggle="pill" href="#account_settings">Account Settings</a>
                             </li>
                         </ul>        
                     </div><!--end card-body-->
                     <div class="row">
                         <div class="col-12">
                             <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade " id="Profile_Project" role="tabpanel" aria-labelledby="Profile_Project_tab">
+                                <div class="tab-pane fade show active " id="profile" role="tabpanel" aria-labelledby="profile_tab">
                                     <div class="row mb-4">
                                         <div class="col">
                                             <form>
@@ -289,7 +286,7 @@
                                         </div><!--end col-->                                        
                                     </div><!--end row-->                                   
                                 </div><!--end tab-pane-->
-                                <div class="tab-pane fade show active" id="Profile_Post" role="tabpanel" aria-labelledby="Profile_Post_tab">
+                                <div class="tab-pane fade " id="business" role="tabpanel" aria-labelledby="business_tab">
                                     <div class="row">
                                         <div class="col-lg-9">
                                             <div class="row">
@@ -658,7 +655,376 @@
                                         </div><!--end col-->
                                     </div><!--end row-->    
                                 </div>
-                                <div class="tab-pane fade" id="Profile_Portfolio" role="tabpanel" aria-labelledby="portfolio_detail_tab">
+                                <div class="tab-pane fade " id="business_activation" role="tabpanel" aria-labelledby="business_activation_tab">
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="card">                                                        
+                                                        <div class="card-body  report-card">
+                                                            <div class="row d-flex justify-content-center">
+                                                                <div class="col">
+                                                                    <p class="text-dark mb-1 fw-semibold">Views</p>
+                                                                    <h3 class="my-2 font-24 fw-bold">24k</h3>
+                                                                    <p class="mb-0 text-truncate text-muted"><i class="ti ti-bell text-warning font-18"></i>
+                                                                        <span class="text-dark fw-semibold">1500</span> New subscribers this week
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-auto align-self-center">
+                                                                    <div class="d-flex justify-content-center align-items-center thumb-xl bg-light-alt rounded-circle mx-auto">
+                                                                        <i class="ti ti-eye font-30 align-self-center text-muted"></i>
+                                                                    </div>                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div><!--end card-body-->          
+                                                    </div> <!--end card-->    
+                                                </div><!--end col-->
+                                                <div class="col-lg-6">
+                                                    <div class="card">                                                        
+                                                        <div class="card-body  report-card">
+                                                            <div class="row d-flex justify-content-center">
+                                                                <div class="col">
+                                                                    <p class="text-dark mb-1 fw-semibold">Comments</p>
+                                                                    <h3 class="my-2 font-24 fw-bold">24k</h3>
+                                                                    <p class="mb-0 text-truncate text-muted"><i class="ti ti-thumb-up text-success font-18"></i>
+                                                                        <span class="text-dark fw-semibold">854</span> New Like this week
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-auto align-self-center">
+                                                                    <div class="d-flex justify-content-center align-items-center thumb-xl bg-light-alt rounded-circle mx-auto">
+                                                                        <i class="ti ti-brand-hipchat font-30 align-self-center text-muted"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div><!--end card-body-->          
+                                                    </div> <!--end card-->    
+                                                </div><!--end col-->
+                                            </div><!--end row--> 
+                                            <div class="card">
+                                                <div class="card-body">                                                    
+                                                    <img src="assets/images/widgets/1.jpg" alt="" class="img-fluid">
+                                                    <div class="post-title mt-4">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <span class="badge badge-soft-primary">Natural</span>
+                                                            </div><!--end col-->
+                                                            <div class="col-auto">
+                                                                <span class="text-muted"><i class="far fa-calendar me-1"></i>02 July 2020</span>
+                                                            </div><!--end col-->
+                                                        </div><!--end row-->
+                                                       
+                                                        <h5 href="#" class="font-20 fw-bold d-block mt-3 mb-4">There is nothing more beautiful than nature.</h5>
+                                                        <span class="font-15 bg-light py-2 px-3 rounded">Taking pictures is savouring life intensely.</span>
+                                                        <p class="font-15 mt-4">It is a long established fact that a reader will be distracted by the readable content of 
+                                                            a page when looking at its layout. The point of using Lorem Ipsum is that it has a 
+                                                            more-or-less normal distribution of letters, as opposed to using 
+                                                            'Content here, content here', making it look like readable English. 
+                                                            Many desktop publishing packages and web page editors now use Lorem Ipsum 
+                                                            as their default model text, and a search for 'lorem ipsum' will uncover many
+                                                             web sites still in their infancy. 
+
+                                                        </p>
+                                                        <blockquote class="blockquote border-start ps-4">
+                                                            <p class="font-18"><i>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."</i></p>
+                                                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                                                        </blockquote>
+                                                        <p class="font-15">Taking pictures is savouring life intensely, every hundredth of a second – Marc Riboud.
+                                                            Joy in looking and comprehending is nature’s most beautiful gift.</p>
+                                                        <p class="font-15 mb-0">It is a long established fact that a reader will be distracted by the readable content of 
+                                                            a page when looking at its layout. The point of using Lorem Ipsum is that it has a 
+                                                            more-or-less normal distribution of letters, as opposed to using 
+                                                            'Content here, content here', making it look like readable English. 
+                                                            Many desktop publishing packages and web page editors now use Lorem Ipsum 
+                                                            as their default model text, and a search for 'lorem ipsum' will uncover many
+                                                             web sites still in their infancy. 
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body pt-0">
+                                                    <div class="row mb-3">
+                                                        <div class="col">
+                                                            <p class="text-dark fw-semibold mb-0">Artical tags</p>
+                                                        </div>
+                                                    </div>
+                                                    <span class="badge bg-soft-dark px-3 py-2 fw-semibold">Music</span>
+                                                    <span class="badge bg-soft-dark px-3 py-2 fw-semibold">Animals</span>
+                                                    <span class="badge bg-soft-dark px-3 py-2 fw-semibold">Natural</span>
+                                                    <span class="badge bg-soft-dark px-3 py-2 fw-semibold">Food</span>
+                                                    <span class="badge bg-soft-dark px-3 py-2 fw-semibold">Fashion</span>
+                                                    <span class="badge bg-soft-dark px-3 py-2 fw-semibold">Helth</span>
+                                                    <span class="badge bg-soft-dark px-3 py-2 fw-semibold">Charity</span>
+                                                </div>
+                                            </div>   
+                                            <div class="card">
+                                                <div class="card-body pb-0">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p class="text-dark fw-semibold mb-0">Comments (205)</p>
+                                                        </div><!--end col-->
+                                                    </div><!--end row-->    
+                                                </div><!--end card-body-->  
+                                                <div class="card-body border-bottom-dashed"> 
+                                                    <ul class="list-unstyled mb-0">
+                                                        <li>
+                                                            <div class="row">
+                                                                <div class="col-auto">
+                                                                    <img src="assets/images/users/user-2.jpg" alt="" class="thumb-md rounded-circle">
+                                                                </div><!--end col-->
+                                                                <div class="col">
+                                                                    <div class="comment-body ms-n2 bg-light-alt p-3">
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <p class="text-dark fw-semibold mb-2">Martin Luther</p>
+                                                                            </div><!--end col-->
+                                                                            <div class="col-auto">
+                                                                                <span class="text-muted"><i class="far fa-clock me-1"></i>30 min ago</span>
+                                                                            </div><!--end col-->
+                                                                        </div><!--end row-->                                                                
+                                                                        <p>It is a long established fact that a reader will be distracted by the 
+                                                                            readable content of a page when looking at its layout. The point of 
+                                                                            using Lorem Ipsum is that it has a more-or-less normal distribution of letters, 
+                                                                            as opposed to using 'Content here, content here', making it look like readable English.
+                                                                        </p>
+                                                                        <a href="#" class="text-primary"><i class="fas fa-reply me-1"></i>Replay</a>
+                                                                    </div>
+                                                                </div><!--end col-->
+                                                            </div><!--end row-->
+                                                            <ul class="list-unstyled ms-5">
+                                                                <li>
+                                                                    <div class="row mt-3">
+                                                                        <div class="col-auto">
+                                                                            <img src="assets/images/logo-sm.png" alt="" class="thumb-md rounded-circle">
+                                                                        </div><!--end col-->
+                                                                        <div class="col">
+                                                                            <div class="comment-body ms-n2 bg-light-alt p-3">
+                                                                                <div class="row">
+                                                                                    <div class="col">
+                                                                                        <p class="text-dark fw-semibold mb-2">Dastone Author</p>
+                                                                                    </div><!--end col-->
+                                                                                    <div class="col-auto">
+                                                                                        <span class="text-muted"><i class="far fa-clock me-1"></i>37 min ago</span>
+                                                                                    </div><!--end col-->
+                                                                                </div><!--end row-->                                                                
+                                                                                <p>It is a long established fact that a reader will be distracted by the 
+                                                                                    readable content of a page when looking at its layout. 
+                                                                                </p>
+                                                                                <p class="mb-0">Thank you</p>
+                                                                            </div>
+                                                                        </div><!--end col-->
+                                                                    </div><!--end row-->
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="mt-3">
+                                                            <div class="row">
+                                                                <div class="col-auto">
+                                                                    <img src="assets/images/users/user-1.jpg" alt="" class="thumb-md rounded-circle">
+                                                                </div><!--end col-->
+                                                                <div class="col">
+                                                                    <div class="comment-body ms-n2 bg-light-alt p-3">
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <p class="text-dark fw-semibold mb-2">Joseph Rust</p>
+                                                                            </div><!--end col-->
+                                                                            <div class="col-auto">
+                                                                                <span class="text-muted"><i class="far fa-clock me-1"></i>40 min ago</span>
+                                                                            </div><!--end col-->
+                                                                        </div><!--end row-->                                                                
+                                                                        <p>Is it a long established fact that a reader will be distracted by the 
+                                                                            readable content of a page when looking at its layout?
+                                                                        </p>
+                                                                        <a href="#" class="text-primary"><i class="fas fa-reply me-1"></i>Replay</a>
+                                                                    </div>
+                                                                </div><!--end col-->
+                                                            </div><!--end row--> 
+                                                        </li>
+                                                        <li class="mt-3">
+                                                            <div class="row">
+                                                                <div class="col-auto">
+                                                                    <img src="assets/images/users/user-5.jpg" alt="" class="thumb-md rounded-circle">
+                                                                </div><!--end col-->
+                                                                <div class="col">
+                                                                    <div class="comment-body ms-n2 bg-light-alt p-3">
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <p class="text-dark fw-semibold mb-2">Matt Rosales</p>
+                                                                            </div><!--end col-->
+                                                                            <div class="col-auto">
+                                                                                <span class="text-muted"><i class="far fa-clock me-1"></i>40 min ago</span>
+                                                                            </div><!--end col-->
+                                                                        </div><!--end row-->                                                                
+                                                                        <p>Is it a long established fact that a reader will be distracted by the 
+                                                                            readable content of a page when looking at its layout?
+                                                                        </p>
+                                                                        <a href="#" class="text-primary"><i class="fas fa-reply me-1"></i>Replay</a>
+                                                                    </div>
+                                                                </div><!--end col-->
+                                                            </div><!--end row-->
+                                                            <ul class="list-unstyled ms-5">
+                                                                <li>
+                                                                    <div class="row mt-3">
+                                                                        <div class="col-auto">
+                                                                            <img src="assets/images/logo-sm.png" alt="" class="thumb-md rounded-circle">
+                                                                        </div><!--end col-->
+                                                                        <div class="col">
+                                                                            <div class="comment-body ms-n2 bg-light-alt p-3">
+                                                                                <div class="row">
+                                                                                    <div class="col">
+                                                                                        <p class="text-dark fw-semibold mb-2">Dastone Author</p>
+                                                                                    </div><!--end col-->
+                                                                                    <div class="col-auto">
+                                                                                        <span class="text-muted"><i class="far fa-clock me-1"></i>37 min ago</span>
+                                                                                    </div><!--end col-->
+                                                                                </div><!--end row-->                                                                
+                                                                                <p>It is a long established fact that a reader will be distracted by the 
+                                                                                    readable content of a page when looking at its layout. 
+                                                                                </p>
+                                                                                <p class="mb-0">Thank you</p>
+                                                                            </div>
+                                                                        </div><!--end col-->
+                                                                    </div><!--end row-->
+                                                                </li>
+                                                            </ul> 
+                                                        </li>
+                                                    </ul> 
+                                                </div><!--end card-body--> 
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p class="text-dark fw-semibold mb-0">Leave a comment</p>
+                                                        </div><!--end col-->
+                                                    </div><!--end row-->
+                                                </div><!--end card-body--> 
+                                                <div class="card-body pt-0">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" rows="5" id="leave_comment" placeholder="Message"></textarea>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 text-end">
+                                                                <button type="submit" class="btn btn-sm btn-outline-primary px-4">Send Message</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div><!--end card-body-->             
+                                            </div> <!--end card-->  
+                                        </div><!--end col-->
+                                        <div class="col-lg-3">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div class="row align-items-center">
+                                                        <div class="col">                      
+                                                            <h4 class="card-title">Popular Posts</h4>                      
+                                                        </div><!--end col-->
+                                                        <div class="col-auto"> 
+                                                            <div class="dropdown">
+                                                                <a href="#" class="btn btn-sm btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                   Today<i class="las la-angle-down ms-1"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <a class="dropdown-item" href="#">Today</a>
+                                                                    <a class="dropdown-item" href="#">Yesterday</a>
+                                                                    <a class="dropdown-item" href="#">Last Week</a>
+                                                                </div>
+                                                            </div>               
+                                                        </div><!--end col-->
+                                                    </div>  <!--end row-->                                  
+                                                </div><!--end card-header-->
+                                                <div class="card-body">
+                                                    <ul class="list-group custom-list-group mb-n3">
+                                                        <li class="list-group-item align-items-center d-flex justify-content-between">
+                                                            <div class="media">
+                                                                <img src="assets/images/small/img-2.jpg" height="40" class="me-3 align-self-center rounded" alt="...">
+                                                                <div class="media-body align-self-center"> 
+                                                                    <a href="#" class="m-0 d-block fw-semibold font-13">Dastyle - Admin Dashboard</a>
+                                                                    <a href="#" class="font-12 text-primary">analytic-index.html</a>                                                                                           
+                                                                </div><!--end media body-->
+                                                            </div>
+                                                            <div class="align-self-center">
+                                                                <span class="text-muted mb-n2">20 June</span>
+                                                            </div>                                            
+                                                        </li>
+                                                        <li class="list-group-item align-items-center d-flex justify-content-between">
+                                                            <div class="media">
+                                                                <img src="assets/images/small/img-1.jpg" height="40" class="me-3 align-self-center rounded" alt="...">
+                                                                <div class="media-body align-self-center"> 
+                                                                    <a href="#" class="m-0 d-block fw-semibold font-13">Metrica Simple- Admin Dashboard</a>
+                                                                    <a href="#" class="font-12 text-primary">sales-index.html</a>                                                                                           
+                                                                </div><!--end media body-->
+                                                            </div>
+                                                            <div class="align-self-center">
+                                                                <span class="text-muted mb-n2">18 june</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item align-items-center d-flex justify-content-between">
+                                                            <div class="media">
+                                                                <img src="assets/images/small/img-4.jpg" height="40" class="me-3 align-self-center rounded" alt="...">
+                                                                <div class="media-body align-self-center"> 
+                                                                    <a href="#" class="m-0 d-block fw-semibold font-13">Crovex - Admin Dashboard</a>
+                                                                    <a href="#" class="font-12 text-primary">helpdesk-index.html</a>                                                                                           
+                                                                </div><!--end media body-->
+                                                            </div>
+                                                            <div class="align-self-center">
+                                                                <span class="text-muted mb-n2">15 june</span>
+                                                            </div>   
+                                                        </li>
+                                                        <li class="list-group-item align-items-center d-flex justify-content-between">
+                                                            <div class="media">
+                                                                <img src="assets/images/small/img-5.jpg" height="40" class="me-3 align-self-center rounded" alt="...">
+                                                                <div class="media-body align-self-center"> 
+                                                                    <a href="#" class="m-0 d-block fw-semibold font-13">Annex - Admin Dashboard</a>
+                                                                    <a href="#" class="font-12 text-primary">calendar.html</a>                                                                                           
+                                                                </div><!--end media body-->
+                                                            </div>
+                                                            <div class="align-self-center">
+                                                                <span class="text-muted mb-n2">12 june</span>
+                                                            </div>   
+                                                        </li>
+                                                    </ul>                                    
+                                                </div><!--end card-body--> 
+                                            </div><!--end card-->
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="dash-datepick">
+                                                        <input type="hidden" id="light_datepick"/>
+                                                    </div>
+                                                </div><!--end card-body-->
+                                            </div><!--end card-->
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div class="row align-items-center">
+                                                        <div class="col">                      
+                                                            <h4 class="card-title">Social Profile</h4>                      
+                                                        </div><!--end col-->                                                       
+                                                    </div>  <!--end row-->                                  
+                                                </div><!--end card-header-->
+                                                <div class="card-body">
+                                                    <div class="button-list btn-social-icon">                                                
+                                                        <button type="button" class="btn btn-soft-primary btn-icon-circle">
+                                                            <i class="fab fa-facebook-f"></i>
+                                                        </button>
+                
+                                                        <button type="button" class="btn btn-soft-info btn-icon-circle ms-2">
+                                                            <i class="fab fa-twitter"></i>
+                                                        </button>
+                
+                                                        <button type="button" class="btn btn-soft-pink btn-icon-circle  ms-2">
+                                                            <i class="fab fa-dribbble"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-soft-info btn-icon-circle  ms-2">
+                                                            <i class="fab fa-linkedin-in"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-soft-danger btn-icon-circle  ms-2">
+                                                            <i class="fab fa-google-plus-g"></i>
+                                                        </button>
+                                                    </div>
+                                                </div><!--end card-body-->
+                                            </div><!--end card-->                                            
+                                        </div><!--end col-->
+                                    </div><!--end row-->    
+                                </div>
+                                <div class="tab-pane fade" id="team" role="tabpanel" aria-labelledby="team_tab">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="card">
@@ -834,7 +1200,7 @@
                                         </div><!--end col-->                                  
                                     </div>  <!--end row-->
                                 </div>
-                                <div class="tab-pane fade" id="Profile_Settings" role="tabpanel" aria-labelledby="settings_detail_tab">
+                                <div class="tab-pane fade" id="account_settings" role="tabpanel" aria-labelledby="account_settings_tab">
                                     <div class="row">
                                         <div class="col-lg-6 col-xl-6">
                                             <div class="card">
@@ -977,7 +1343,4 @@
                         </div><!--end col-->
                     </div><!--end row-->
             </div>
-
- 
- 
  @endsection

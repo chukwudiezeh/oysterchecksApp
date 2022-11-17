@@ -15,13 +15,14 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
+            $table->foreignId('user_id');
             $table->string('company_name')->nullable();
             $table->string('company_email')->nullable();
             $table->text('company_address')->nullable();
             $table->string('company_phone')->nullable();
             $table->string('image')->nullable();
             $table->boolean('is_activated')->default(false);
+
             $table->timestamps();
         });
     }

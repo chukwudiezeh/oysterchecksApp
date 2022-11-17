@@ -43,10 +43,14 @@
                         <li class="dropdown">
                              <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-bs-toggle="dropdown" href="#" role="button"
                                 aria-haspopup="false" aria-expanded="false">
-                                <span class="ms-1 nav-user-name hidden-sm ">{{strtoupper(auth()->user()->name)}}</span>
-                                  
-                                     <img src="{{asset('/assets/images/'.$profile_image)}}"  width="45px" height="50px" alt="logo-large" class="rounded-circle"> 
-                                                 
+                                <span class="ms-1 nav-user-name hidden-sm ">{{ucwords(auth()->user()->firstname)}}</span>
+                                @if(auth()->user()->image == null)
+                                <div style="display: inline-flex;width:32px;height:32px;background-color:rgba(59, 130, 246, 0.5);vertical-align:middle;align-items:center;justify-content:center;overflow:hidden" class="rounded-circle">
+                                    <div class="fw-semibold text-white" style="color:#ffffff;">{{strtoupper(substr(auth()->user()->firstname,0,1))}}</div>
+                                </div>
+                                @else
+                                <img src="{{auth()->user()->image}}" alt="logo-large" class="rounded-circle thumb-xs"> 
+                                @endif
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="{{route('user.profile')}}"><i data-feather="user" class="align-self-center icon-xs icon-dual me-1"></i> Profile</a>
@@ -55,8 +59,8 @@
                                 <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"><i data-feather="power" class="align-self-center icon-xs icon-dual me-1"></i> Logout</a>
 
                            <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;"> {{ csrf_field() }}
-                                                </form>
-                                                </div>
+                           </form>
+                        </div>
                         </li>
                     </ul><!--end topbar-nav-->
         
