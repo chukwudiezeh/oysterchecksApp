@@ -59,7 +59,7 @@
 
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
-                                            <small><strong>{{ $message }}</strong> </small>
+                                            <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
 
