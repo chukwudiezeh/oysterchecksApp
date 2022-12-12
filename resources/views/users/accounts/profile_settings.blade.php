@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('style')
 <link rel="stylesheet" href="{{asset('plugins/jquery-steps/jquery.steps.css')}}">
+<link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
 @endsection
 @section('content')
 <div class="page-content">
@@ -134,8 +135,8 @@
                                         <form>
                                             <div class="row">
                                                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                                                    <label class="form-label form-label-lg" for="firstName">First Name</label>
-                                                    <input type="text" class="form-control form-control-lg @error('firstName') is-invalid @enderror" id="firstName" name="firstName" placeholder="Enter First Name" value="{{$user->firstname}}">
+                                                    <label class="form-label " for="firstName">First Name</label>
+                                                    <input type="text" class="form-control  @error('firstName') is-invalid @enderror" id="firstName" name="firstName" placeholder="Enter First Name" value="{{$user->firstname}}">
                                                     @error('firstName')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -143,8 +144,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                                                    <label class="form-label form-label-lg" for="lastName">Last Name</label>
-                                                    <input type="text" class="form-control form-control-lg @error('lastName') is-invalid @enderror" id="lastName" name="lastName" placeholder="Enter Last Name" value="{{$user->lastname}}">
+                                                    <label class="form-label " for="lastName">Last Name</label>
+                                                    <input type="text" class="form-control  @error('lastName') is-invalid @enderror" id="lastName" name="lastName" placeholder="Enter Last Name" value="{{$user->lastname}}">
                                                     @error('lastName')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -152,8 +153,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                                                    <label class="form-label form-label-lg" for="email">Email</label>
-                                                    <input type="text" class="form-control form-control-lg @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter Email" value="{{$user->email}}">
+                                                    <label class="form-label " for="email">Email</label>
+                                                    <input type="text" class="form-control  @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter Email" value="{{$user->email}}">
                                                     @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -161,8 +162,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                                                    <label class="form-label form-label-lg" for="phone">Phone</label>
-                                                    <input type="text" class="form-control form-control-lg @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Enter Phone" value="{{$user->phone}}">
+                                                    <label class="form-label " for="phone">Phone</label>
+                                                    <input type="text" class="form-control  @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Enter Phone" value="{{$user->phone}}">
                                                     @error('phone')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -195,8 +196,8 @@
                                         <form>
                                             <div class="row">
                                                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                                                    <label class="form-label form-label-lg" for="currentPassword">Current Password <span class="text-red ms-1">*</span></label>
-                                                    <input type="text" class="form-control form-control-lg @error('currentPassword') is-invalid @enderror" id="currentPassword" name="currentPassword" placeholder="Enter Current Password" value="">
+                                                    <label class="form-label " for="currentPassword">Current Password <span class="text-red ms-1">*</span></label>
+                                                    <input type="text" class="form-control  @error('currentPassword') is-invalid @enderror" id="currentPassword" name="currentPassword" placeholder="Enter Current Password" value="">
                                                     @error('currentPassword')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -204,8 +205,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                                                    <label class="form-label form-label-lg" for="newPassword">New Password</label>
-                                                    <input type="text" class="form-control form-control-lg @error('newPassword') is-invalid @enderror" id="newPassword" name="newPassword" placeholder="Enter Last Name" value="">
+                                                    <label class="form-label " for="newPassword">New Password</label>
+                                                    <input type="text" class="form-control  @error('newPassword') is-invalid @enderror" id="newPassword" name="newPassword" placeholder="Enter Last Name" value="">
                                                     @error('newPassword')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -213,15 +214,14 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                                                    <label class="form-label form-label-lg" for="newPasswordConfirmation">Confirm New Password</label>
-                                                    <input type="text" class="form-control form-control-lg @error('newPasswordConfirmation') is-invalid @enderror" id="newPasswordConfirmation" name="newPasswordConfirmation" placeholder="Confirm New Password" value="">
+                                                    <label class="form-label " for="newPasswordConfirmation">Confirm New Password</label>
+                                                    <input type="text" class="form-control  @error('newPasswordConfirmation') is-invalid @enderror" id="newPasswordConfirmation" name="newPasswordConfirmation" placeholder="Confirm New Password" value="">
                                                     @error('newPasswordConfirmation')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                     @enderror
                                                 </div>
-
                                             </div>
 
                                             <div class="my-3">
@@ -372,71 +372,202 @@
                                         <h4 class="card-title">Activate Your Business</h4>
                                     </div>
                                     <div class="card-body">
-                                    <form id="form-vertical" class="form-horizontal form-wizard-wrapper">                                        
-                                        <h3>Create Account</h3>
-                                        <fieldset>                                                                                         
-                                            <div class="form-group ">
-                                                <label for="example-email-input1" class="col-form-label">Email</label>
-                                                <div class="">
-                                                    <input class="form-control" type="email" value="" id="example-email-input1" placeholder="@Example.com">
+                                        <form id="form-vertical" class="form-horizontal form-wizard-wrapper">
+                                            <h3>Basic Information</h3>
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-12 mb-3">
+                                                        <label class="form-label " for="businessLogo">Business Logo <span class="text-red ms-1">*</span></label>
+                                                        <div class="card-body p-0">
+                                                            <input type="file" id="input-file-now" class="dropify" data-height="100" name="businessLogo" />
+                                                        </div>
+                                                        @error('businessLogo')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label " for="businessName"> Registered Business Name<span class="text-red ms-1">*</span></label>
+                                                        <input type="text" class="form-control  @error('businessName') is-invalid @enderror" id="businessName" name="businessName" placeholder="Enter Your Rgistered Business Name" value="">
+                                                        @error('businessName')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label " for="industry"> Industry<span class="text-red ms-1">*</span></label>
+                                                        <select class="form-control  @error('industry') is-invalid @enderror mb-3" style="width: 100% !important; height:36px;" name="industry">
+                                                            <option>Please select an industry...</option>
+                                                            <!-- <option value=""></option>
+                                                        <option value=""></option>
+                                                        <option value=""></option>
+                                                        <option value=""></option>
+                                                        <option value=""></option>
+                                                        <option value=""></option> -->
+                                                        </select>
+                                                        @error('industry')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label " for="registrationNumber">Registration Number<span class="text-red ms-1">*</span></label>
+                                                        <input type="text" class="form-control  @error('registrationNumber') is-invalid @enderror" id="registrationNumber" name="registrationNumber" placeholder="Business registration number" value="">
+                                                        @error('registrationNumber')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label " for="taxId">Tax Identification Number</label>
+                                                        <input type="text" class="form-control  @error('taxId') is-invalid @enderror" id="taxId" name="taxId" placeholder="Tax identification number" value="">
+                                                        @error('taxId')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <label class="form-label " for="businessDescription">Business Description<span class="text-red ms-1">*</span></label>
+                                                        <textarea class="form-control  @error('businessDescription') is-invalid @enderror" rows="5" id="businessDescription" name="businessDescription" placeholder="Business Description" style="height: 125px;"></textarea>
+                                                        <!-- <input type="text" class="form-control  @error('businessDescription') is-invalid @enderror" id="businessDescription" name="businessDescription" placeholder="Business Description" value=""> -->
+                                                        @error('businessDescription')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div><!--end form-group--> 
-                                            <div class="form-group ">
-                                                <label for="example-password-input1" class="col-form-label">Password</label>
-                                                <div class="">
-                                                    <input class="form-control" type="password" id="example-password-input1" placeholder="Password">                                                       
-                                                </div>                                                    
-                                            </div><!--end form-group--> 
-                                            <div class="form-group ">
-                                                <label for="example-password-input01" class="col-form-label">Confirm Password</label>
-                                                <div class="">
-                                                    <input class="form-control" type="password" id="example-password-input01" placeholder="Confirm Password">                                                       
-                                                </div>                                                    
-                                            </div><!--end form-group--> 
-                                            
-                                            <div class="custom-control custom-checkbox my-3">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                <label class="custom-control-label" for="customCheck1">I accept the terms and conditions</label>
-                                            </div>                                                                               
-                                        </fieldset><!--end fieldset--> 
+                                            </fieldset>
+                                            <!--end fieldset-->
 
-                                        <h3>Basic Form</h3>
-                                        <fieldset>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12 col-lg-6">
-                                                    <input class="form-control" type="text" id="name" placeholder="Name">                                                       
-                                                </div> 
-                                                <div class="col-sm-12 col-lg-6">
-                                                    <input class="form-control" type="email" id="example-email-input3" placeholder="Email">
-                                                </div>                                                   
-                                            </div><!--end form-group--> 
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <input class="form-control" type="text" id="subject2" placeholder="Subject">                                                       
-                                                </div>                                                    
-                                            </div><!--end form-group--> 
-                                            <div class="form-group">
-                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Your message"></textarea>
-                                            </div><!--end form-group-->  
-                                            <div class="form-check  ms-1">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                    Male
-                                                </label>
-                                            </div>
-                                            <div class="form-check  ms-1">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                    Female
-                                                </label>
-                                            </div>
-                                        </fieldset><!--end fieldset--> 
-                                        <h3>Confurm Detail</h3>
-                                        <fieldset>
-                                            <p>I agree with the Terms and Conditions.</p>
-                                        </fieldset><!--end fieldset-->                                   
-                                    </form><!--end form-->
+                                            <h3>Business Contact</h3>
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label " for="companyEmail"> Company Email<span class="text-red ms-1">*</span></label>
+                                                        <input type="text" class="form-control  @error('companyEmail') is-invalid @enderror" id="companyEmail" name="companyEmail" placeholder="Enter Your Company Email" value="">
+                                                        @error('companyEmail')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label" for="companyPhone"> Company Phone<span class="text-red ms-1">*</span></label>
+                                                        <input type="text" class="form-control @error('companyPhone') is-invalid @enderror" id="companyPhone" name="companyPhone" placeholder="Enter Your Company Phone" value="">
+                                                        @error('companyPhone')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label " for="companyWebsite"> Company Website</label>
+                                                        <input type="text" class="form-control  @error('companyWebsite') is-invalid @enderror" id="companyWebsite" name="companyWebsite" placeholder="Enter Your Company Website" value="">
+                                                        @error('companyWebsite')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label " for="facebookLink"> Facebook Link</label>
+                                                        <input type="text" class="form-control  @error('facebookLink') is-invalid @enderror" id="facebookLink" name="facebookLink" placeholder="Enter Your Company Facebook Link" value="">
+                                                        @error('facebookLink')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label " for="instagramLink">Instagram Link</label>
+                                                        <input type="text" class="form-control  @error('instagramLink') is-invalid @enderror" id="instagramLink" name="instagramLink" placeholder="Enter Your Company Instagram Link" value="">
+                                                        @error('instagramLink')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <label class="form-label " for="twitterLink">Twitter Link</label>
+                                                        <input type="text" class="form-control  @error('twitterLink') is-invalid @enderror" id="twitterLink" name="twitterLink" placeholder="Enter Your Company Twitter Link" value="">
+                                                        @error('twitterLink')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <label class="form-label " for="registeredCompanyAddress">Registered Company Address<span class="text-red ms-1">*</span></label>
+                                                        <textarea class="form-control  @error('registeredCompanyAddress') is-invalid @enderror" rows="5" id="registeredCompanyAddress" name="registeredCompanyAddress" placeholder="Registered Company Address" style="height: 125px;"></textarea>
+                                                        @error('registeredCompanyAddress')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <label class="form-label " for="currentCompanyAddress">Current Company Address<span class="text-red ms-1">*</span></label>
+                                                        <textarea class="form-control  @error('currentCompanyAddress') is-invalid @enderror" rows="5" id="currentCompanyAddress" name="currentCompanyAddress" placeholder="Current Company Address" style="height: 125px;"></textarea>
+                                                        @error('currentCompanyAddress')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <!--end fieldset-->
+                                            <h3>Verification Documents</h3>
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-12 mb-3">
+                                                        <label class="form-label " for="businessRegistrationCert">Certificate of Business Registration from CAC <span class="text-red ms-1">*</span></label>
+                                                        <div class="card-body p-0">
+                                                            <input type="file" id="input-file-now" class="dropify" data-height="100" name="businessRegistrationCert" />
+                                                        </div>
+                                                        @error('businessRegistrationCert')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <label class="form-label " for="supportingDocument">Any Other Supporting Document </label>
+                                                        <div class="card-body p-0">
+                                                            <input type="file" id="input-file-now" class="dropify" data-height="100" name="supportingDocument" />
+                                                        </div>
+                                                        @error('supportingDocument')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <!--end fieldset-->
+                                            <h3>Term of Use</h3>
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="form-group row my-3">
+                                                        <div class="col-sm-12">
+                                                            <div class="custom-control custom-switch switch-success">
+                                                                <input type="checkbox" class="custom-control-input" id="customSwitchSuccess2">
+                                                                <label class="form-label text-muted" for="customSwitchSuccess2">You agree to the Dastone <a href="#" class="text-primary">Terms of Use</a></label>
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <!--end fieldset-->
+                                        </form>
+                                        <!--end form-->
                                     </div>
                                 </div>
                                 <!--end card-->
@@ -835,6 +966,7 @@
     @endsection
 
     @section('script')
-    <script src="{{asset('plugins\jquery-steps\jquery.steps.min.js')}}"></script>
-    <script src="{{asset('assets\pages\jquery.form-wizard.init.js')}}"></script>
+    <script src="{{asset('plugins/jquery-steps/jquery.steps.min.js')}}"></script>
+    <script src="{{asset('assets/pages/jquery.form-wizard.init.js')}}"></script>
+    <!-- <script src="{{asset('plugins/select2/select2.min.js')}}"></script> -->
     @endsection
